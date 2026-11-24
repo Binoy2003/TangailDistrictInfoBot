@@ -1,3 +1,4 @@
+import os
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import (
     Application,
@@ -8,10 +9,27 @@ from telegram.ext import (
 )
 
 # =========================================================
-# BOT TOKEN
+# BOT TOKEN (Loaded securely from environment or .env)
 # =========================================================
 
-TOKEN = "892509&*************gmshiuz3N5VT41TTRI"
+TOKEN = os.getenv("BOT_TOKEN")
+if not TOKEN:
+    env_paths = [
+        os.path.join(os.path.dirname(__file__), "..", ".env"),
+        os.path.join(os.path.dirname(__file__), ".env")
+    ]
+    for p in env_paths:
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as f:
+                for line in f:
+                    if line.strip().startswith("BOT_TOKEN="):
+                        TOKEN = line.strip().split("=", 1)[1].strip('"\'')
+                        break
+        if TOKEN:
+            break
+
+if not TOKEN:
+    TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
 
 
 # =========================================================
