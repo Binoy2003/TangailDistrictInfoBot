@@ -38,7 +38,7 @@ const TANGAIL_DATA = {
             shortDesc: "মিষ্টির রাজা হিসেবে খ্যাত প্রায় দুইশত বছরের ঐতিহ্যবাহী সুস্বাদু পোড়াবাড়ির চমচম।",
             fullDesc: "অষ্টাদশ শতকে রাজা রামপালের আমলে দশরথ গৌড় পোড়াবাড়িতে প্রথম এই চমচম তৈরি করেন। ধলেশ্বরী নদীর মিষ্টি পানি ও খাঁটি গাভীর দুধের তৈরি ছানার নিখুঁত জ্বাল এবং পোড়া মাওয়ার প্রলেপে তৈরি হয় আসল পোড়াবাড়ির চমচম। এটি মুখে দিলে এক অবিস্মরণীয় স্বাদ রেখে যায়।",
             bestPlaces: ["টাঙ্গাইল শহরের পাঁচআনি বাজার", "পোড়াবাড়ি বাজার", "নিরালা মোড়"],
-            image: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=600&q=80"
+            image: "images/porabari_chomchom.jpg"
         },
         {
             id: "modhupur-pineapple",
@@ -668,7 +668,7 @@ const TANGAIL_DATA = {
             famousItems: ["পোড়াবাড়ির আসল চমচম", "মাওয়া চমচম", "রসকদম্ব", "লেডিকেনি"],
             priceRange: "৩৫০ - ৫৫০ টাকা / কেজি",
             bestPlaces: "পোড়াবাড়ি বাজার মূল ঘাট ও টাঙ্গাইল পাঁচআনি বাজার",
-            image: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=600&q=80",
+            image: "images/porabari_chomchom.jpg",
             mapQuery: "Porabari Bazar, Tangail"
         },
         {

@@ -848,17 +848,18 @@ function openUpazilaModal(id) {
             </div>
         </div>
 
-        <div class="flex gap-2">
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(u.name + ' উপজেলা টাঙ্গাইল')}" target="_blank" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5">
+        <div class="flex flex-col sm:flex-row gap-2.5">
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(u.name + ' উপজেলা টাঙ্গাইল')}" target="_blank" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
                 <i data-lucide="navigation" class="w-4 h-4"></i> গুগল ম্যাপে অবস্থান দেখুন
             </a>
-            <button onclick="closeDetailModal()" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition">
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
                 বন্ধ করুন
             </button>
         </div>
     `;
 
     document.getElementById("detail-modal").classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
     lucide.createIcons();
 }
 
@@ -903,17 +904,18 @@ function openTouristModal(id) {
             </div>
         </div>
 
-        <div class="flex gap-2">
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.mapQuery)}" target="_blank" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5">
+        <div class="flex flex-col sm:flex-row gap-2.5">
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.mapQuery)}" target="_blank" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
                 <i data-lucide="navigation" class="w-4 h-4"></i> গুগল ম্যাপে রুট দেখুন
             </a>
-            <button onclick="closeDetailModal()" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition">
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
                 বন্ধ করুন
             </button>
         </div>
     `;
 
     document.getElementById("detail-modal").classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
     lucide.createIcons();
 }
 
@@ -946,17 +948,18 @@ function openHeritageModal(id) {
             </div>
         </div>
 
-        <div class="flex gap-2">
-            <button onclick="sendPresetPrompt('${item.title} সম্পর্কে বিস্তারিত জানতে চাই'); closeDetailModal(); scrollToBot();" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5">
+        <div class="flex flex-col sm:flex-row gap-2.5">
+            <button onclick="sendPresetPrompt('${item.title} সম্পর্কে বিস্তারিত জানতে চাই'); closeDetailModal(); scrollToBot();" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
                 <i data-lucide="bot" class="w-4 h-4"></i> বটকে এই বিষয়ে প্রশ্ন করুন
             </button>
-            <button onclick="closeDetailModal()" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition">
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
                 বন্ধ করুন
             </button>
         </div>
     `;
 
     document.getElementById("detail-modal").classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
     lucide.createIcons();
 }
 
@@ -1010,17 +1013,18 @@ function openSweetModal(id) {
             </div>
         </div>
 
-        <div class="flex gap-2">
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(shop.mapQuery)}" target="_blank" class="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5">
+        <div class="flex flex-col sm:flex-row gap-2.5">
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(shop.mapQuery)}" target="_blank" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
                 <i data-lucide="navigation" class="w-4 h-4"></i> গুগল ম্যাপে রুট দেখুন
             </a>
-            <button onclick="closeDetailModal()" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition">
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
                 বন্ধ করুন
             </button>
         </div>
     `;
 
     document.getElementById("detail-modal").classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
     lucide.createIcons();
 }
 
@@ -1068,22 +1072,24 @@ function openTempleModal(id) {
             </div>
         </div>
 
-        <div class="flex gap-2">
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.mapQuery)}" target="_blank" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5">
+        <div class="flex flex-col sm:flex-row gap-2.5">
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.mapQuery)}" target="_blank" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
                 <i data-lucide="navigation" class="w-4 h-4"></i> গুগল ম্যাপে রুট ও অবস্থান
             </a>
-            <button onclick="closeDetailModal()" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition">
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
                 বন্ধ করুন
             </button>
         </div>
     `;
 
     document.getElementById("detail-modal").classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
     lucide.createIcons();
 }
 
 function closeDetailModal() {
     document.getElementById("detail-modal").classList.add("hidden");
+    document.getElementById("chat-widget-btn")?.classList.remove("hidden");
 }
 
 // Close modal on Escape or backdrop click

@@ -7,20 +7,58 @@
     --accent: #d97706;
 }
 
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Hind Siliguri', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 /* Smooth Scrolling */
 html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
 }
 
-/* Custom Scrollbar */
+/* Mobile & Touch Optimizations (iOS & Android) */
+button, a, input, select {
+    touch-action: manipulation;
+}
+
+/* Prevent iOS Safari auto-zoom on input focus */
+@media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="search"],
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+}
+
+/* iOS momentum scroll */
+.overflow-y-auto,
+.overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbars for swipeable chip rows */
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Custom Scrollbar for Desktop */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
 }
 ::-webkit-scrollbar-track {
     background: #f1f5f9;
@@ -41,12 +79,12 @@ html {
 
 /* Glassmorphism */
 .glass-panel {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
 .dark .glass-panel {
-    background: rgba(15, 23, 42, 0.88);
+    background: rgba(15, 23, 42, 0.90);
 }
 
 /* Animations */
@@ -85,12 +123,15 @@ html {
     box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
 }
 
-/* Chat bubble styling */
-.chat-bot-bubble {
-    border-bottom-left-radius: 4px;
+/* Floating Chat Button Safe Positioning (iOS / Android Home Indicator aware) */
+#chat-widget-btn {
+    bottom: max(1.25rem, env(safe-area-inset-bottom, 1.25rem));
+    right: max(1.25rem, env(safe-area-inset-right, 1.25rem));
 }
-.chat-user-bubble {
-    border-bottom-right-radius: 4px;
+
+/* Toast Safe Positioning */
+#toast {
+    bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.5rem));
 }
 
 /* Print styles for offline information */
