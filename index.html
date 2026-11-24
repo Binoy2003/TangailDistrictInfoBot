@@ -84,6 +84,8 @@
                 <nav class="hidden lg:flex items-center gap-1">
                     <a href="#home" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition">হোম</a>
                     <a href="#heritage" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition">ঐতিহ্য ও জিআই</a>
+                    <a href="#sweets" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition">মিষ্টান্ন ও চমচম</a>
+                    <a href="#temples" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition">মন্দিরসমূহ</a>
                     <a href="#upazila" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition">উপজেলা</a>
                     <a href="#tourist" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition">দর্শনীয় স্থান</a>
                     <a href="#emergency" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition">জরুরি সেবা</a>
@@ -117,6 +119,8 @@
         <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
             <a href="#home" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">🏠 হোম</a>
             <a href="#heritage" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">🍬 ঐতিহ্য ও জিআই পণ্য</a>
+            <a href="#sweets" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">🍯 মিষ্টান্ন ও চমচমের দোকান</a>
+            <a href="#temples" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">🛕 মন্দির নির্দেশিকা</a>
             <a href="#upazila" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">🗺️ ১২টি উপজেলা</a>
             <a href="#tourist" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">🕌 দর্শনীয় স্থান</a>
             <a href="#emergency" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">☎️ জরুরি সেবা ডিরেক্টরি</a>
@@ -178,10 +182,12 @@
             <!-- SEARCH TAG SUGGESTIONS -->
             <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                 <span class="font-medium text-slate-700 dark:text-slate-300">জনপ্রিয় অনুসন্ধান:</span>
-                <button onclick="quickSearch('পোড়াবাড়ির চমচম')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🍬 চমচম</button>
+                <button onclick="quickSearch('পোড়াবাড়ির চমচম')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🍬 পোড়াবাড়ির চমচম</button>
+                <button onclick="quickSearch('জয়কালী মিষ্টান্ন')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🏪 জয়কালী মিষ্টান্ন</button>
+                <button onclick="quickSearch('ইনটু টিউব দই')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🥛 ইনটু টিউব দই</button>
+                <button onclick="quickSearch('বড় কালী বাড়ি')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🛕 বড় কালী বাড়ি</button>
                 <button onclick="quickSearch('মহেরা জমিদার বাড়ি')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🏛️ মহেরা জমিদার বাড়ি</button>
                 <button onclick="quickSearch('২০১ গম্বুজ মসজিদ')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🕌 ২০১ গম্বুজ মসজিদ</button>
-                <button onclick="quickSearch('আতিয়া মসজিদ')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🕌 আতিয়া মসজিদ</button>
                 <button onclick="quickSearch('টাঙ্গাইল শাড়ি')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🥻 তাঁতের শাড়ি</button>
                 <button onclick="quickSearch('অ্যাম্বুলেন্স')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🚑 অ্যাম্বুলেন্স</button>
             </div>
@@ -250,6 +256,28 @@
         </div>
     </section>
 
+    <!-- SECTION: SWEETS & FAMOUS SHOPS -->
+    <section id="sweets" class="py-16 bg-gradient-to-b from-amber-50/40 via-white to-slate-50 dark:from-slate-900/60 dark:via-slate-900 dark:to-slate-950 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                <div>
+                    <span class="text-amber-600 dark:text-amber-400 font-semibold text-sm uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="utensils" class="w-4 h-4"></i> মিষ্টির স্বর্গরাজ্য • টাঙ্গাইল
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1">টাঙ্গাইলের ঐতিহ্যবাহী মিষ্টান্ন ও বিখ্যাত চমচমের দোকান</h2>
+                </div>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 md:mt-0 max-w-md">
+                    পোড়াবাড়ির আসল চমচম, জয়কালী, গোপাল, ফণী মিষ্টান্ন ভান্ডার এবং ইনটুর বিখ্যাত টিউব দইয়ের নির্ভরযোগ্য তথ্য ও গাইড।
+                </p>
+            </div>
+
+            <!-- SWEETS GRID -->
+            <div id="sweets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically populated from data.js -->
+            </div>
+        </div>
+    </section>
+
     <!-- SECTION: UPAZILA DIRECTORY (12 UPAZILAS) -->
     <section id="upazila" class="py-16 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -295,6 +323,34 @@
 
             <div id="tourist-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: HISTORIC TEMPLES OF TANGAIL -->
+    <section id="temples" class="py-16 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+                <div>
+                    <span class="text-amber-600 dark:text-amber-400 font-semibold text-sm uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="flame" class="w-4 h-4"></i> ঐতিহাসিক তীর্থ ও সনাতন ঐতিহ্য
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1">টাঙ্গাইল জেলার বিখ্যাত ও শতবর্ষী মন্দিরসমূহ</h2>
+                </div>
+                <!-- Upazila Filter for Temples -->
+                <div class="flex flex-wrap gap-2 mt-4 md:mt-0" id="temple-upazila-filters">
+                    <button onclick="filterTemples('all')" class="temple-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white shadow-sm transition">সবগুলো</button>
+                    <button onclick="filterTemples('টাঙ্গাইল সদর')" class="temple-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">টাঙ্গাইল সদর</button>
+                    <button onclick="filterTemples('নাগরপুর')" class="temple-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">নাগরপুর</button>
+                    <button onclick="filterTemples('মির্জাপুর')" class="temple-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">মির্জাপুর</button>
+                    <button onclick="filterTemples('দেলদুয়ার')" class="temple-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">দেলদুয়ার</button>
+                    <button onclick="filterTemples('কালিহাতী')" class="temple-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">কালিহাতী</button>
+                </div>
+            </div>
+
+            <!-- TEMPLE GRID -->
+            <div id="temple-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically populated from data.js -->
             </div>
         </div>
     </section>
@@ -427,6 +483,9 @@
                 <!-- PROMPT SUGGESTION CHIPS -->
                 <div class="px-4 py-2 bg-slate-100/70 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 overflow-x-auto whitespace-nowrap flex gap-2">
                     <button onclick="sendPresetPrompt('পোড়াবাড়ির আসল চমচম কোথায় পাওয়া যায়?')" class="text-xs bg-white dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🍬 চমচমের ইতিহাস ও সেরা দোকান</button>
+                    <button onclick="sendPresetPrompt('জয়কালী ও গোপাল মিষ্টান্ন ভান্ডারের চমচম কেমন?')" class="text-xs bg-white dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🏪 জয়কালী ও গোপাল মিষ্টান্ন</button>
+                    <button onclick="sendPresetPrompt('ইনটুর বিখ্যাত টিউব দই সম্পর্কে বলো')" class="text-xs bg-white dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🥛 ইনটুর টিউব দই</button>
+                    <button onclick="sendPresetPrompt('টাঙ্গাইল জেলার বিখ্যাত মন্দির কোনগুলো?')" class="text-xs bg-white dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🛕 বড় কালী বাড়ি ও অন্যান্য মন্দির</button>
                     <button onclick="sendPresetPrompt('মহেরা জমিদার বাড়ি সম্পর্কে বিস্তারিত বলো')" class="text-xs bg-white dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🏛️ মহেরা জমিদার বাড়ি</button>
                     <button onclick="sendPresetPrompt('টাঙ্গাইল শাড়ি কেন বিখ্যাত?')" class="text-xs bg-white dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🥻 তাঁতের শাড়ির ইতিহাস</button>
                     <button onclick="sendPresetPrompt('২০১ গম্বুজ মসজিদ কোথায় অবস্থিত?')" class="text-xs bg-white dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition">🕌 ২০১ গম্বুজ মসজিদ</button>
@@ -463,8 +522,8 @@
                     <p class="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed mb-4">
                         ঐতিহ্যবাহী টাঙ্গাইল জেলার সকল তথ্য, উপজেলা পরিচিতি, ঐতিহ্য, দর্শনীয় স্থান ও নাগরিক সেবা সবার কাছে সহজে পৌঁছে দেওয়ার লক্ষ্যে একটি উন্মুক্ত তথ্য বাতায়ন।
                     </p>
-                    <div class="text-xs text-slate-500">
-                        Developed with ❤️ by <strong class="text-slate-300">Binoy Sarker</strong> (TangailBot Project)
+                    <div class="text-xs text-slate-400">
+                        Developed with ❤️ by <a href="https://binoy2003.github.io/master_folio/" target="_blank" rel="noopener noreferrer" class="font-bold text-emerald-400 hover:text-emerald-300 underline underline-offset-4 decoration-emerald-500/70 hover:decoration-emerald-300 transition-all inline-flex items-center gap-1 group"><strong>Binoy</strong> <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-emerald-400"></i></a> (TangailBot Project)
                     </div>
                 </div>
 

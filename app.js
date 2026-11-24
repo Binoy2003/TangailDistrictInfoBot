@@ -46,8 +46,10 @@ function initTheme() {
 // ==========================================
 function renderAllSections() {
     renderHeritage();
+    renderSweets();
     renderUpazilas();
     renderTouristSpots('all');
+    renderTemples('all');
     renderEmergency();
     renderEducation();
     renderPersonalities();
@@ -82,6 +84,67 @@ function renderHeritage() {
             </div>
         </div>
     `).join('');
+}
+
+// Famous Sweets & Sweetmeat Shops
+function renderSweets() {
+    const container = document.getElementById("sweets-grid");
+    if (!container || !TANGAIL_DATA.famousSweets) return;
+
+    container.innerHTML = TANGAIL_DATA.famousSweets.map(shop => `
+        <div class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all flex flex-col group">
+            <div class="relative h-48 bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                <img src="${shop.image}" alt="${shop.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
+                <div class="absolute bottom-3 left-4 right-4">
+                    <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-white px-2.5 py-0.5 rounded-full backdrop-blur shadow-sm">
+                        ${shop.shopType}
+                    </span>
+                    <h3 class="font-bold text-lg text-white mt-1 leading-snug">${shop.name}</h3>
+                </div>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-2.5">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+                        <span class="font-medium">${shop.location}</span>
+                    </div>
+
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3 line-clamp-3">
+                        ${shop.speciality}
+                    </p>
+
+                    <div class="mb-3">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">বিখ্যাত আইটেম:</span>
+                        <div class="flex flex-wrap gap-1">
+                            ${shop.famousItems.map(item => `
+                                <span class="text-[10px] bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 font-medium px-2 py-0.5 rounded border border-amber-200 dark:border-amber-900/60">
+                                    ${item}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="text-[11px] bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800 mb-4 flex items-center justify-between">
+                        <span class="text-slate-400">দাম / মূল্য পরিসর:</span>
+                        <span class="font-bold text-amber-700 dark:text-amber-400 font-mono">${shop.priceRange}</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                    <button onclick="openSweetModal('${shop.id}')" class="flex-1 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-semibold rounded-xl transition text-center shadow-sm">
+                        দোকান ও মিষ্টির বিবরণ
+                    </button>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(shop.mapQuery)}" target="_blank" class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="গুগল ম্যাপে লোকেশন">
+                        <i data-lucide="navigation" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    lucide.createIcons();
 }
 
 // 12 Upazilas
@@ -199,6 +262,82 @@ function filterTouristSpots(category) {
     event.currentTarget.classList.remove("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
     event.currentTarget.classList.add("bg-emerald-600", "text-white");
     renderTouristSpots(category);
+}
+
+// Historic Temples of Tangail
+function renderTemples(upazilaFilter = 'all') {
+    const container = document.getElementById("temple-grid");
+    if (!container || !TANGAIL_DATA.temples) return;
+
+    let list = TANGAIL_DATA.temples;
+    if (upazilaFilter !== 'all') {
+        list = list.filter(t => t.upazila.includes(upazilaFilter));
+    }
+
+    if (list.length === 0) {
+        container.innerHTML = `<div class="col-span-full py-8 text-center text-slate-400">এই উপজেলায় কোনো মন্দির তালিকাভুক্ত নেই।</div>`;
+        return;
+    }
+
+    container.innerHTML = list.map(t => `
+        <div class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all flex flex-col group">
+            <div class="relative h-48 bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                <img src="${t.image}" alt="${t.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+                <div class="absolute bottom-3 left-4 right-4">
+                    <span class="text-[10px] font-bold uppercase tracking-wider bg-emerald-600 text-white px-2.5 py-0.5 rounded-full backdrop-blur shadow-sm">
+                        ${t.upazila}
+                    </span>
+                    <h3 class="font-bold text-lg text-white mt-1 leading-snug">${t.name}</h3>
+                </div>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-2">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                        <span>${t.location}</span>
+                    </div>
+
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3 line-clamp-3">
+                        ${t.details}
+                    </p>
+
+                    <div class="mb-4">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">বৈশিষ্ট্য ও উৎসব:</span>
+                        <div class="flex flex-wrap gap-1">
+                            ${t.features.map(f => `
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                                    ${f}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                    <button onclick="openTempleModal('${t.id}')" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl transition text-center shadow-sm">
+                        ইতিহাস ও বিস্তারিত
+                    </button>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.mapQuery)}" target="_blank" class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="গুগল ম্যাপে দেখুন">
+                        <i data-lucide="navigation" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    lucide.createIcons();
+}
+
+function filterTemples(upazila) {
+    document.querySelectorAll(".temple-filter-btn").forEach(btn => {
+        btn.classList.remove("bg-emerald-600", "text-white");
+        btn.classList.add("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
+    });
+    event.currentTarget.classList.remove("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
+    event.currentTarget.classList.add("bg-emerald-600", "text-white");
+    renderTemples(upazila);
 }
 
 // Emergency Services Directory
@@ -396,6 +535,24 @@ function executeSearch(query) {
         }
     });
 
+    // Search Sweets & Famous Shops
+    if (TANGAIL_DATA.famousSweets) {
+        TANGAIL_DATA.famousSweets.forEach(shop => {
+            if (shop.name.toLowerCase().includes(query) || shop.location.toLowerCase().includes(query) || shop.speciality.toLowerCase().includes(query) || shop.famousItems.some(i => i.toLowerCase().includes(query))) {
+                results.push({ type: "মিষ্টান্ন ও চমচম", title: shop.name, subtitle: shop.location + " • " + shop.priceRange, action: () => openSweetModal(shop.id) });
+            }
+        });
+    }
+
+    // Search Temples
+    if (TANGAIL_DATA.temples) {
+        TANGAIL_DATA.temples.forEach(t => {
+            if (t.name.toLowerCase().includes(query) || t.upazila.toLowerCase().includes(query) || t.location.toLowerCase().includes(query) || t.details.toLowerCase().includes(query)) {
+                results.push({ type: "মন্দির", title: t.name, subtitle: t.upazila + " • " + t.location, action: () => openTempleModal(t.id) });
+            }
+        });
+    }
+
     return results;
 }
 
@@ -506,9 +663,35 @@ function generateBotReply(userQuery) {
                `🚗 কীভাবে যাবেন: ${touristMatch.howToGo}`;
     }
 
+    if (TANGAIL_DATA.famousSweets) {
+        const sweetMatch = TANGAIL_DATA.famousSweets.find(sw => lower.includes(sw.name.toLowerCase()) || sw.famousItems.some(i => lower.includes(i.toLowerCase())));
+        if (sweetMatch) {
+            return `🍬 **${sweetMatch.name}**\n\n` +
+                   `📍 অবস্থান: ${sweetMatch.location}\n` +
+                   `🏷️ ধরন: ${sweetMatch.shopType}\n` +
+                   `✨ বিশেষত্ব: ${sweetMatch.speciality}\n` +
+                   `🍰 বিখ্যাত আইটেম: ${sweetMatch.famousItems.join(', ')}\n` +
+                   `💰 মূল্য পরিসর: ${sweetMatch.priceRange}`;
+        }
+    }
+
+    if (TANGAIL_DATA.temples) {
+        const templeMatch = TANGAIL_DATA.temples.find(t => lower.includes(t.name.toLowerCase()) || lower.includes(t.id.toLowerCase()));
+        if (templeMatch) {
+            return `🛕 **${templeMatch.name}**\n\n` +
+                   `📍 অবস্থান: ${templeMatch.location} (${templeMatch.upazila})\n` +
+                   `⏳ প্রতিষ্ঠা: ${templeMatch.established}\n` +
+                   `ℹ️ তাৎপর্য: ${templeMatch.significance}\n` +
+                   `📜 ইতিহাস: ${templeMatch.details}\n` +
+                   `🎉 উৎসব ও বৈশিষ্ট্য: ${templeMatch.features.join(', ')}`;
+        }
+    }
+
     // Default polite response
     return `ধন্যবাদ আপনার প্রশ্নের জন্য! 😊\n\nআপনি টাঙ্গাইল সম্পর্কিত তথ্য জানতে চেয়েছেন। আপনি নিচের বিষয়গুলো সম্পর্কে স্পষ্ট জানতে চাইতে পারেন:\n` +
-           `• 🍬 পোড়াবাড়ির চমচমের ইতিহাস ও সেরা দোকান\n` +
+           `• 🍬 পোড়াবাড়ির আসল চমচম, জয়কালী, গোপাল বা ফণী মিষ্টান্ন ভান্ডার\n` +
+           `• 🥛 ইনটুর বিখ্যাত টিউব দই\n` +
+           `• 🛕 শ্রী শ্রী বড় কালী বাড়ি, উপেন্দ্র সরোবর বারো শিবালয় বা অন্যান্য মন্দির\n` +
            `• 🥻 টাঙ্গাইল তাঁতের শাড়ির বিখ্যাত হাট ও পাথরাইল\n` +
            `• 🏛️ মহেরা জমিদার বাড়ি, আতিয়া মসজিদ বা ২০১ গম্বুজ মসজিদ\n` +
            `• 🗺️ ১২টি উপজেলার তথ্য\n` +
@@ -767,6 +950,128 @@ function openHeritageModal(id) {
             <button onclick="sendPresetPrompt('${item.title} সম্পর্কে বিস্তারিত জানতে চাই'); closeDetailModal(); scrollToBot();" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5">
                 <i data-lucide="bot" class="w-4 h-4"></i> বটকে এই বিষয়ে প্রশ্ন করুন
             </button>
+            <button onclick="closeDetailModal()" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition">
+                বন্ধ করুন
+            </button>
+        </div>
+    `;
+
+    document.getElementById("detail-modal").classList.remove("hidden");
+    lucide.createIcons();
+}
+
+function openSweetModal(id) {
+    const shop = TANGAIL_DATA.famousSweets.find(item => item.id === id);
+    if (!shop) return;
+
+    const modalContent = document.getElementById("modal-content");
+    modalContent.innerHTML = `
+        <div class="relative h-56 rounded-2xl overflow-hidden mb-4 bg-slate-200">
+            <img src="${shop.image}" alt="${shop.name}" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <div class="absolute bottom-3 left-4 right-4 text-white">
+                <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-500 px-2 py-0.5 rounded">${shop.shopType}</span>
+                <h2 class="text-2xl font-bold mt-1">${shop.name}</h2>
+                <p class="text-xs text-slate-200 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${shop.location}</p>
+            </div>
+        </div>
+
+        <div class="space-y-4 text-xs text-slate-700 dark:text-slate-300 mb-6">
+            <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">ইতিহাস ও ঐতিহ্য:</h4>
+                <p class="leading-relaxed text-sm">${shop.history}</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">স্বাদ ও বিশেষত্ব:</h4>
+                <p class="leading-relaxed">${shop.speciality}</p>
+            </div>
+
+            <div class="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-900">
+                <h4 class="font-bold text-amber-900 dark:text-amber-200 text-xs mb-1.5">বিখ্যাত স্পেশাল আইটেম:</h4>
+                <div class="flex flex-wrap gap-1.5">
+                    ${shop.famousItems.map(item => `
+                        <span class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 px-2.5 py-1 rounded-lg border border-amber-200 dark:border-amber-800 font-medium">
+                            ${item}
+                        </span>
+                    `).join('')}
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+                <div>
+                    <span class="text-slate-400 block text-[11px]">মূল্য পরিসর:</span>
+                    <span class="font-bold text-slate-800 dark:text-white">${shop.priceRange}</span>
+                </div>
+                <div>
+                    <span class="text-slate-400 block text-[11px]">প্রধান প্রাপ্তিস্থান:</span>
+                    <span class="font-bold text-slate-800 dark:text-white">${shop.bestPlaces}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex gap-2">
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(shop.mapQuery)}" target="_blank" class="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5">
+                <i data-lucide="navigation" class="w-4 h-4"></i> গুগল ম্যাপে রুট দেখুন
+            </a>
+            <button onclick="closeDetailModal()" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition">
+                বন্ধ করুন
+            </button>
+        </div>
+    `;
+
+    document.getElementById("detail-modal").classList.remove("hidden");
+    lucide.createIcons();
+}
+
+function openTempleModal(id) {
+    const t = TANGAIL_DATA.temples.find(item => item.id === id);
+    if (!t) return;
+
+    const modalContent = document.getElementById("modal-content");
+    modalContent.innerHTML = `
+        <div class="relative h-56 rounded-2xl overflow-hidden mb-4 bg-slate-200">
+            <img src="${t.image}" alt="${t.name}" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <div class="absolute bottom-3 left-4 right-4 text-white">
+                <span class="text-[10px] font-bold uppercase tracking-wider bg-emerald-600 px-2 py-0.5 rounded">${t.upazila}</span>
+                <h2 class="text-2xl font-bold mt-1">${t.name}</h2>
+                <p class="text-xs text-slate-200 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${t.location}</p>
+            </div>
+        </div>
+
+        <div class="space-y-4 text-xs text-slate-700 dark:text-slate-300 mb-6">
+            <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">ইতিহাস ও মাহাত্ম্য:</h4>
+                <p class="leading-relaxed text-sm">${t.details}</p>
+            </div>
+
+            <div class="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-100 dark:border-emerald-900">
+                <h4 class="font-bold text-emerald-900 dark:text-emerald-200 text-xs mb-1">ঐতিহাসিক গুরুত্ব:</h4>
+                <p class="leading-relaxed">${t.significance}</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-xs mb-1.5">প্রধান বৈশিষ্ট্য ও ধর্মীয় উৎসব:</h4>
+                <div class="flex flex-wrap gap-1.5">
+                    ${t.features.map(f => `
+                        <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 font-medium">
+                            ${f}
+                        </span>
+                    `).join('')}
+                </div>
+            </div>
+
+            <div class="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-600 dark:text-slate-300">
+                <span class="text-slate-400 block text-[11px]">প্রতিষ্ঠাকাল:</span>
+                <span class="font-bold text-slate-800 dark:text-white">${t.established}</span>
+            </div>
+        </div>
+
+        <div class="flex gap-2">
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.mapQuery)}" target="_blank" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5">
+                <i data-lucide="navigation" class="w-4 h-4"></i> গুগল ম্যাপে রুট ও অবস্থান
+            </a>
             <button onclick="closeDetailModal()" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition">
                 বন্ধ করুন
             </button>
