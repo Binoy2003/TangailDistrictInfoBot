@@ -2,7 +2,6 @@
 
 let currentLang = localStorage.getItem("tangailbot_lang") || "bn";
 let currentTouristCategory = 'all';
-let currentTempleUpazila = 'all';
 
 // ==========================================
 // 1. COMPREHENSIVE BILINGUAL TRANSLATION DICTIONARY
@@ -20,7 +19,6 @@ const TRANSLATIONS = {
         nav_home: "হোম",
         nav_heritage: "ঐতিহ্য ও জিআই",
         nav_sweets: "মিষ্টান্ন ও চমচম",
-        nav_temples: "মন্দিরসমূহ",
         nav_upazila: "উপজেলা",
         nav_tourist: "দর্শনীয় স্থান",
         nav_emergency: "জরুরি সেবা",
@@ -30,7 +28,6 @@ const TRANSLATIONS = {
         mobile_nav_home: "🏠 হোম",
         mobile_nav_heritage: "🍬 ঐতিহ্য ও জিআই পণ্য",
         mobile_nav_sweets: "🍯 মিষ্টান্ন ও চমচমের দোকান",
-        mobile_nav_temples: "🛕 মন্দির নির্দেশিকা",
         mobile_nav_upazila: "🗺️ ১২টি উপজেলা",
         mobile_nav_tourist: "🕌 দর্শনীয় স্থান",
         mobile_nav_emergency: "☎️ জরুরি সেবা ডিরেক্টরি",
@@ -45,7 +42,7 @@ const TRANSLATIONS = {
         chip_chomchom: "🍬 পোড়াবাড়ির চমচম",
         chip_joykali: "🏪 জয়কালী মিষ্টান্ন",
         chip_tube_doi: "🥛 ইনটু টিউব দই",
-        chip_kali_bari: "🛕 বড় কালী বাড়ি",
+        chip_bridge: "🌉 বঙ্গবন্ধু সেতু",
         chip_mohera: "🏛️ মহেরা জমিদার বাড়ি",
         chip_mosque_201: "🕌 ২০১ গম্বুজ মসজিদ",
         chip_saree: "🥻 তাঁতের শাড়ি",
@@ -78,14 +75,6 @@ const TRANSLATIONS = {
         filter_tourist_arch: "জমিদার বাড়ি ও প্রত্নতত্ত্ব",
         filter_tourist_mosque: "ঐতিহাসিক মসজিদ",
         filter_tourist_nature: "প্রকৃতি ও উদ্যান",
-        sec_temples_tag: "ঐতিহাসিক তীর্থ ও সনাতন ঐতিহ্য",
-        sec_temples_title: "টাঙ্গাইল জেলার বিখ্যাত ও শতবর্ষী মন্দিরসমূহ",
-        filter_temple_all: "সবগুলো",
-        filter_temple_sadar: "টাঙ্গাইল সদর",
-        filter_temple_nagarpur: "নাগরপুর",
-        filter_temple_mirzapur: "মির্জাপুর",
-        filter_temple_delduar: "দেলদুয়ার",
-        filter_temple_kalihati: "কালিহাতী",
         sec_emergency_tag: "সার্বক্ষণিক জরুরি সেবা",
         sec_emergency_title: "জরুরি যোগাযোগ ও স্বাস্থ্যসেবা হটলাইন",
         sec_emergency_desc: "টাঙ্গাইল জেনারেল হাসপাতাল, কুমুদিনী হাসপাতাল, জেলা পুলিশ, অ্যাম্বুলেন্স এবং ফায়ার সার্ভিসের ভেরিফাইড নম্বর। যে কোনো নম্বরে সরাসরি কল করতে ট্যাপ করুন।",
@@ -110,7 +99,7 @@ const TRANSLATIONS = {
         bot_chip_chomchom: "🍬 চমচমের ইতিহাস ও সেরা দোকান",
         bot_chip_joykali: "🏪 জয়কালী ও গোপাল মিষ্টান্ন",
         bot_chip_tube_doi: "🥛 ইনটুর টিউব দই",
-        bot_chip_temples: "🛕 বড় কালী বাড়ি ও অন্যান্য মন্দির",
+        bot_chip_bridge: "🌉 বঙ্গবন্ধু সেতু ও যমুনা নদী",
         bot_chip_mohera: "🏛️ মহেরা জমিদার বাড়ি",
         bot_chip_saree: "🥻 তাঁতের শাড়ির ইতিহাস",
         bot_chip_mosque_201: "🕌 ২০১ গম্বুজ মসজিদ",
@@ -140,7 +129,6 @@ const TRANSLATIONS = {
         nav_home: "Home",
         nav_heritage: "Heritage & GI",
         nav_sweets: "Sweets & Chomchom",
-        nav_temples: "Temples",
         nav_upazila: "Upazilas",
         nav_tourist: "Tourist Spots",
         nav_emergency: "Emergency",
@@ -150,7 +138,6 @@ const TRANSLATIONS = {
         mobile_nav_home: "🏠 Home",
         mobile_nav_heritage: "🍬 Heritage & GI Products",
         mobile_nav_sweets: "🍯 Sweets & Chomchom Shops",
-        mobile_nav_temples: "🛕 Temples Directory",
         mobile_nav_upazila: "🗺️ 12 Upazilas",
         mobile_nav_tourist: "🕌 Tourist Attractions",
         mobile_nav_emergency: "☎️ Emergency Directory",
@@ -165,7 +152,7 @@ const TRANSLATIONS = {
         chip_chomchom: "🍬 Porabari Chomchom",
         chip_joykali: "🏪 Joykali Sweets",
         chip_tube_doi: "🥛 Intu Tube Yogurt",
-        chip_kali_bari: "🛕 Boro Kali Bari",
+        chip_bridge: "🌉 Bangabandhu Bridge",
         chip_mohera: "🏛️ Mohera Zamindar Bari",
         chip_mosque_201: "🕌 201 Dome Mosque",
         chip_saree: "🥻 Handloom Saree",
@@ -198,14 +185,6 @@ const TRANSLATIONS = {
         filter_tourist_arch: "Palaces & Archaeology",
         filter_tourist_mosque: "Historic Mosques",
         filter_tourist_nature: "Nature & Sal Forests",
-        sec_temples_tag: "Sanatan Heritage & Pilgrimage",
-        sec_temples_title: "Historic & Centenary Temples of Tangail",
-        filter_temple_all: "All",
-        filter_temple_sadar: "Tangail Sadar",
-        filter_temple_nagarpur: "Nagarpur",
-        filter_temple_mirzapur: "Mirzapur",
-        filter_temple_delduar: "Delduar",
-        filter_temple_kalihati: "Kalihati",
         sec_emergency_tag: "24/7 Emergency Services",
         sec_emergency_title: "Emergency Contacts & Health Hotlines",
         sec_emergency_desc: "Verified contacts for Tangail General Hospital, Kumudini Hospital, District Police, Ambulance, and Fire Service. Tap to call directly.",
@@ -230,7 +209,7 @@ const TRANSLATIONS = {
         bot_chip_chomchom: "🍬 Porabari Chomchom History",
         bot_chip_joykali: "🏪 Joykali & Gopal Confectioneries",
         bot_chip_tube_doi: "🥛 Intu\'s Famous Tube Yogurt",
-        bot_chip_temples: "🛕 Boro Kali Bari & Historic Temples",
+        bot_chip_bridge: "🌉 Bangabandhu Bridge & Jamuna",
         bot_chip_mohera: "🏛️ Mohera Zamindar Bari",
         bot_chip_saree: "🥻 Handloom Saree History",
         bot_chip_mosque_201: "🕌 201 Dome Mosque",
@@ -351,7 +330,6 @@ function renderAllSections() {
     renderSweets();
     renderUpazilas();
     renderTouristSpots(currentTouristCategory || 'all');
-    renderTemples(currentTempleUpazila || 'all');
     renderEmergency();
     renderEducation();
     renderPersonalities();
@@ -619,96 +597,6 @@ function filterTouristSpots(category) {
     renderTouristSpots(category);
 }
 
-// 5. Historic Temples of Tangail
-function renderTemples(upazilaFilter = 'all') {
-    const container = document.getElementById("temple-grid");
-    if (!container || !TANGAIL_DATA.temples) return;
-    const isEn = (currentLang === "en");
-
-    let list = TANGAIL_DATA.temples;
-    if (upazilaFilter !== 'all') {
-        list = list.filter(t => t.upazila.includes(upazilaFilter) || (t.enUpazila && t.enUpazila.toLowerCase().includes(upazilaFilter.toLowerCase())));
-    }
-
-    if (list.length === 0) {
-        container.innerHTML = `<div class="col-span-full py-8 text-center text-slate-400">${isEn ? "No temples listed in this upazila." : "এই উপজেলায় কোনো মন্দির তালিকাভুক্ত নেই।"}</div>`;
-        return;
-    }
-
-    container.innerHTML = list.map(t => {
-        const name = isEn ? (t.enName || t.name) : t.name;
-        const upazila = isEn ? (t.enUpazila || t.upazila) : t.upazila;
-        const location = isEn ? (t.enLocation || t.location) : t.location;
-        const details = isEn ? (t.enDetails || t.details) : t.details;
-        const features = isEn ? (t.enFeatures || t.features) : t.features;
-        const labelFeatures = isEn ? "Features & Festivals:" : "বৈশিষ্ট্য ও উৎসব:";
-        const btnText = isEn ? "History & Details" : "ইতিহাস ও বিস্তারিত";
-        const mapTitle = isEn ? "View on Google Maps" : "গুগল ম্যাপে দেখুন";
-
-        return `
-            <div class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all flex flex-col group">
-                <div class="relative h-48 bg-slate-200 dark:bg-slate-800 overflow-hidden">
-                    <img src="${t.image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
-                    <div class="absolute bottom-3 left-4 right-4">
-                        <span class="text-[10px] font-bold uppercase tracking-wider bg-emerald-600 text-white px-2.5 py-0.5 rounded-full backdrop-blur shadow-sm">
-                            ${upazila}
-                        </span>
-                        <h3 class="font-bold text-lg text-white mt-1 leading-snug">${name}</h3>
-                    </div>
-                </div>
-
-                <div class="p-5 flex-1 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-2">
-                            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
-                            <span>${location}</span>
-                        </div>
-
-                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3 line-clamp-3">
-                            ${details}
-                        </p>
-
-                        <div class="mb-4">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">${labelFeatures}</span>
-                            <div class="flex flex-wrap gap-1">
-                                ${features.map(f => `
-                                    <span class="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
-                                        ${f}
-                                    </span>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-                        <button onclick="openTempleModal('${t.id}')" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl transition text-center shadow-sm">
-                            ${btnText}
-                        </button>
-                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.mapQuery)}" target="_blank" class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="${mapTitle}">
-                            <i data-lucide="navigation" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    lucide.createIcons();
-}
-
-function filterTemples(upazila) {
-    currentTempleUpazila = upazila;
-    document.querySelectorAll(".temple-filter-btn").forEach(btn => {
-        btn.classList.remove("bg-emerald-600", "text-white");
-        btn.classList.add("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
-    });
-    if (window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.remove("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
-        window.event.currentTarget.classList.add("bg-emerald-600", "text-white");
-    }
-    renderTemples(upazila);
-}
 
 // 6. Emergency Services Directory
 function renderEmergency() {
@@ -983,167 +871,6 @@ function executeSearch(query) {
         });
     }
 
-    // Search Temples
-    if (TANGAIL_DATA.temples) {
-        TANGAIL_DATA.temples.forEach(t => {
-            if (
-                t.name.toLowerCase().includes(query) || 
-                (t.enName && t.enName.toLowerCase().includes(query)) ||
-                t.upazila.toLowerCase().includes(query) || 
-                (t.enUpazila && t.enUpazila.toLowerCase().includes(query)) ||
-                t.location.toLowerCase().includes(query) || 
-                (t.enLocation && t.enLocation.toLowerCase().includes(query)) ||
-                t.details.toLowerCase().includes(query) ||
-                (t.enDetails && t.enDetails.toLowerCase().includes(query))
-            ) {
-                results.push({
-                    type: isEn ? "Historic Temple" : "মন্দির",
-                    title: isEn ? (t.enName || t.name) : t.name,
-                    subtitle: (isEn ? (t.enUpazila || t.upazila) : t.upazila) + " • " + (isEn ? (t.enLocation || t.location) : t.location),
-                    action: () => openTempleModal(t.id)
-                });
-            }
-        });
-    }
-
-    // Search Emergency
-    TANGAIL_DATA.emergencyServices.forEach(cat => {
-        cat.items.forEach(item => {
-            if (
-                item.title.toLowerCase().includes(query) || 
-                (item.enTitle && item.enTitle.toLowerCase().includes(query)) ||
-                item.number.includes(query) || 
-                item.desc.toLowerCase().includes(query) ||
-                (item.enDesc && item.enDesc.toLowerCase().includes(query))
-            ) {
-                results.push({
-                    type: isEn ? "Emergency Service" : "জরুরি সেবা",
-                    title: isEn ? (item.enTitle || item.title) : item.title,
-                    subtitle: item.number + " (" + (isEn ? (item.enDesc || item.desc) : item.desc) + ")",
-                    action: () => { window.location.href = `tel:${item.tel || item.number}`; }
-                });
-            }
-        });
-    });
-
-    // Demographics Match
-    if (query.includes("জনসংখ্যা") || query.includes("শুমারি") || query.includes("ছেলে") || query.includes("মেয়ে") || query.includes("হিন্দু") || query.includes("মুসলিম") || query.includes("শিক্ষার হার") || query.includes("census") || query.includes("population") || query.includes("demographic")) {
-        results.push({
-            type: isEn ? "Census 2022" : "জনশুমারি ২০২২",
-            title: isEn ? "Tangail District Census & Demographics (BBS)" : "টাঙ্গাইল জেলা সম্পূর্ণ জনমিতি ও পরিসংখ্যান (BBS)",
-            subtitle: isEn ? "4,037,016 People • Male 48.40% • Female 51.59% • Muslim 88.22% • Hindu 10.75%" : "৪০,৩৭,০১৬ জন • ছেলে ৪৮.৪০% • মেয়ে ৫১.৫৯% • মুসলিম ৮৮.২২% • হিন্দু ১০.৭৫%",
-            action: () => openDemographicsModal()
-        });
-    }
-
-    // Map & Boundaries Match
-    if (query.includes("ম্যাপ") || query.includes("মানচিত্র") || query.includes("map") || query.includes("সীমানা") || query.includes("boundary") || query.includes("আয়তন") || query.includes("area") || query.includes("river")) {
-        results.push({
-            type: isEn ? "District Map" : "মানচিত্র ও সীমানা",
-            title: isEn ? "Full Geographic Map & Boundaries of Tangail" : "টাঙ্গাইল জেলার সম্পূর্ণ মানচিত্র ও ভৌগোলিক চতুর্সীমা",
-            subtitle: isEn ? "Interactive Google Maps • 3,414.35 sq km • Jamuna River" : "ইন্টারেক্টিভ গুগল ম্যাপ • ৩,৪১৪.৩৫ বর্গ কিমি • যমুনা নদী ও নদী বিধৌত জনপদ",
-            action: () => openTangailMapModal()
-        });
-    }
-
-    return results;
-}
-
-function renderSearchResults(results, dropdown) {
-    const isEn = (currentLang === "en");
-    if (results.length === 0) {
-        dropdown.innerHTML = `
-            <div class="p-6 text-center text-slate-500 dark:text-slate-400 text-sm">
-                <i data-lucide="search-x" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
-                <p>${isEn ? "No information found. Try different keywords or ask TangailBot below." : "কোনো তথ্য পাওয়া যায়নি। অন্য শব্দ লিখে চেষ্টা করুন বা নিচে টাঙ্গাইল বটকে প্রশ্ন করুন।"}</p>
-            </div>
-        `;
-        dropdown.classList.remove("hidden");
-        lucide.createIcons();
-        return;
-    }
-
-    dropdown.innerHTML = results.slice(0, 8).map((item, index) => `
-        <div onclick="handleSearchSelect(${index})" class="p-3.5 hover:bg-slate-50 dark:hover:bg-slate-800/80 cursor-pointer transition flex items-center justify-between group">
-            <div>
-                <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded mr-1">
-                    ${item.type}
-                </span>
-                <span class="font-semibold text-sm text-slate-900 dark:text-white group-hover:text-emerald-600 transition">${item.title}</span>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">${item.subtitle}</p>
-            </div>
-            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all"></i>
-        </div>
-    `).join('');
-
-    dropdown.classList.remove("hidden");
-    window._lastSearchResults = results;
-    lucide.createIcons();
-}
-
-function handleSearchSelect(index) {
-    const item = window._lastSearchResults[index];
-    if (item && item.action) {
-        document.getElementById("search-results-dropdown").classList.add("hidden");
-        item.action();
-    }
-}
-
-// ==========================================
-// 7. TANGAILBOT CHAT ENGINE (100% BILINGUAL)
-// ==========================================
-function setupChatBot() {
-    const form = document.getElementById("chat-form");
-    const input = document.getElementById("chat-input");
-
-    if (!form || !input) return;
-
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const text = input.value.trim();
-        if (!text) return;
-
-        appendUserMessage(text);
-        input.value = "";
-
-        showTypingIndicator();
-        setTimeout(() => {
-            removeTypingIndicator();
-            const reply = generateBotReply(text);
-            appendBotMessage(reply);
-        }, 500);
-    });
-}
-
-function sendSmartPrompt(promptBn, promptEn) {
-    const text = (currentLang === "en") ? promptEn : promptBn;
-    sendPresetPrompt(text);
-}
-
-function sendPresetPrompt(promptText) {
-    const input = document.getElementById("chat-input");
-    if (!input) return;
-    input.value = promptText;
-    document.getElementById("chat-form").dispatchEvent(new Event('submit'));
-}
-
-function generateBotReply(userQuery) {
-    const lower = userQuery.toLowerCase().trim();
-    const isEn = (currentLang === "en");
-
-    // 1. Check predefined bilingual knowledge base
-    if (typeof BOT_RESPONSES !== "undefined") {
-        for (const item of BOT_RESPONSES) {
-            // Check Bengali keywords
-            if (item.keywords && item.keywords.some(kw => lower.includes(kw.toLowerCase()))) {
-                return isEn ? (item.enAnswer || item.answer) : item.answer;
-            }
-            // Check English keywords
-            if (item.enKeywords && item.enKeywords.some(kw => lower.includes(kw.toLowerCase()))) {
-                return isEn ? (item.enAnswer || item.answer) : item.answer;
-            }
-        }
-    }
 
     // 2. Upazila match in database
     const upazilaMatch = TANGAIL_DATA.upazilas.find(u => 
@@ -1263,43 +990,6 @@ function generateBotReply(userQuery) {
         }
     }
 
-    // 5. Temple match in database
-    if (TANGAIL_DATA.temples) {
-        const templeMatch = TANGAIL_DATA.temples.find(t => 
-            lower.includes(t.name.toLowerCase()) || 
-            (t.enName && lower.includes(t.enName.toLowerCase())) ||
-            lower.includes(t.id.toLowerCase())
-        );
-        if (templeMatch) {
-            if (isEn) {
-                return `🛕 **${templeMatch.enName || templeMatch.name}**
-
-` +
-                       `📍 **Location:** ${templeMatch.enLocation || templeMatch.location} (${templeMatch.enUpazila || templeMatch.upazila})
-` +
-                       `⏳ **Established:** ${templeMatch.enEstablished || templeMatch.established}
-` +
-                       `ℹ️ **Significance:** ${templeMatch.enSignificance || templeMatch.significance}
-` +
-                       `📜 **History:** ${templeMatch.enDetails || templeMatch.details}
-` +
-                       `🎉 **Features & Festivals:** ${(templeMatch.enFeatures || templeMatch.features).join(', ')}`;
-            } else {
-                return `🛕 **${templeMatch.name}**
-
-` +
-                       `📍 অবস্থান: ${templeMatch.location} (${templeMatch.upazila})
-` +
-                       `⏳ প্রতিষ্ঠা: ${templeMatch.established}
-` +
-                       `ℹ️ তাৎপর্য: ${templeMatch.significance}
-` +
-                       `📜 ইতিহাস: ${templeMatch.details}
-` +
-                       `🎉 উৎসব ও বৈশিষ্ট্য: ${templeMatch.features.join(', ')}`;
-            }
-        }
-    }
 
     // 6. Default polite fallback
     if (isEn) {
@@ -2057,67 +1747,6 @@ function openSweetModal(id) {
         <div class="flex flex-col sm:flex-row gap-2.5">
             <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(shop.mapQuery)}" target="_blank" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
                 <i data-lucide="navigation" class="w-4 h-4"></i> ${isEn ? "View Route on Google Maps" : "গুগল ম্যাপে রুট দেখুন"}
-            </a>
-            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
-                ${isEn ? "Close" : "বন্ধ করুন"}
-            </button>
-        </div>
-    `;
-
-    document.getElementById("detail-modal").classList.remove("hidden");
-    document.getElementById("chat-widget-btn")?.classList.add("hidden");
-    lucide.createIcons();
-}
-
-// TEMPLE DETAIL MODAL
-function openTempleModal(id) {
-    const t = TANGAIL_DATA.temples.find(item => item.id === id);
-    if (!t) return;
-    const isEn = (currentLang === "en");
-
-    const modalContent = document.getElementById("modal-content");
-    modalContent.innerHTML = `
-        <div class="relative h-56 rounded-2xl overflow-hidden mb-4 bg-slate-200">
-            <img src="${t.image}" alt="${isEn ? (t.enName || t.name) : t.name}" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
-            <div class="absolute bottom-3 left-4 right-4 text-white">
-                <span class="text-[10px] font-bold uppercase tracking-wider bg-emerald-600 px-2 py-0.5 rounded">${isEn ? (t.enUpazila || t.upazila) : t.upazila}</span>
-                <h2 class="text-2xl font-bold mt-1">${isEn ? (t.enName || t.name) : t.name}</h2>
-                <p class="text-xs text-slate-200 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${isEn ? (t.enLocation || t.location) : t.location}</p>
-            </div>
-        </div>
-
-        <div class="space-y-4 text-xs text-slate-700 dark:text-slate-300 mb-6">
-            <div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">${isEn ? "History & Divinity:" : "ইতিহাস ও মাহাত্ম্য:"}</h4>
-                <p class="leading-relaxed text-sm">${isEn ? (t.enDetails || t.details) : t.details}</p>
-            </div>
-
-            <div class="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-100 dark:border-emerald-900">
-                <h4 class="font-bold text-emerald-900 dark:text-emerald-200 text-xs mb-1">${isEn ? "Historical Significance:" : "ঐতিহাসিক গুরুত্ব:"}</h4>
-                <p class="leading-relaxed">${isEn ? (t.enSignificance || t.significance) : t.significance}</p>
-            </div>
-
-            <div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-xs mb-1.5">${isEn ? "Main Features & Religious Festivals:" : "প্রধান বৈশিষ্ট্য ও ধর্মীয় উৎসব:"}</h4>
-                <div class="flex flex-wrap gap-1.5">
-                    ${(isEn ? (t.enFeatures || t.features) : t.features).map(f => `
-                        <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 font-medium">
-                            ${f}
-                        </span>
-                    `).join('')}
-                </div>
-            </div>
-
-            <div class="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-600 dark:text-slate-300">
-                <span class="text-slate-400 block text-[11px]">${isEn ? "Established:" : "প্রতিষ্ঠাকাল:"}</span>
-                <span class="font-bold text-slate-800 dark:text-white">${isEn ? (t.enEstablished || t.established) : t.established}</span>
-            </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-2.5">
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.mapQuery)}" target="_blank" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
-                <i data-lucide="navigation" class="w-4 h-4"></i> ${isEn ? "View Route on Google Maps" : "গুগল ম্যাপে রুট ও অবস্থান"}
             </a>
             <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
                 ${isEn ? "Close" : "বন্ধ করুন"}
