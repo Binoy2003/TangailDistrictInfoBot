@@ -93,7 +93,7 @@ const TANGAIL_DATA = {
     giAndHeritages: [
         {
             id: "tangail-sari",
-            title: "টাঙ্গাইল শাড়ি",
+            title: "টাঙ্গাইল তাঁতের শাড়ি",
             enTitle: "Tangail Handloom Saree",
             tag: "জিআই পণ্য (GI Certified)",
             enTag: "GI Certified Heritage",
@@ -109,7 +109,7 @@ const TANGAIL_DATA = {
         },
         {
             id: "porabari-chomchom",
-            title: "পোড়াবাড়ির চমচম",
+            title: "পোড়াবাড়ির আসল চমচম",
             enTitle: "Porabari Original Chomchom",
             tag: "জিআই পণ্য (GI Certified)",
             enTag: "GI Certified Delicacy",

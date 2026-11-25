@@ -87,22 +87,31 @@ button, a, input, select {
     background: rgba(15, 23, 42, 0.90);
 }
 
-/* Glass Stat Card with 3D Hover & Glow */
+/* Glass Stat Card with 3D Hover, Glassmorphism & Popup */
 .glass-stat-card {
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.82);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .dark .glass-stat-card {
-    background: rgba(15, 23, 42, 0.75);
+    background: rgba(15, 23, 42, 0.80);
 }
 .glass-stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px -8px rgba(5, 150, 105, 0.15), 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px) scale(1.015);
+    box-shadow: 0 20px 35px -8px rgba(5, 150, 105, 0.18), 0 6px 14px -2px rgba(0, 0, 0, 0.06);
 }
 .dark .glass-stat-card:hover {
-    box-shadow: 0 16px 32px -8px rgba(5, 150, 105, 0.25), 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 20px 35px -8px rgba(16, 185, 129, 0.25), 0 6px 14px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* Stat hover popup animation */
+.stat-hover-popup {
+    transform: translate(-50%, 6px);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-stat-card:hover .stat-hover-popup {
+    transform: translate(-50%, -6px);
 }
 
 /* Animations */
