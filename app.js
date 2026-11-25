@@ -20,6 +20,29 @@ const TRANSLATIONS = {
         nav_heritage: "ঐতিহ্য ও জিআই",
         nav_sweets: "মিষ্টান্ন ও চমচম",
         nav_upazila: "উপজেলা",
+        nav_admin: "জেলা প্রশাসন",
+        mobile_nav_admin: "🏛️ জেলা প্রশাসন (ডিসি অফিস)",
+        sec_admin_tag: "প্রশাসনিক বাতায়ন ও নাগরিক সেবা",
+        sec_admin_title: "জেলা প্রশাসন টাঙ্গাইল • জেলা প্রশাসকের কার্যালয় (DC Office)",
+        sec_admin_desc: "সকল প্রশাসনিক শাখা, দায়িত্বপ্রাপ্ত কর্মকর্তা, কর্মচারীবৃন্দ, কক্ষ নম্বর ও নাগরিক সেবার সম্পূর্ণ এক্সেল স্প্রেডশীট ডিরেক্টরি।",
+        admin_sheet_badge: "ভেরিফাইড সরকারি ডিরেক্টরি",
+        admin_sheet_sub: "১৮টি সক্রিয় শাখা • কক্ষ নম্বর • কর্মকর্তা ও কর্মচারী তালিকা",
+        admin_print_btn: "প্রিন্ট / ভিউ",
+        admin_portal_btn: "অফিসিয়াল পোর্টাল",
+        admin_search_placeholder: "শাখা, কর্মকর্তা, কর্মচারী পদবি বা কক্ষ নম্বর লিখে খুঁজুন...",
+        admin_tab_all: "সবগুলো শাখা (All)",
+        admin_tab_lead: "শীর্ষ নেতৃত্ব",
+        admin_tab_revenue: "রাজস্ব ও এল.এ",
+        admin_tab_general: "সাধারণ ও সেবা",
+        admin_tab_ict: "শিক্ষা ও ই-সেবা",
+        admin_tab_localgov: "স্থানীয় সরকার",
+        th_room: "কক্ষ নম্বর",
+        th_branch: "শাখা / বিভাগ",
+        th_officer: "দায়িত্বপ্রাপ্ত কর্মকর্তা ও পদবি",
+        th_contact: "যোগাযোগ নম্বর",
+        th_staff: "কর্মচারীবৃন্দ ও সেবাসমূহ",
+        th_action: "অ্যাকশন",
+        admin_table_hint: "💡 যেকোনো শাখায় ক্লিক করে পূর্ণাঙ্গ কর্মচারী ও সেবার তালিকা দেখুন",
         nav_tourist: "দর্শনীয় স্থান",
         nav_emergency: "জরুরি সেবা",
         nav_education: "শিক্ষা",
@@ -130,6 +153,29 @@ const TRANSLATIONS = {
         nav_heritage: "Heritage & GI",
         nav_sweets: "Sweets & Chomchom",
         nav_upazila: "Upazilas",
+        nav_admin: "District Admin",
+        mobile_nav_admin: "🏛️ District Administration (DC Office)",
+        sec_admin_tag: "Civic Services & District Administration",
+        sec_admin_title: "District Administration Tangail • DC Office Directory",
+        sec_admin_desc: "Comprehensive Excel spreadsheet directory of all branches, room numbers, designated officers, employees, and citizen services of Tangail DC Office.",
+        admin_sheet_badge: "Verified Official Directory",
+        admin_sheet_sub: "18 Active Branches • Room Numbers • Officers & Staff",
+        admin_print_btn: "Print / View",
+        admin_portal_btn: "Official Portal",
+        admin_search_placeholder: "Search by branch, officer, staff designation or room number...",
+        admin_tab_all: "All Branches (All)",
+        admin_tab_lead: "Leadership",
+        admin_tab_revenue: "Revenue & LA",
+        admin_tab_general: "General & Admin",
+        admin_tab_ict: "Education & ICT",
+        admin_tab_localgov: "Local Gov",
+        th_room: "Room No",
+        th_branch: "Branch & Section",
+        th_officer: "Designated Officer & Designation",
+        th_contact: "Contact Numbers",
+        th_staff: "Staff & Core Services",
+        th_action: "Action",
+        admin_table_hint: "💡 Click on any branch to view full staff and services directory",
         nav_tourist: "Tourist Spots",
         nav_emergency: "Emergency",
         nav_education: "Education",
@@ -331,6 +377,7 @@ function renderAllSections() {
     renderUpazilas();
     renderTouristSpots(currentTouristCategory || 'all');
     renderEmergency();
+    renderAdministration();
     renderEducation();
     renderPersonalities();
     renderJobs();
@@ -990,6 +1037,38 @@ function executeSearch(query) {
         }
     }
 
+
+
+    // DC Office / District Administration match
+    if (lower.includes("ডিসি অফিস") || lower.includes("জেলা প্রশাসন") || lower.includes("জেলা প্রশাসক") || lower.includes("dc office") || lower.includes("deputy commissioner") || lower.includes("শাখা") || lower.includes("কক্ষ নম্বর") || lower.includes("এডিসি")) {
+        if (isEn) {
+            return `🏛️ **Tangail District Administration (DC Office Directory)**:\n\n` +
+                   `• **Head of District:** Deputy Commissioner & District Magistrate (Room 202, 2nd Floor)\n` +
+                   `• **Phone:** 02-997700001 | **Email:** dctangail@mopa.gov.bd\n` +
+                   `• **ADC General:** Room 204 (Phone: 02-997700022)\n` +
+                   `• **ADM (Judicial & Magistrate Court):** Room 206 (Phone: 02-997700033)\n` +
+                   `• **ADC Revenue:** Room 208 (Phone: 02-997700044)\n` +
+                   `• **ADC Education & ICT:** Room 211 (Phone: 02-997700055)\n` +
+                   `• **Land Acquisition (LA Branch):** Room 213 (Phone: 02-997700120)\n` +
+                   `• **Record Room (Certified Land Records):** Room 102 (Ground Floor)\n` +
+                   `• **District e-Service Center & Front Desk:** Room 101 (Ground Floor Entrance)\n` +
+                   `• **Nejarat & Protocol (NDC):** Room 105 (Phone: 02-997700066)\n\n` +
+                   `Please visit the 'District Administration (DC Office)' Excel section on this website to view all 18 branches, room numbers, staff, and direct calling lines!`;
+        } else {
+            return `🏛️ **জেলা প্রশাসন টাঙ্গাইল (জেলা প্রশাসকের কার্যালয় - ডিসি অফিস)**:\n\n` +
+                   `• **জেলা প্রধান:** জেলা প্রশাসক ও বিজ্ঞ জেলা ম্যাজিস্ট্রেট (কক্ষ ২০২, ২য় তলা)\n` +
+                   `• **ফোন:** ০২-৯৯৭৭০০০০১ | **ইমেইল:** dctangail@mopa.gov.bd\n` +
+                   `• **এডিসি (সার্বিক):** কক্ষ ২০৪ (ফোন: ০২-৯৯৭৭০০০২২)\n` +
+                   `• **অতিরিক্ত জেলা ম্যাজিস্ট্রেট (এডিএম):** কক্ষ ২০৬ (ফোন: ০২-৯৯৭৭০০০৩৩)\n` +
+                   `• **এডিসি (রাজস্ব):** কক্ষ ২০৮ (ফোন: ০২-৯৯৭৭০০০৪৪)\n` +
+                   `• **এডিসি (শিক্ষা ও আইসিটি):** কক্ষ ২১১ (ফোন: ০২-৯৯৭৭০০০৫৫)\n` +
+                   `• **ভূমি হুকুমদখল (এলএ শাখা):** কক্ষ ২১৩ (ফোন: ০২-৯৯৭৭০০১২০)\n` +
+                   `• **রেকর্ড রুম (খতিয়ান ও পর্চা নকল):** কক্ষ ১০২ (নিচতলা)\n` +
+                   `• **জেলা ই-সেবা কেন্দ্র ও ফ্রন্ট ডেস্ক:** কক্ষ ১০১ (নিচতলা প্রধান ফটক)\n` +
+                   `• **নেজারত শাখা (এনডিসি):** কক্ষ ১০৫ (ফোন: ০২-৯৯৭৭০০০৬৬)\n\n` +
+                   `ওয়েবসাইটের 'জেলা প্রশাসন টাঙ্গাইল' এক্সেল স্প্রেডশীট সেকশনে গেলে ১৮টি শাখার সব কর্মকর্তা, কর্মচারী, কক্ষ নম্বর ও সেবার তালিকা সরাসরি দেখতে পারবেন!`;
+        }
+    }
 
     // 6. Default polite fallback
     if (isEn) {
@@ -1755,6 +1834,256 @@ function openSweetModal(id) {
     `;
 
     document.getElementById("detail-modal").classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
+    lucide.createIcons();
+}
+
+// ==========================================
+// DISTRICT ADMINISTRATION (DC OFFICE) EXCEL DIRECTORY
+// ==========================================
+let currentAdminCategory = 'all';
+
+function renderAdministration(filterCategory = 'all', searchQuery = '') {
+    const tableBody = document.getElementById("admin-table-body");
+    const countEl = document.getElementById("admin-row-count");
+    if (!tableBody || !TANGAIL_DATA.districtAdministration) return;
+
+    const isEn = (currentLang === "en");
+    currentAdminCategory = filterCategory;
+
+    let branches = TANGAIL_DATA.districtAdministration.branches;
+
+    // Filter by sheet category
+    if (filterCategory !== 'all') {
+        branches = branches.filter(b => b.category.includes(filterCategory) || b.enCategory.toLowerCase().includes(filterCategory.toLowerCase()));
+    }
+
+    // Filter by search query
+    if (searchQuery.trim().length > 0) {
+        const q = searchQuery.toLowerCase().trim();
+        branches = branches.filter(b => 
+            b.branch.toLowerCase().includes(q) ||
+            b.enBranch.toLowerCase().includes(q) ||
+            b.officer.toLowerCase().includes(q) ||
+            b.enOfficer.toLowerCase().includes(q) ||
+            b.room.toLowerCase().includes(q) ||
+            b.enRoom.toLowerCase().includes(q) ||
+            b.staff.toLowerCase().includes(q) ||
+            b.enStaff.toLowerCase().includes(q) ||
+            b.services.toLowerCase().includes(q) ||
+            b.enServices.toLowerCase().includes(q) ||
+            b.designation.toLowerCase().includes(q) ||
+            b.enDesignation.toLowerCase().includes(q) ||
+            b.phone.includes(q) ||
+            (b.mobile && b.mobile.includes(q))
+        );
+    }
+
+    if (countEl) {
+        countEl.innerText = isEn ? `${branches.length} Branches Displayed` : `${branches.length}টি শাখা প্রদর্শিত হচ্ছে`;
+    }
+
+    if (branches.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7" class="py-8 text-center text-slate-400 font-medium">
+                    ${isEn ? "No branch or officer matching your search." : "আপনার অনুসন্ধানের সাথে মিল রেখে কোনো শাখা বা কর্মকর্তা পাওয়া যায়নি।"}
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    tableBody.innerHTML = branches.map((b, index) => {
+        const room = isEn ? b.enRoom : b.room;
+        const branchName = isEn ? b.enBranch : b.branch;
+        const category = isEn ? b.enCategory : b.category;
+        const officer = isEn ? b.enOfficer : b.officer;
+        const designation = isEn ? b.enDesignation : b.designation;
+        const staff = isEn ? b.enStaff : b.staff;
+        const services = isEn ? b.enServices : b.services;
+        const btnView = isEn ? "Full Profile" : "শাখার বিবরণ";
+
+        return `
+            <tr onclick="openAdminModal('${b.id}')" class="hover:bg-emerald-50/70 dark:hover:bg-slate-800/80 transition cursor-pointer group border-b border-slate-100 dark:border-slate-800/60">
+                <td class="py-3.5 px-3.5 text-center font-mono text-xs text-slate-400 border-r border-slate-100 dark:border-slate-800">${index + 1}</td>
+                
+                <td class="py-3.5 px-3.5 font-mono text-xs border-r border-slate-100 dark:border-slate-800 whitespace-nowrap">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-200 dark:border-emerald-800 text-[11px] shadow-sm">
+                        <i data-lucide="door-open" class="w-3 h-3 text-emerald-600 shrink-0"></i>
+                        <span>${room}</span>
+                    </span>
+                </td>
+
+                <td class="py-3.5 px-3.5 border-r border-slate-100 dark:border-slate-800 max-w-xs">
+                    <strong class="text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition font-semibold text-xs sm:text-sm block">
+                        ${branchName}
+                    </strong>
+                    <span class="text-[10px] text-slate-400 block mt-0.5">${category}</span>
+                </td>
+
+                <td class="py-3.5 px-3.5 border-r border-slate-100 dark:border-slate-800 max-w-xs">
+                    <span class="font-bold text-xs text-slate-800 dark:text-slate-200 block">${officer}</span>
+                    <span class="text-[11px] text-emerald-700 dark:text-emerald-400 block mt-0.5">${designation}</span>
+                </td>
+
+                <td class="py-3.5 px-3.5 border-r border-slate-100 dark:border-slate-800 whitespace-nowrap">
+                    <div class="flex flex-col gap-1 text-xs">
+                        <a href="tel:${b.phone}" onclick="event.stopPropagation()" class="font-mono text-slate-700 dark:text-slate-300 hover:text-emerald-600 flex items-center gap-1 transition">
+                            <i data-lucide="phone" class="w-3 h-3 text-emerald-600"></i> ${b.phone}
+                        </a>
+                        ${b.mobile ? `
+                            <a href="tel:${b.mobile}" onclick="event.stopPropagation()" class="font-mono text-slate-500 dark:text-slate-400 hover:text-emerald-600 flex items-center gap-1 transition text-[11px]">
+                                <i data-lucide="smartphone" class="w-3 h-3 text-teal-500"></i> ${b.mobile}
+                            </a>
+                        ` : ''}
+                    </div>
+                </td>
+
+                <td class="py-3.5 px-3.5 border-r border-slate-100 dark:border-slate-800 max-w-sm">
+                    <p class="text-xs text-slate-600 dark:text-slate-300 line-clamp-1 mb-1">
+                        <strong class="text-[10px] text-slate-400 uppercase tracking-wider">${isEn ? "Staff:" : "কর্মচারী:"}</strong> ${staff}
+                    </p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
+                        <strong class="text-[10px] text-slate-400 uppercase tracking-wider">${isEn ? "Services:" : "সেবা:"}</strong> ${services}
+                    </p>
+                </td>
+
+                <td class="py-3.5 px-3.5 text-center">
+                    <button onclick="event.stopPropagation(); openAdminModal('${b.id}')" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs transition shadow-sm flex items-center justify-center gap-1 mx-auto whitespace-nowrap">
+                        <span>${btnView}</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+
+    lucide.createIcons();
+}
+
+function filterAdminCategory(category) {
+    document.querySelectorAll(".admin-tab-btn").forEach(btn => {
+        btn.classList.remove("bg-emerald-600", "text-white");
+        btn.classList.add("bg-white", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
+    });
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.remove("bg-white", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
+        window.event.currentTarget.classList.add("bg-emerald-600", "text-white");
+    }
+    const searchVal = document.getElementById("admin-search-input")?.value || '';
+    renderAdministration(category, searchVal);
+}
+
+document.getElementById("admin-search-input")?.addEventListener("input", (e) => {
+    renderAdministration(currentAdminCategory, e.target.value);
+});
+
+function exportOrPrintAdminDirectory() {
+    window.print();
+}
+
+function openAdminModal(branchId) {
+    const branches = TANGAIL_DATA.districtAdministration?.branches;
+    if (!branches) return;
+    const b = branches.find(item => item.id === branchId);
+    if (!b) return;
+
+    const isEn = (currentLang === "en");
+    const modalContent = document.getElementById("modal-content");
+    if (!modalContent) return;
+
+    modalContent.innerHTML = `
+        <div class="mb-5">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-bold text-xs border border-emerald-300 dark:border-emerald-800 font-mono">
+                    ${isEn ? b.enRoom : b.room}
+                </span>
+                <span class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md font-medium">
+                    ${isEn ? b.enCategory : b.category}
+                </span>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">
+                ${isEn ? b.enBranch : b.branch}
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                ${isEn ? "District Administration Tangail • Office of the Deputy Commissioner" : "জেলা প্রশাসকের কার্যালয়, টাঙ্গাইল • জেলা প্রশাসন বাতায়ন"}
+            </p>
+        </div>
+
+        <!-- Designated Officer Card -->
+        <div class="p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800 mb-4">
+            <div class="flex items-start justify-between gap-2 mb-2">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 block mb-0.5">
+                        ${isEn ? "Designated Official in Charge" : "শাখার দায়িত্বপ্রাপ্ত কর্মকর্তা"}
+                    </span>
+                    <h3 class="font-bold text-base text-slate-900 dark:text-white">${isEn ? b.enOfficer : b.officer}</h3>
+                    <p class="text-xs text-emerald-800 dark:text-emerald-300 font-medium">${isEn ? b.enDesignation : b.designation}</p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-md">
+                    <i data-lucide="user-check" class="w-5 h-5"></i>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 pt-3 border-t border-emerald-200/60 dark:border-emerald-800/60 text-xs">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-600"></i>
+                    <span class="text-slate-500 dark:text-slate-400">${isEn ? "Phone:" : "ফোন:"}</span>
+                    <a href="tel:${b.phone}" class="font-mono font-bold text-slate-800 dark:text-white hover:text-emerald-600">${b.phone}</a>
+                </div>
+                ${b.mobile ? `
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="smartphone" class="w-3.5 h-3.5 text-teal-600"></i>
+                        <span class="text-slate-500 dark:text-slate-400">${isEn ? "Mobile:" : "মোবাইল:"}</span>
+                        <a href="tel:${b.mobile}" class="font-mono font-bold text-slate-800 dark:text-white hover:text-teal-600">${b.mobile}</a>
+                    </div>
+                ` : ''}
+                <div class="flex items-center gap-2 sm:col-span-2">
+                    <i data-lucide="mail" class="w-3.5 h-3.5 text-blue-600"></i>
+                    <span class="text-slate-500 dark:text-slate-400">${isEn ? "Official Email:" : "ইমেইল:"}</span>
+                    <a href="mailto:${b.email}" class="font-mono text-emerald-600 hover:underline">${b.email}</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Staff and Employees -->
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 mb-4 text-xs">
+            <h4 class="font-bold text-slate-900 dark:text-white text-xs mb-1.5 flex items-center gap-1.5">
+                <i data-lucide="users" class="w-4 h-4 text-teal-500"></i>
+                <span>${isEn ? "Branch Employees & Staff Positions:" : "শাখার কর্মচারীবৃন্দ ও পদবিসমূহ:"}</span>
+            </h4>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                ${isEn ? b.enStaff : b.staff}
+            </p>
+        </div>
+
+        <!-- Services -->
+        <div class="p-4 rounded-2xl bg-amber-50/50 dark:bg-amber-950/30 border border-amber-200/70 dark:border-amber-900/50 mb-6 text-xs">
+            <h4 class="font-bold text-amber-900 dark:text-amber-200 text-xs mb-1.5 flex items-center gap-1.5">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-amber-600"></i>
+                <span>${isEn ? "Citizen Services & Responsibilities:" : "প্রদত্ত নাগরিক সেবাসমূহ ও কাজের পরিধি:"}</span>
+            </h4>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                ${isEn ? b.enServices : b.services}
+            </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-2.5">
+            <a href="tel:${b.mobile || b.phone}" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
+                <i data-lucide="phone-call" class="w-4 h-4"></i> ${isEn ? "Call Officer Directly" : "কর্মকর্তাকে কল করুন"}
+            </a>
+            <a href="mailto:${b.email}" class="w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
+                <i data-lucide="mail" class="w-4 h-4"></i> ${isEn ? "Send Email" : "ইমেইল পাঠান"}
+            </a>
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
+                ${isEn ? "Close" : "বন্ধ করুন"}
+            </button>
+        </div>
+    `;
+
+    document.getElementById("detail-modal")?.classList.remove("hidden");
     document.getElementById("chat-widget-btn")?.classList.add("hidden");
     lucide.createIcons();
 }

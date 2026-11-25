@@ -89,6 +89,7 @@
                     <a href="#heritage" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_heritage">ঐতিহ্য ও জিআই</a>
                     <a href="#sweets" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_sweets">মিষ্টান্ন ও চমচম</a>
                     <a href="#upazila" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_upazila">উপজেলা</a>
+                    <a href="#administration" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_admin">জেলা প্রশাসন</a>
                     <a href="#tourist" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_tourist">দর্শনীয় স্থান</a>
                     <a href="#emergency" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_emergency">জরুরি সেবা</a>
                     <a href="#education" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_education">শিক্ষা</a>
@@ -128,6 +129,7 @@
             <a href="#heritage" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_heritage">🍬 ঐতিহ্য ও জিআই পণ্য</a>
             <a href="#sweets" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_sweets">🍯 মিষ্টান্ন ও চমচমের দোকান</a>
             <a href="#upazila" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_upazila">🗺️ ১২টি উপজেলা</a>
+            <a href="#administration" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_admin">🏛️ জেলা প্রশাসন (ডিসি অফিস)</a>
             <a href="#tourist" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_tourist">🕌 দর্শনীয় স্থান</a>
             <a href="#emergency" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_emergency">☎️ জরুরি সেবা ডিরেক্টরি</a>
             <a href="#education" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_education">🎓 শিক্ষা প্রতিষ্ঠান</a>
@@ -396,6 +398,109 @@
         </div>
     </section>
 
+    <!-- SECTION: DISTRICT ADMINISTRATION (DC OFFICE) - INTERACTIVE EXCEL DIRECTORY -->
+    <section id="administration" class="py-16 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-xs font-semibold mb-2">
+                        <i data-lucide="building-2" class="w-4 h-4 text-emerald-600"></i>
+                        <span data-i18n="sec_admin_tag">প্রশাসনিক বাতায়ন ও নাগরিক সেবা</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white" data-i18n="sec_admin_title">জেলা প্রশাসন টাঙ্গাইল • জেলা প্রশাসকের কার্যালয় (DC Office)</h2>
+                </div>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 md:mt-0 max-w-md" data-i18n="sec_admin_desc">
+                    সকল প্রশাসনিক শাখা, দায়িত্বপ্রাপ্ত কর্মকর্তা, কর্মচারীবৃন্দ, কক্ষ নম্বর ও নাগরিক সেবার সম্পূর্ণ এক্সেল স্প্রেডশীট ডিরেক্টরি।
+                </p>
+            </div>
+
+            <!-- EXCEL SPREADSHEET VIEWER CONTAINER -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden">
+                <!-- EXCEL TOP RIBBON / TOOLBAR -->
+                <div class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 px-4 sm:px-6 py-3.5 text-white flex flex-wrap items-center justify-between gap-3 border-b border-emerald-900/40">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-950/60 border border-emerald-400/30 flex items-center justify-center font-bold text-sm shadow-inner text-emerald-300 font-mono">
+                            📊
+                        </div>
+                        <div>
+                            <div class="font-bold text-sm sm:text-base flex items-center gap-2">
+                                <span class="font-mono">Tangail_DC_Office_Directory.xlsx</span>
+                                <span class="text-[10px] bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 px-2 py-0.5 rounded-full font-sans font-medium" data-i18n="admin_sheet_badge">ভেরিফাইড সরকারি ডিরেক্টরি</span>
+                            </div>
+                            <p class="text-[11px] text-emerald-200/80" data-i18n="admin_sheet_sub">১৮টি সক্রিয় শাখা • কক্ষ নম্বর • কর্মকর্তা ও কর্মচারী তালিকা</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="exportOrPrintAdminDirectory()" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-medium flex items-center gap-1.5 transition backdrop-blur border border-white/10" data-i18n="admin_print_btn">
+                            <i data-lucide="printer" class="w-3.5 h-3.5"></i> <span>প্রিন্ট / ভিউ</span>
+                        </button>
+                        <a href="https://tangail.gov.bd" target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-bold text-xs flex items-center gap-1 transition shadow-sm" data-i18n="admin_portal_btn">
+                            <span>অফিসিয়াল পোর্টাল</span> <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- EXCEL SEARCH & FILTER BAR -->
+                <div class="p-4 bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+                    <!-- Search inside Excel -->
+                    <div class="relative flex-1 max-w-md">
+                        <i data-lucide="search" class="w-4 h-4 text-emerald-600 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                        <input 
+                            type="text" 
+                            id="admin-search-input" 
+                            placeholder="শাখা, কর্মকর্তা, কর্মচারী পদবি বা কক্ষ নম্বর লিখে খুঁজুন..." 
+                            data-i18n-placeholder="admin_search_placeholder"
+                            class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500"
+                        >
+                    </div>
+
+                    <!-- Excel Category Tabs -->
+                    <div class="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none py-1" id="admin-category-tabs">
+                        <button onclick="filterAdminCategory('all')" class="admin-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white shadow-sm transition" data-i18n="admin_tab_all">সবগুলো শাখা (All)</button>
+                        <button onclick="filterAdminCategory('শীর্ষ নেতৃত্ব (Leadership)')" class="admin-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition border border-slate-200 dark:border-slate-700" data-i18n="admin_tab_lead">শীর্ষ নেতৃত্ব</button>
+                        <button onclick="filterAdminCategory('রাজস্ব ও এল.এ (Revenue & LA)')" class="admin-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition border border-slate-200 dark:border-slate-700" data-i18n="admin_tab_revenue">রাজস্ব ও এল.এ</button>
+                        <button onclick="filterAdminCategory('প্রশাসন ও সেবা (General & Admin)')" class="admin-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition border border-slate-200 dark:border-slate-700" data-i18n="admin_tab_general">সাধারণ ও সেবা</button>
+                        <button onclick="filterAdminCategory('শিক্ষা ও আইসিটি (Education & ICT)')" class="admin-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition border border-slate-200 dark:border-slate-700" data-i18n="admin_tab_ict">শিক্ষা ও ই-সেবা</button>
+                        <button onclick="filterAdminCategory('স্থানীয় সরকার (Local Gov)')" class="admin-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition border border-slate-200 dark:border-slate-700" data-i18n="admin_tab_localgov">স্থানীয় সরকার</button>
+                    </div>
+                </div>
+
+                <!-- EXCEL SPREADSHEET TABLE GRID -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold border-b border-slate-200 dark:border-slate-700">
+                                <th class="py-3 px-3.5 w-12 text-center border-r border-slate-200 dark:border-slate-700/60 font-mono text-slate-400">#</th>
+                                <th class="py-3 px-3.5 w-32 border-r border-slate-200 dark:border-slate-700/60" data-i18n="th_room">কক্ষ নম্বর</th>
+                                <th class="py-3 px-3.5 border-r border-slate-200 dark:border-slate-700/60" data-i18n="th_branch">শাখা / বিভাগ</th>
+                                <th class="py-3 px-3.5 border-r border-slate-200 dark:border-slate-700/60" data-i18n="th_officer">দায়িত্বপ্রাপ্ত কর্মকর্তা ও পদবি</th>
+                                <th class="py-3 px-3.5 border-r border-slate-200 dark:border-slate-700/60" data-i18n="th_contact">যোগাযোগ নম্বর</th>
+                                <th class="py-3 px-3.5 border-r border-slate-200 dark:border-slate-700/60" data-i18n="th_staff">কর্মচারীবৃন্দ ও সেবাসমূহ</th>
+                                <th class="py-3 px-3.5 text-center w-28" data-i18n="th_action">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body" class="divide-y divide-slate-100 dark:divide-slate-800">
+                            <!-- Populated dynamically from data.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- EXCEL FOOTER STATUS BAR -->
+                <div class="px-4 py-2.5 bg-slate-100 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+                    <div class="flex items-center gap-3">
+                        <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> <span id="admin-row-count">১৮টি শাখা লোড হয়েছে</span></span>
+                        <span>•</span>
+                        <span data-i18n="admin_table_hint">💡 যেকোনো শাখায় ক্লিক করে পূর্ণাঙ্গ কর্মচারী ও সেবার তালিকা দেখুন</span>
+                    </div>
+                    <div>
+                        <span>কোর্ট রোড, টাঙ্গাইল • জেলা প্রশাসন বাতায়ন</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- SECTION: EDUCATION & PROMINENT FIGURES -->
     <section id="education" class="py-16 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -544,7 +649,7 @@
                         ঐতিহ্যবাহী টাঙ্গাইল জেলার সকল তথ্য, উপজেলা পরিচিতি, ঐতিহ্য, দর্শনীয় স্থান ও নাগরিক সেবা সবার কাছে সহজে পৌঁছে দেওয়ার লক্ষ্যে একটি উন্মুক্ত তথ্য বাতায়ন।
                     </p>
                     <div class="text-xs text-slate-400">
-                        Developed with ❤️ by <a href="https://binoy2003.github.io/master_folio/" target="_blank" rel="noopener noreferrer" class="font-bold text-slate-100 hover:text-emerald-400 no-underline transition-colors cursor-pointer inline-block" style="text-decoration: none;">Binoy</a> (TangailBot Project)
+                        Developed by <a href="https://binoy2003.github.io/master_folio/" target="_blank" rel="noopener noreferrer" class="font-bold text-slate-100 hover:text-emerald-400 no-underline transition-colors cursor-pointer inline-block" style="text-decoration: none;"><b>BINOY</b></a>
                     </div>
                 </div>
 
