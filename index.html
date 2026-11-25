@@ -54,7 +54,7 @@
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
                 <span class="bg-amber-400 text-emerald-950 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">ঐতিহ্য</span>
-                <span>স্বাগতম টাঙ্গাইল বটে — নদী, তাঁতের শাড়ি ও পোড়াবাড়ির চমচমের ঐতিহাসিক জনপদ!</span>
+                <span>নদী, চর, খাল, বিল, গজারির বন — টাঙ্গাইলের শাড়ি, তার গরবের ধন।</span>
             </div>
             <div class="hidden md:flex items-center gap-4 text-xs">
                 <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-300"></i> ঢাকা বিভাগ, বাংলাদেশ</span>
@@ -207,14 +207,20 @@
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-950 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
-                        <i data-lucide="users" class="w-6 h-6"></i>
+                <div onclick="openDemographicsModal()" class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-teal-500/70 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer transition-all flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-950 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                            <i data-lucide="users" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                                <span>৪০ লক্ষ+</span>
+                                <span class="text-[10px] font-bold bg-teal-100 dark:bg-teal-900/80 text-teal-800 dark:text-teal-300 px-2 py-0.5 rounded-full animate-pulse">ক্লিক করুন 📊</span>
+                            </div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">জনসংখ্যা (শুমারি ২০২২)</div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="text-2xl font-bold text-slate-900 dark:text-white">৪০ লক্ষ+</div>
-                        <div class="text-xs text-slate-500 dark:text-slate-400">জনসংখ্যা (শুমারি ২০২২)</div>
-                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-teal-500 group-hover:translate-x-1 transition-all"></i>
                 </div>
 
                 <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
@@ -232,8 +238,8 @@
                         <i data-lucide="award" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <div class="text-2xl font-bold text-slate-900 dark:text-white">জিআই পণ্য</div>
-                        <div class="text-xs text-slate-500 dark:text-slate-400">টাঙ্গাইল তাঁতের শাড়ি</div>
+                        <div class="text-2xl font-bold text-slate-900 dark:text-white">৪টি পণ্য</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">স্বীকৃত জিআই (GI) সনদপ্রাপ্ত</div>
                     </div>
                 </div>
             </div>
@@ -246,10 +252,10 @@
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
                 <div>
                     <span class="text-emerald-600 dark:text-emerald-400 font-semibold text-sm uppercase tracking-wider">গৌরব ও স্বকীয়তা</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1">টাঙ্গাইলের বিখ্যাত ঐতিহ্য ও জিআই পণ্য</h2>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1">টাঙ্গাইলের ৪টি স্বীকৃত জিআই (GI) পণ্য</h2>
                 </div>
                 <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 md:mt-0 max-w-md">
-                    বিশ্বমঞ্চে বাংলাদেশের পরিচয় বহনকারী টাঙ্গাইলের অমূল্য সম্পদ ও শতাব্দী প্রাচীন ঐতিহ্য।
+                    টাঙ্গাইল শাড়ি, পোড়াবাড়ির চমচম, মধুপুরের আনারস ও জামুর্কির সন্দেশ — বাংলাদেশ সরকার ও বিশ্বমঞ্চে স্বীকৃত ৪টি অনন্য জিআই পণ্য।
                 </p>
             </div>
 

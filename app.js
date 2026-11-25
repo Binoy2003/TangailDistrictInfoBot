@@ -553,6 +553,16 @@ function executeSearch(query) {
         });
     }
 
+    // Search Demographics / Census
+    if (query.includes("জনসংখ্যা") || query.includes("শুমারি") || query.includes("আদমশুমারি") || query.includes("ছেলে") || query.includes("মেয়ে") || query.includes("মেয়ে") || query.includes("হিন্দু") || query.includes("মুসলিম") || query.includes("শিক্ষার হার") || query.includes("জনমিতি") || query.includes("census")) {
+        results.push({
+            type: "জনশুমারি ২০২২",
+            title: "টাঙ্গাইল জেলা সম্পূর্ণ জনমিতি ও পরিসংখ্যান (BBS)",
+            subtitle: "৪০,৩৭,০১৬ জন • ছেলে ৪৮.৪০% • মেয়ে ৫১.৫৯% • মুসলিম ৮৮.২২% • হিন্দু ১০.৭৫%",
+            action: () => openDemographicsModal()
+        });
+    }
+
     return results;
 }
 
@@ -805,6 +815,156 @@ function openChatModal() {
 // ==========================================
 // 5. MODAL SYSTEM
 // ==========================================
+
+// DEMOGRAPHICS MODAL (CENSUS 2022)
+function openDemographicsModal() {
+    const d = TANGAIL_DATA.demographics;
+    if (!d) return;
+
+    const modalContent = document.getElementById("modal-content");
+    modalContent.innerHTML = `
+        <div class="mb-5">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 dark:bg-teal-950/80 text-teal-800 dark:text-teal-300 text-xs font-bold uppercase tracking-wider mb-2">
+                <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>
+                <span>${d.source} • ${d.censusYear}</span>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">${d.title}</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                মোট জনসংখ্যা: <strong class="text-teal-600 dark:text-teal-400 font-bold">${d.totalPopulation} জন</strong> • পরিবার: ${d.householdCount} • ঘনত্ব: ${d.density}
+            </p>
+        </div>
+
+        <!-- 1. ছেলে বনাম মেয়ে অনুপাত -->
+        <div class="mb-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <i data-lucide="users" class="w-4 h-4 text-teal-500"></i> লিঙ্গভিত্তিক জনসংখ্যা বন্টন
+                </span>
+                <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">${d.sexRatio}</span>
+            </div>
+
+            <!-- Proportional Dual Bar -->
+            <div class="h-4 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden flex mb-3 shadow-inner">
+                <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-full transition-all duration-1000" style="width: ${d.male.percentNum}%" title="ছেলে / পুরুষ ${d.male.percentage}"></div>
+                <div class="bg-gradient-to-r from-rose-500 to-pink-500 h-full transition-all duration-1000" style="width: ${d.female.percentNum}%" title="মেয়ে / নারী ${d.female.percentage}"></div>
+            </div>
+
+            <!-- 3 Stat Blocks -->
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                <div class="p-2.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/70 dark:border-blue-900/60">
+                    <span class="text-[11px] text-blue-700 dark:text-blue-300 font-semibold block">👨 ছেলে / পুরুষ</span>
+                    <span class="text-base font-extrabold text-blue-900 dark:text-blue-200 block mt-0.5">${d.male.percentage}</span>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">${d.male.count}</span>
+                </div>
+
+                <div class="p-2.5 rounded-xl bg-pink-50/80 dark:bg-pink-950/40 border border-pink-200/70 dark:border-pink-900/60">
+                    <span class="text-[11px] text-pink-700 dark:text-pink-300 font-semibold block">👩 মেয়ে / নারী</span>
+                    <span class="text-base font-extrabold text-pink-900 dark:text-pink-200 block mt-0.5">${d.female.percentage}</span>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">${d.female.count}</span>
+                </div>
+
+                <div class="p-2.5 rounded-xl bg-purple-50/80 dark:bg-purple-950/40 border border-purple-200/70 dark:border-purple-900/60">
+                    <span class="text-[11px] text-purple-700 dark:text-purple-300 font-semibold block">⚧️ তৃতীয় লিঙ্গ</span>
+                    <span class="text-base font-extrabold text-purple-900 dark:text-purple-200 block mt-0.5">${d.transgender.percentage}</span>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">${d.transgender.count}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. শিক্ষার হার (LITERACY) -->
+        <div class="mb-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-500"></i> শিক্ষার হার (৭ বছর ও তদূর্ধ্ব)
+                </span>
+                <span class="text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-full">
+                    সার্বিক: ${d.literacyRate.total}
+                </span>
+            </div>
+
+            <div class="space-y-2.5 text-xs">
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-slate-600 dark:text-slate-300 font-medium">👨 পুরুষ শিক্ষার হার</span>
+                        <span class="font-bold text-slate-800 dark:text-white font-mono">${d.literacyRate.male}</span>
+                    </div>
+                    <div class="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div class="bg-emerald-600 h-full rounded-full transition-all duration-1000" style="width: ${d.literacyRate.maleNum}%"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-slate-600 dark:text-slate-300 font-medium">👩 নারী শিক্ষার হার</span>
+                        <span class="font-bold text-slate-800 dark:text-white font-mono">${d.literacyRate.female}</span>
+                    </div>
+                    <div class="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div class="bg-teal-500 h-full rounded-full transition-all duration-1000" style="width: ${d.literacyRate.femaleNum}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. ধর্মভিত্তিক অনুপাত (RELIGION) -->
+        <div class="mb-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800">
+            <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 mb-3">
+                <i data-lucide="landmark" class="w-4 h-4 text-amber-500"></i> ধর্মভিত্তিক জনসংখ্যা বন্টন
+            </span>
+
+            <!-- Stacked Color Bar -->
+            <div class="h-3.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden flex mb-3 shadow-inner">
+                ${d.religion.map(r => `
+                    <div class="bg-gradient-to-r ${r.barColor} h-full" style="width: ${r.percentNum}%" title="${r.name} ${r.percentage}"></div>
+                `).join('')}
+            </div>
+
+            <!-- Religion Breakdown Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                ${d.religion.map(r => `
+                    <div class="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-1.5 mb-1">
+                                <span class="w-2.5 h-2.5 rounded-full ${r.color}"></span>
+                                <span class="font-semibold text-slate-800 dark:text-slate-200 text-xs">${r.name}</span>
+                            </div>
+                            <span class="text-base font-extrabold ${r.textCol} block">${r.percentage}</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono mt-1 block">${r.count}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <!-- 4. অন্যান্য গুরুত্বপূর্ণ জনমিতি সূচক -->
+        <div class="grid grid-cols-2 gap-2.5 mb-6 text-xs">
+            <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200/80 dark:border-slate-800">
+                <span class="text-slate-400 block text-[10px]">পল্লি বনাম শহর অনুপাত:</span>
+                <span class="font-bold text-slate-800 dark:text-white mt-0.5 block">${d.areaType.rural}</span>
+                <span class="text-[10px] text-slate-500">${d.areaType.urban}</span>
+            </div>
+            <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200/80 dark:border-slate-800">
+                <span class="text-slate-400 block text-[10px]">বার্ষিক জনসংখ্যা বৃদ্ধির হার:</span>
+                <span class="font-bold text-emerald-600 dark:text-emerald-400 mt-0.5 block">${d.annualGrowthRate}</span>
+                <span class="text-[10px] text-slate-500">মোট ভোটার অনুপাত প্রায় ৬০%</span>
+            </div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="flex flex-col sm:flex-row gap-2.5">
+            <button onclick="sendPresetPrompt('টাঙ্গাইল জেলার জনসংখ্যা ও জনমিতি সম্পর্কে আরও বিস্তারিত বলো'); closeDetailModal(); scrollToBot();" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
+                <i data-lucide="bot" class="w-4 h-4"></i> বটকে জনসংখ্যা নিয়ে প্রশ্ন করুন
+            </button>
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
+                বন্ধ করুন
+            </button>
+        </div>
+    `;
+
+    document.getElementById("detail-modal").classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
+    lucide.createIcons();
+}
+
 function openUpazilaModal(id) {
     const u = TANGAIL_DATA.upazilas.find(item => item.id === id);
     if (!u) return;

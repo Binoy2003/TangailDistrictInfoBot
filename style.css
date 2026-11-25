@@ -123,6 +123,37 @@ button, a, input, select {
     box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
 }
 
+/* Card hover lift effect */
+.card-hover {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+.card-hover:hover {
+    transform: translateY(-3px);
+}
+
+/* Modal animation */
+#detail-modal > div {
+    animation: modalScaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes modalScaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Progress bar animation */
+@keyframes barFill {
+    from { width: 0; }
+}
+.animate-bar {
+    animation: barFill 1s ease-out forwards;
+}
+
 /* Floating Chat Button Safe Positioning (iOS / Android Home Indicator aware) */
 #chat-widget-btn {
     bottom: max(1.25rem, env(safe-area-inset-bottom, 1.25rem));
