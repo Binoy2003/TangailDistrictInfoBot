@@ -87,6 +87,24 @@ button, a, input, select {
     background: rgba(15, 23, 42, 0.90);
 }
 
+/* Glass Stat Card with 3D Hover & Glow */
+.glass-stat-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .glass-stat-card {
+    background: rgba(15, 23, 42, 0.75);
+}
+.glass-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -8px rgba(5, 150, 105, 0.15), 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+}
+.dark .glass-stat-card:hover {
+    box-shadow: 0 16px 32px -8px rgba(5, 150, 105, 0.25), 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+}
+
 /* Animations */
 @keyframes pulseSubtle {
     0%, 100% { opacity: 1; transform: scale(1); }

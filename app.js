@@ -1,7 +1,118 @@
 // TangailBot Main Application Logic
 
+let currentLang = localStorage.getItem("tangailbot_lang") || "bn";
+
+// Comprehensive Bilingual Dictionary
+const TRANSLATIONS = {
+    bn: {
+        top_badge: "ঐতিহ্য",
+        top_slogan: "নদী, চর, খাল, বিল, গজারির বন — টাঙ্গাইলের শাড়ি, তার গরবের ধন।",
+        top_location: "ঢাকা বিভাগ, বাংলাদেশ",
+        top_emergency: "জরুরি ৯৯৯",
+        logo_sub: "ঐতিহ্য ও তথ্যের পোর্টাল",
+        nav_home: "হোম",
+        nav_heritage: "ঐতিহ্য ও জিআই",
+        nav_sweets: "মিষ্টান্ন ও চমচম",
+        nav_temples: "মন্দিরসমূহ",
+        nav_upazila: "উপজেলা",
+        nav_tourist: "দর্শনীয় স্থান",
+        nav_emergency: "জরুরি সেবা",
+        nav_education: "শিক্ষা",
+        nav_jobs: "জব পোর্টাল",
+        nav_bot_btn: "বট অ্যাসিস্ট্যান্ট",
+        mobile_nav_home: "🏠 হোম",
+        mobile_nav_heritage: "🍬 ঐতিহ্য ও জিআই পণ্য",
+        mobile_nav_sweets: "🍯 মিষ্টান্ন ও চমচমের দোকান",
+        mobile_nav_temples: "🛕 মন্দির নির্দেশিকা",
+        mobile_nav_upazila: "🗺️ ১২টি উপজেলা",
+        mobile_nav_tourist: "🕌 দর্শনীয় স্থান",
+        mobile_nav_emergency: "☎️ জরুরি সেবা ডিরেক্টরি",
+        mobile_nav_education: "🎓 শিক্ষা প্রতিষ্ঠান",
+        mobile_nav_jobs: "💼 জব ও নোটিশ",
+        mobile_nav_emergency_call: "জরুরি সেবা কল (৯৯৯)",
+        hero_pill: "টাঙ্গাইল জেলা ইনফরমেশন হাব ও ইন্টারেক্টিভ বট",
+        hero_title: 'ঐতিহ্যের টাঙ্গাইল জেলার সকল তথ্য<br>এখন <span class="gradient-text-green">টাঙ্গাইল বটে</span> এক ক্লিকে!',
+        hero_subtitle: "পোড়াবাড়ির সুস্বাদু চমচম, বিশ্বখ্যাত তাঁতের শাড়ি, ১২টি উপজেলা, প্রত্নতাত্ত্বিক দর্শনীয় স্থান, সরকারি দপ্তর এবং ২৪ ঘণ্টা জরুরি হটলাইনের পূর্ণাঙ্গ ডিজিটাল বাতায়ন।",
+        search_placeholder: "যেকোনো তথ্য খুঁজুন (যেমন: চমচম, মহেরা জমিদার বাড়ি, অ্যাম্বুলেন্স, সদর উপজেলা)...",
+        search_popular_label: "জনপ্রিয় অনুসন্ধান:",
+        chip_chomchom: "🍬 পোড়াবাড়ির চমচম",
+        chip_joykali: "🏪 জয়কালী মিষ্টান্ন",
+        chip_tube_doi: "🥛 ইনটু টিউব দই",
+        chip_kali_bari: "🛕 বড় কালী বাড়ি",
+        chip_mohera: "🏛️ মহেরা জমিদার বাড়ি",
+        chip_mosque_201: "🕌 ২০১ গম্বুজ মসজিদ",
+        chip_saree: "🥻 তাঁতের শাড়ি",
+        chip_ambulance: "🚑 অ্যাম্বুলেন্স",
+        stat_upazilas_num: "১২টি",
+        stat_upazilas_label: "ঐতিহাসিক উপজেলা",
+        stat_upazilas_sub: "সব উপজেলার তালিকা ও তথ্য",
+        stat_pop_num: "৪০ লক্ষ+",
+        stat_pop_label: "জনসংখ্যা (শুমারি ২০২২)",
+        stat_pop_sub: "ধর্ম, নারী-পুরুষ ও শিক্ষা তথ্য",
+        stat_area_num: "৩,৪১৪",
+        stat_area_label: "বর্গ কিমি আয়তন",
+        stat_area_sub: "টাঙ্গাইলের সম্পূর্ণ মানচিত্র",
+        stat_gi_num: "৪টি পণ্য",
+        stat_gi_label: "স্বীকৃত জিআই সনদপ্রাপ্ত",
+        stat_gi_sub: "৪টি পণ্যের বিশেষ পরিচয়"
+    },
+    en: {
+        top_badge: "Heritage",
+        top_slogan: "Rivers, chars, canals, wetlands, and sal forests — Tangail's saree, its proudest treasure.",
+        top_location: "Dhaka Division, Bangladesh",
+        top_emergency: "Emergency 999",
+        logo_sub: "Heritage & Information Portal",
+        nav_home: "Home",
+        nav_heritage: "Heritage & GI",
+        nav_sweets: "Sweets & Chomchom",
+        nav_temples: "Temples",
+        nav_upazila: "Upazilas",
+        nav_tourist: "Tourist Spots",
+        nav_emergency: "Emergency",
+        nav_education: "Education",
+        nav_jobs: "Job Portal",
+        nav_bot_btn: "AI Assistant",
+        mobile_nav_home: "🏠 Home",
+        mobile_nav_heritage: "🍬 Heritage & GI Products",
+        mobile_nav_sweets: "🍯 Sweets & Chomchom Shops",
+        mobile_nav_temples: "🛕 Temples Guide",
+        mobile_nav_upazila: "🗺️ 12 Upazilas",
+        mobile_nav_tourist: "🕌 Tourist Attractions",
+        mobile_nav_emergency: "☎️ Emergency Directory",
+        mobile_nav_education: "🎓 Educational Institutions",
+        mobile_nav_jobs: "💼 Jobs & Notices",
+        mobile_nav_emergency_call: "Emergency Call (999)",
+        hero_pill: "Tangail District Information Hub & Interactive AI Bot",
+        hero_title: 'All Information of Tangail District<br>Now in <span class="gradient-text-green">TangailBot</span> in One Click!',
+        hero_subtitle: "The complete digital guide to Porabari's famous Chomchom, world-renowned handloom sarees, 12 upazilas, archeological sites, government offices, and 24/7 emergency hotlines.",
+        search_placeholder: "Search anything (e.g., Chomchom, Mohera Palace, Ambulance, Sadar Upazila)...",
+        search_popular_label: "Popular Searches:",
+        chip_chomchom: "🍬 Porabari Chomchom",
+        chip_joykali: "🏪 Joykali Sweets",
+        chip_tube_doi: "🥛 Intu Tube Yogurt",
+        chip_kali_bari: "🛕 Boro Kali Bari",
+        chip_mohera: "🏛️ Mohera Jomidar Bari",
+        chip_mosque_201: "🕌 201 Dome Mosque",
+        chip_saree: "🥻 Handloom Saree",
+        chip_ambulance: "🚑 Ambulance Hotline",
+        stat_upazilas_num: "12",
+        stat_upazilas_label: "Historic Upazilas",
+        stat_upazilas_sub: "Full list & profiles",
+        stat_pop_num: "4.0M+",
+        stat_pop_label: "Population (Census 2022)",
+        stat_pop_sub: "Gender, Religion & Literacy",
+        stat_area_num: "3,414",
+        stat_area_label: "Square Kilometers",
+        stat_area_sub: "Full Tangail district map",
+        stat_gi_num: "4 Items",
+        stat_gi_label: "Recognized GI Products",
+        stat_gi_sub: "Official GI certificates"
+    }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     initTheme();
+    initLanguage();
     renderAllSections();
     setupSearch();
     setupChatBot();
@@ -10,7 +121,53 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================
-// 1. THEME TOGGLE (DARK / LIGHT MODE)
+// 1. LANGUAGE SWITCHER (BILINGUAL BN / EN)
+// ==========================================
+function initLanguage() {
+    applyLanguage(currentLang);
+}
+
+function toggleLanguage() {
+    currentLang = (currentLang === "bn") ? "en" : "bn";
+    localStorage.setItem("tangailbot_lang", currentLang);
+    applyLanguage(currentLang);
+    showToast(currentLang === "bn" ? "ভাষা পরিবর্তন: বাংলা" : "Language switched to English");
+}
+
+function applyLanguage(lang) {
+    const btnText = document.getElementById("lang-btn-text");
+    if (btnText) {
+        btnText.innerText = (lang === "bn") ? "EN" : "বাং";
+    }
+
+    const langToggleBtn = document.getElementById("lang-toggle-btn");
+    if (langToggleBtn) {
+        langToggleBtn.setAttribute("title", lang === "bn" ? "Switch to English" : "বাংলা ভাষায় দেখুন");
+    }
+
+    // Apply translations to all data-i18n elements
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
+            el.innerHTML = TRANSLATIONS[lang][key];
+        }
+    });
+
+    // Apply translations to placeholders
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
+            el.placeholder = TRANSLATIONS[lang][key];
+        }
+    });
+
+    // Re-render all dynamic data cards
+    renderAllSections();
+    lucide.createIcons();
+}
+
+// ==========================================
+// 2. THEME TOGGLE (DARK / LIGHT MODE)
 // ==========================================
 function initTheme() {
     const themeToggleBtn = document.getElementById("theme-toggle");
@@ -20,23 +177,23 @@ function initTheme() {
     const savedTheme = localStorage.getItem("tangailbot_theme") || "light";
     if (savedTheme === "dark") {
         document.documentElement.classList.add("dark");
-        moonIcon.classList.remove("hidden");
-        sunIcon.classList.add("hidden");
+        moonIcon?.classList.remove("hidden");
+        sunIcon?.classList.add("hidden");
     } else {
         document.documentElement.classList.remove("dark");
-        moonIcon.classList.add("hidden");
-        sunIcon.classList.remove("hidden");
+        moonIcon?.classList.add("hidden");
+        sunIcon?.classList.remove("hidden");
     }
 
-    themeToggleBtn.addEventListener("click", () => {
+    themeToggleBtn?.addEventListener("click", () => {
         const isDark = document.documentElement.classList.toggle("dark");
         localStorage.setItem("tangailbot_theme", isDark ? "dark" : "light");
         if (isDark) {
-            moonIcon.classList.remove("hidden");
-            sunIcon.classList.add("hidden");
+            moonIcon?.classList.remove("hidden");
+            sunIcon?.classList.add("hidden");
         } else {
-            moonIcon.classList.add("hidden");
-            sunIcon.classList.remove("hidden");
+            moonIcon?.classList.add("hidden");
+            sunIcon?.classList.remove("hidden");
         }
     });
 }
@@ -48,8 +205,8 @@ function renderAllSections() {
     renderHeritage();
     renderSweets();
     renderUpazilas();
-    renderTouristSpots('all');
-    renderTemples('all');
+    renderTouristSpots(currentTouristCategory || 'all');
+    renderTemples(currentTempleUpazila || 'all');
     renderEmergency();
     renderEducation();
     renderPersonalities();
@@ -254,13 +411,19 @@ function renderTouristSpots(category = 'all') {
     lucide.createIcons();
 }
 
+let currentTouristCategory = 'all';
+let currentTempleUpazila = 'all';
+
 function filterTouristSpots(category) {
+    currentTouristCategory = category;
     document.querySelectorAll(".tourist-filter-btn").forEach(btn => {
         btn.classList.remove("bg-emerald-600", "text-white");
         btn.classList.add("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
     });
-    event.currentTarget.classList.remove("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
-    event.currentTarget.classList.add("bg-emerald-600", "text-white");
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.remove("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
+        window.event.currentTarget.classList.add("bg-emerald-600", "text-white");
+    }
     renderTouristSpots(category);
 }
 
@@ -331,12 +494,15 @@ function renderTemples(upazilaFilter = 'all') {
 }
 
 function filterTemples(upazila) {
+    currentTempleUpazila = upazila;
     document.querySelectorAll(".temple-filter-btn").forEach(btn => {
         btn.classList.remove("bg-emerald-600", "text-white");
         btn.classList.add("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
     });
-    event.currentTarget.classList.remove("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
-    event.currentTarget.classList.add("bg-emerald-600", "text-white");
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.remove("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
+        window.event.currentTarget.classList.add("bg-emerald-600", "text-white");
+    }
     renderTemples(upazila);
 }
 
@@ -554,12 +720,42 @@ function executeSearch(query) {
     }
 
     // Search Demographics / Census
-    if (query.includes("জনসংখ্যা") || query.includes("শুমারি") || query.includes("আদমশুমারি") || query.includes("ছেলে") || query.includes("মেয়ে") || query.includes("মেয়ে") || query.includes("হিন্দু") || query.includes("মুসলিম") || query.includes("শিক্ষার হার") || query.includes("জনমিতি") || query.includes("census")) {
+    if (query.includes("জনসংখ্যা") || query.includes("শুমারি") || query.includes("আদমশুমারি") || query.includes("ছেলে") || query.includes("মেয়ে") || query.includes("হিন্দু") || query.includes("মুসলিম") || query.includes("শিক্ষার হার") || query.includes("জনমিতি") || query.includes("census") || query.includes("population")) {
         results.push({
-            type: "জনশুমারি ২০২২",
-            title: "টাঙ্গাইল জেলা সম্পূর্ণ জনমিতি ও পরিসংখ্যান (BBS)",
-            subtitle: "৪০,৩৭,০১৬ জন • ছেলে ৪৮.৪০% • মেয়ে ৫১.৫৯% • মুসলিম ৮৮.২২% • হিন্দু ১০.৭৫%",
+            type: currentLang === 'en' ? "Census 2022" : "জনশুমারি ২০২২",
+            title: currentLang === 'en' ? "Tangail District Census & Demographics (BBS)" : "টাঙ্গাইল জেলা সম্পূর্ণ জনমিতি ও পরিসংখ্যান (BBS)",
+            subtitle: currentLang === 'en' ? "4,037,016 People • Male 48.40% • Female 51.59% • Muslim 88.22% • Hindu 10.75%" : "৪০,৩৭,০১৬ জন • ছেলে ৪৮.৪০% • মেয়ে ৫১.৫৯% • মুসলিম ৮৮.২২% • হিন্দু ১০.৭৫%",
             action: () => openDemographicsModal()
+        });
+    }
+
+    // Search Map & Boundaries
+    if (query.includes("ম্যাপ") || query.includes("মানচিত্র") || query.includes("map") || query.includes("সীমানা") || query.includes("boundary") || query.includes("আয়তন") || query.includes("নদী") || query.includes("river")) {
+        results.push({
+            type: currentLang === 'en' ? "District Map" : "মানচিত্র ও সীমানা",
+            title: currentLang === 'en' ? "Full Geographic Map & Boundaries of Tangail" : "টাঙ্গাইল জেলার সম্পূর্ণ মানচিত্র ও ভৌগোলিক চতুর্সীমা",
+            subtitle: currentLang === 'en' ? "Interactive Google Maps • 3,414.35 sq km • Jamuna River" : "ইন্টারেক্টিভ গুগল ম্যাপ • ৩,৪১৪.৩৫ বর্গ কিমি • যমুনা নদী ও নদী বিধৌত জনপদ",
+            action: () => openTangailMapModal()
+        });
+    }
+
+    // Search 12 Upazilas Overview
+    if (query.includes("উপজেলা") || query.includes("upazila") || query.includes("১২টি") || query.includes("12")) {
+        results.push({
+            type: currentLang === 'en' ? "12 Upazilas" : "উপজেলা তালিকা",
+            title: currentLang === 'en' ? "Directory of All 12 Upazilas in Tangail" : "টাঙ্গাইল জেলার ১২টি উপজেলার পূর্ণাঙ্গ পরিচিতি",
+            subtitle: currentLang === 'en' ? "Sadar, Mirzapur, Madhupur, Ghatail, Kalihati, Gopalpur..." : "সদর, মির্জাপুর, মধুপুর, ঘাটাইল, কালিহাতী, গোপালপুর, ধনবাড়ী...",
+            action: () => openUpazilasOverviewModal()
+        });
+    }
+
+    // Search 4 GI Products Overview
+    if (query.includes("জিআই") || query.includes("gi") || query.includes("স্বীকৃত") || query.includes("ভৌগোলিক") || query.includes("heritage")) {
+        results.push({
+            type: currentLang === 'en' ? "GI Heritage" : "স্বীকৃত জিআই পণ্য",
+            title: currentLang === 'en' ? "Tangail's 4 Recognized GI Certified Products" : "টাঙ্গাইল জেলার ৪টি স্বীকৃত ভৌগোলিক নির্দেশক (GI) পণ্য",
+            subtitle: currentLang === 'en' ? "Tangail Saree, Porabari Chomchom, Madhupur Pineapple, Jamurki Sondesh" : "টাঙ্গাইল শাড়ি, পোড়াবাড়ির চমচম, মধুপুরের আনারস, জামুর্কির সন্দেশ",
+            action: () => openGIProductsOverviewModal()
         });
     }
 
@@ -813,24 +1009,96 @@ function openChatModal() {
 }
 
 // ==========================================
-// 5. MODAL SYSTEM
+// 5. MODAL SYSTEM (STAT OVERVIEW & DETAILS)
 // ==========================================
 
-// DEMOGRAPHICS MODAL (CENSUS 2022)
+// 1. UPAZILAS OVERVIEW MODAL (CARD 1)
+function openUpazilasOverviewModal() {
+    const isEn = (currentLang === "en");
+    const modalContent = document.getElementById("modal-content");
+    if (!modalContent) return;
+
+    modalContent.innerHTML = `
+        <div class="mb-5">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i>
+                <span>${isEn ? "12 Upazilas Directory" : "উপজেলা পরিচিতি নির্দেশিকা"}</span>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
+                ${isEn ? "12 Administrative Upazilas of Tangail" : "টাঙ্গাইল জেলার ১২টি উপজেলা"}
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                ${isEn 
+                    ? "Total Area: 3,414.35 sq km • 11 Municipalities & 118 Unions across Tangail District" 
+                    : "মোট আয়তন: ৩,৪১৪.৩৫ বর্গ কিমি • ১১টি পৌরসভা ও ১১৮টি ইউনিয়ন নিয়ে গঠিত ঐতিহাসিক টাঙ্গাইল"}
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 max-h-[60vh] overflow-y-auto pr-1">
+            ${TANGAIL_DATA.upazilas.map((u, i) => `
+                <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 hover:border-emerald-500/60 hover:shadow-md transition flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-start justify-between gap-2 mb-1.5">
+                            <div>
+                                <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 font-mono">#${i + 1}</span>
+                                <h3 class="font-bold text-base text-slate-900 dark:text-white leading-tight">${isEn ? u.enName : u.name}</h3>
+                                <span class="text-[11px] text-slate-400">${isEn ? u.name : u.enName}</span>
+                            </div>
+                            <span class="text-[10px] font-semibold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 shrink-0">
+                                ${u.area}
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3 line-clamp-2">
+                            ${u.highlights}
+                        </p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between">
+                        <span class="text-[10px] text-slate-400">${u.unions}</span>
+                        <button onclick="openUpazilaModal('${u.id}')" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs flex items-center gap-1 transition shadow-sm">
+                            <span>${isEn ? "View Profile" : "বিস্তারিত দেখুন"}</span>
+                            <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="flex flex-col sm:flex-row gap-2.5 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <button onclick="sendPresetPrompt('${isEn ? "Tell me about the 12 upazilas of Tangail" : "টাঙ্গাইল জেলার ১২টি উপজেলার নাম ও পরিচিতি বলো"}'); closeDetailModal(); scrollToBot();" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
+                <i data-lucide="bot" class="w-4 h-4"></i> ${isEn ? "Ask AI Assistant About Upazilas" : "বটকে উপজেলা নিয়ে প্রশ্ন করুন"}
+            </button>
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
+                ${isEn ? "Close" : "বন্ধ করুন"}
+            </button>
+        </div>
+    `;
+
+    document.getElementById("detail-modal").classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
+    lucide.createIcons();
+}
+
+// 2. DEMOGRAPHICS MODAL (CARD 2 - CENSUS 2022)
 function openDemographicsModal() {
     const d = TANGAIL_DATA.demographics;
     if (!d) return;
+    const isEn = (currentLang === "en");
 
     const modalContent = document.getElementById("modal-content");
     modalContent.innerHTML = `
         <div class="mb-5">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 dark:bg-teal-950/80 text-teal-800 dark:text-teal-300 text-xs font-bold uppercase tracking-wider mb-2">
                 <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>
-                <span>${d.source} • ${d.censusYear}</span>
+                <span>${isEn ? "BBS Population & Housing Census 2022" : (d.source + " • " + d.censusYear)}</span>
             </div>
-            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">${d.title}</h2>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
+                ${isEn ? "Tangail District Census 2022 & Demographics" : d.title}
+            </h2>
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                মোট জনসংখ্যা: <strong class="text-teal-600 dark:text-teal-400 font-bold">${d.totalPopulation} জন</strong> • পরিবার: ${d.householdCount} • ঘনত্ব: ${d.density}
+                ${isEn 
+                    ? `Total Population: <strong class="text-teal-600 dark:text-teal-400 font-bold">4,037,016</strong> • Households: 982,510 • Density: 1,182 / sq km` 
+                    : `মোট জনসংখ্যা: <strong class="text-teal-600 dark:text-teal-400 font-bold">${d.totalPopulation} জন</strong> • পরিবার: ${d.householdCount} • ঘনত্ব: ${d.density}`}
             </p>
         </div>
 
@@ -838,9 +1106,9 @@ function openDemographicsModal() {
         <div class="mb-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800">
             <div class="flex items-center justify-between mb-2">
                 <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                    <i data-lucide="users" class="w-4 h-4 text-teal-500"></i> লিঙ্গভিত্তিক জনসংখ্যা বন্টন
+                    <i data-lucide="users" class="w-4 h-4 text-teal-500"></i> ${isEn ? "Gender Distribution" : "লিঙ্গভিত্তিক জনসংখ্যা বন্টন"}
                 </span>
-                <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">${d.sexRatio}</span>
+                <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">${isEn ? "Sex Ratio: 93.8 males per 100 females" : d.sexRatio}</span>
             </div>
 
             <!-- Proportional Dual Bar -->
@@ -852,21 +1120,21 @@ function openDemographicsModal() {
             <!-- 3 Stat Blocks -->
             <div class="grid grid-cols-3 gap-2 text-center text-xs">
                 <div class="p-2.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/70 dark:border-blue-900/60">
-                    <span class="text-[11px] text-blue-700 dark:text-blue-300 font-semibold block">👨 ছেলে / পুরুষ</span>
+                    <span class="text-[11px] text-blue-700 dark:text-blue-300 font-semibold block">${isEn ? "👨 Boys / Men" : "👨 ছেলে / পুরুষ"}</span>
                     <span class="text-base font-extrabold text-blue-900 dark:text-blue-200 block mt-0.5">${d.male.percentage}</span>
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">${d.male.count}</span>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">${isEn ? "1,953,800" : d.male.count}</span>
                 </div>
 
                 <div class="p-2.5 rounded-xl bg-pink-50/80 dark:bg-pink-950/40 border border-pink-200/70 dark:border-pink-900/60">
-                    <span class="text-[11px] text-pink-700 dark:text-pink-300 font-semibold block">👩 মেয়ে / নারী</span>
+                    <span class="text-[11px] text-pink-700 dark:text-pink-300 font-semibold block">${isEn ? "👩 Girls / Women" : "👩 মেয়ে / নারী"}</span>
                     <span class="text-base font-extrabold text-pink-900 dark:text-pink-200 block mt-0.5">${d.female.percentage}</span>
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">${d.female.count}</span>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">${isEn ? "2,083,016" : d.female.count}</span>
                 </div>
 
                 <div class="p-2.5 rounded-xl bg-purple-50/80 dark:bg-purple-950/40 border border-purple-200/70 dark:border-purple-900/60">
-                    <span class="text-[11px] text-purple-700 dark:text-purple-300 font-semibold block">⚧️ তৃতীয় লিঙ্গ</span>
+                    <span class="text-[11px] text-purple-700 dark:text-purple-300 font-semibold block">${isEn ? "⚧️ Third Gender" : "⚧️ তৃতীয় লিঙ্গ"}</span>
                     <span class="text-base font-extrabold text-purple-900 dark:text-purple-200 block mt-0.5">${d.transgender.percentage}</span>
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">${d.transgender.count}</span>
+                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">${isEn ? "200" : d.transgender.count}</span>
                 </div>
             </div>
         </div>
@@ -875,17 +1143,17 @@ function openDemographicsModal() {
         <div class="mb-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800">
             <div class="flex items-center justify-between mb-3">
                 <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                    <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-500"></i> শিক্ষার হার (৭ বছর ও তদূর্ধ্ব)
+                    <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-500"></i> ${isEn ? "Literacy Rate (7 Years & Above)" : "শিক্ষার হার (৭ বছর ও তদূর্ধ্ব)"}
                 </span>
                 <span class="text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-full">
-                    সার্বিক: ${d.literacyRate.total}
+                    ${isEn ? "Overall: " + d.literacyRate.total : "সার্বিক: " + d.literacyRate.total}
                 </span>
             </div>
 
             <div class="space-y-2.5 text-xs">
                 <div>
                     <div class="flex justify-between mb-1">
-                        <span class="text-slate-600 dark:text-slate-300 font-medium">👨 পুরুষ শিক্ষার হার</span>
+                        <span class="text-slate-600 dark:text-slate-300 font-medium">${isEn ? "👨 Male Literacy Rate" : "👨 পুরুষ শিক্ষার হার"}</span>
                         <span class="font-bold text-slate-800 dark:text-white font-mono">${d.literacyRate.male}</span>
                     </div>
                     <div class="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
@@ -895,7 +1163,7 @@ function openDemographicsModal() {
 
                 <div>
                     <div class="flex justify-between mb-1">
-                        <span class="text-slate-600 dark:text-slate-300 font-medium">👩 নারী শিক্ষার হার</span>
+                        <span class="text-slate-600 dark:text-slate-300 font-medium">${isEn ? "👩 Female Literacy Rate" : "👩 নারী শিক্ষার হার"}</span>
                         <span class="font-bold text-slate-800 dark:text-white font-mono">${d.literacyRate.female}</span>
                     </div>
                     <div class="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
@@ -908,7 +1176,7 @@ function openDemographicsModal() {
         <!-- 3. ধর্মভিত্তিক অনুপাত (RELIGION) -->
         <div class="mb-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800">
             <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 mb-3">
-                <i data-lucide="landmark" class="w-4 h-4 text-amber-500"></i> ধর্মভিত্তিক জনসংখ্যা বন্টন
+                <i data-lucide="landmark" class="w-4 h-4 text-amber-500"></i> ${isEn ? "Religious Demographic Distribution" : "ধর্মভিত্তিক জনসংখ্যা বন্টন"}
             </span>
 
             <!-- Stacked Color Bar -->
@@ -925,7 +1193,9 @@ function openDemographicsModal() {
                         <div>
                             <div class="flex items-center gap-1.5 mb-1">
                                 <span class="w-2.5 h-2.5 rounded-full ${r.color}"></span>
-                                <span class="font-semibold text-slate-800 dark:text-slate-200 text-xs">${r.name}</span>
+                                <span class="font-semibold text-slate-800 dark:text-slate-200 text-xs">
+                                    ${isEn ? (r.name.includes("মুসলিম") ? "Muslim" : r.name.includes("হিন্দু") ? "Hindu" : r.name.includes("খ্রিস্টান") ? "Christian (Garo)" : "Buddhist / Other") : r.name}
+                                </span>
                             </div>
                             <span class="text-base font-extrabold ${r.textCol} block">${r.percentage}</span>
                         </div>
@@ -938,24 +1208,191 @@ function openDemographicsModal() {
         <!-- 4. অন্যান্য গুরুত্বপূর্ণ জনমিতি সূচক -->
         <div class="grid grid-cols-2 gap-2.5 mb-6 text-xs">
             <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200/80 dark:border-slate-800">
-                <span class="text-slate-400 block text-[10px]">পল্লি বনাম শহর অনুপাত:</span>
-                <span class="font-bold text-slate-800 dark:text-white mt-0.5 block">${d.areaType.rural}</span>
-                <span class="text-[10px] text-slate-500">${d.areaType.urban}</span>
+                <span class="text-slate-400 block text-[10px]">${isEn ? "Rural vs Urban Ratio:" : "পল্লি বনাম শহর অনুপাত:"}</span>
+                <span class="font-bold text-slate-800 dark:text-white mt-0.5 block">${isEn ? "76.50% Rural" : d.areaType.rural}</span>
+                <span class="text-[10px] text-slate-500">${isEn ? "23.50% Urban" : d.areaType.urban}</span>
             </div>
             <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200/80 dark:border-slate-800">
-                <span class="text-slate-400 block text-[10px]">বার্ষিক জনসংখ্যা বৃদ্ধির হার:</span>
+                <span class="text-slate-400 block text-[10px]">${isEn ? "Annual Growth Rate:" : "বার্ষিক জনসংখ্যা বৃদ্ধির হার:"}</span>
                 <span class="font-bold text-emerald-600 dark:text-emerald-400 mt-0.5 block">${d.annualGrowthRate}</span>
-                <span class="text-[10px] text-slate-500">মোট ভোটার অনুপাত প্রায় ৬০%</span>
+                <span class="text-[10px] text-slate-500">${isEn ? "Voter Ratio: ~60%" : "মোট ভোটার অনুপাত প্রায় ৬০%"}</span>
             </div>
         </div>
 
         <!-- ACTION BUTTONS -->
         <div class="flex flex-col sm:flex-row gap-2.5">
-            <button onclick="sendPresetPrompt('টাঙ্গাইল জেলার জনসংখ্যা ও জনমিতি সম্পর্কে আরও বিস্তারিত বলো'); closeDetailModal(); scrollToBot();" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
-                <i data-lucide="bot" class="w-4 h-4"></i> বটকে জনসংখ্যা নিয়ে প্রশ্ন করুন
+            <button onclick="sendPresetPrompt('${isEn ? "Tell me more about Tangail population and census 2022" : "টাঙ্গাইল জেলার জনসংখ্যা ও জনমিতি সম্পর্কে আরও বিস্তারিত বলো"}'); closeDetailModal(); scrollToBot();" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
+                <i data-lucide="bot" class="w-4 h-4"></i> ${isEn ? "Ask AI Bot About Demographics" : "বটকে জনসংখ্যা নিয়ে প্রশ্ন করুন"}
             </button>
             <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
-                বন্ধ করুন
+                ${isEn ? "Close" : "বন্ধ করুন"}
+            </button>
+        </div>
+    `;
+
+    document.getElementById("detail-modal").classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
+    lucide.createIcons();
+}
+
+// 3. FULL MAP MODAL (CARD 3)
+function openTangailMapModal() {
+    const isEn = (currentLang === "en");
+    const modalContent = document.getElementById("modal-content");
+    if (!modalContent) return;
+
+    modalContent.innerHTML = `
+        <div class="mb-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                <span>${isEn ? "Geographical Map & Profile" : "ভৌগোলিক মানচিত্র ও অবস্থান"}</span>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
+                ${isEn ? "Full Map & Boundaries of Tangail District" : "টাঙ্গাইল জেলার সম্পূর্ণ মানচিত্র ও ভৌগোলিক পরিচিতি"}
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                ${isEn 
+                    ? "Total Area: 3,414.35 sq km • Located at 24°15' N and 89°58' E in Dhaka Division" 
+                    : "মোট আয়তন: ৩,৪১৪.৩৫ বর্গ কিলোমিটার • অবস্থান: ২৪°১৫′ উত্তর অক্ষাংশ ও ৮৯°৫৮′ পূর্ব দ্রাঘিমাংশ"}
+            </p>
+        </div>
+
+        <!-- GOOGLE MAPS EMBED -->
+        <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-md mb-5 bg-slate-100 dark:bg-slate-800">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d464878.1755139414!2d89.7046467385623!3d24.385317282699276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fdfb4b3b18c7e9%3A0x6b10d7a1264c4897!2sTangail%20District!5e0!3m2!1sen!2sbd!4v1710000000000" 
+                class="w-full h-72 sm:h-80 border-0" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+
+        <!-- 4 BOUNDARIES / BORDERS CARDS -->
+        <div class="mb-4">
+            <h3 class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                <i data-lucide="compass" class="w-4 h-4 text-amber-500"></i>
+                <span>${isEn ? "District Boundaries (Four Directions)" : "চতুর্সীমা (চারদিকের সীমানা)"}</span>
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-800">
+                    <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 block mb-0.5">⬆️ ${isEn ? "North" : "উত্তরে"}</span>
+                    <strong class="text-slate-900 dark:text-white text-xs">${isEn ? "Jamalpur District" : "জামালপুর জেলা"}</strong>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-800">
+                    <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 block mb-0.5">⬇️ ${isEn ? "South" : "দক্ষিণে"}</span>
+                    <strong class="text-slate-900 dark:text-white text-xs">${isEn ? "Dhaka & Manikganj" : "ঢাকা ও মানিকগঞ্জ"}</strong>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-800">
+                    <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 block mb-0.5">➡️ ${isEn ? "East" : "পূর্বে"}</span>
+                    <strong class="text-slate-900 dark:text-white text-xs">${isEn ? "Mymensingh & Gazipur" : "ময়মনসিংহ ও গাজীপুর"}</strong>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-800">
+                    <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 block mb-0.5">⬅️ ${isEn ? "West" : "পশ্চিমে"}</span>
+                    <strong class="text-slate-900 dark:text-white text-xs">${isEn ? "Jamuna River & Sirajganj" : "যমুনা নদী ও সিরাজগঞ্জ"}</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIVERS & FORESTS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-6 text-xs">
+            <div class="p-3 rounded-xl bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200/70 dark:border-blue-900/50">
+                <span class="font-bold text-blue-900 dark:text-blue-300 flex items-center gap-1.5 mb-1">
+                    <i data-lucide="waves" class="w-3.5 h-3.5 text-blue-500"></i> ${isEn ? "Major River Network" : "প্রধান নদীসমূহ"}
+                </span>
+                <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
+                    ${isEn ? "Jamuna, Dhaleshwari, Louhajang, Bangshi, Jhinai, Fatikjani, and Elengjani rivers." : "যমুনা, ধলেশ্বরী, লৌহজং, বংশী, ঝিনাই, ফটিকজানি ও এলেংজানি নদী।"}
+                </p>
+            </div>
+            <div class="p-3 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200/70 dark:border-emerald-900/50">
+                <span class="font-bold text-emerald-900 dark:text-emerald-300 flex items-center gap-1.5 mb-1">
+                    <i data-lucide="trees" class="w-3.5 h-3.5 text-emerald-500"></i> ${isEn ? "Sal Forests & National Park" : "শালবন ও পাহাড়ি বনাঞ্চল"}
+                </span>
+                <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
+                    ${isEn ? "Madhupur & Sakhipur Red Soil Tract, Madhupur National Park & Dokhla Forest (~275 sq km)." : "মধুপুর ও সখীপুরের লাল মাটির ঐতিহ্যবাহী গজারির বন ও মধুপুর জাতীয় উদ্যান (~২৭৫ বর্গ কিমি)।"}
+                </p>
+            </div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="flex flex-col sm:flex-row gap-2.5">
+            <a href="https://www.google.com/maps/place/Tangail+District/@24.3853173,89.7046467,10z/" target="_blank" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
+                <i data-lucide="external-link" class="w-4 h-4"></i> ${isEn ? "Open in Full Google Maps" : "গুগল ম্যাপে বড় করে দেখুন"}
+            </a>
+            <button onclick="sendPresetPrompt('${isEn ? "Tell me about the geography and boundaries of Tangail" : "টাঙ্গাইল জেলার ভৌগোলিক অবস্থান ও নদীসমূহ সম্পর্কে বলো"}'); closeDetailModal(); scrollToBot();" class="w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-800 dark:text-slate-200 font-bold text-xs rounded-xl transition flex items-center justify-center gap-1.5 min-h-[44px]">
+                <i data-lucide="bot" class="w-4 h-4"></i> ${isEn ? "Ask AI Bot" : "বটকে প্রশ্ন করুন"}
+            </button>
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
+                ${isEn ? "Close" : "বন্ধ করুন"}
+            </button>
+        </div>
+    `;
+
+    document.getElementById("detail-modal").classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
+    lucide.createIcons();
+}
+
+// 4. GI PRODUCTS OVERVIEW MODAL (CARD 4)
+function openGIProductsOverviewModal() {
+    const isEn = (currentLang === "en");
+    const modalContent = document.getElementById("modal-content");
+    if (!modalContent) return;
+
+    modalContent.innerHTML = `
+        <div class="mb-5">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 text-xs font-bold uppercase tracking-wider mb-2">
+                <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                <span>${isEn ? "Recognized GI Heritage" : "স্বীকৃত ভৌগোলিক নির্দেশক পণ্য"}</span>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
+                ${isEn ? "Tangail's 4 Recognized GI Products" : "টাঙ্গাইল জেলার ৪টি স্বীকৃত জিআই (GI) পণ্য"}
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                ${isEn 
+                    ? "Highest among all districts in Bangladesh: 4 internationally certified Geographical Indication products" 
+                    : "বাংলাদেশের যেকোনো জেলার মধ্যে সর্বোচ্চ ৪টি অফিশিয়াল জিআই সনদপ্রাপ্ত ঐতিহ্যের অহংকার"}
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 max-h-[60vh] overflow-y-auto pr-1">
+            ${TANGAIL_DATA.giAndHeritages.map((item, i) => `
+                <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 hover:border-purple-500/60 hover:shadow-md transition flex flex-col justify-between group">
+                    <div>
+                        <div class="relative h-32 rounded-xl overflow-hidden mb-3 bg-slate-200 dark:bg-slate-700">
+                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                            <span class="absolute top-2 left-2 px-2 py-0.5 text-[10px] font-bold rounded-md border backdrop-blur-md ${item.badgeColor}">
+                                ${item.tag}
+                            </span>
+                        </div>
+                        <div class="flex items-start justify-between gap-1 mb-1">
+                            <h3 class="font-bold text-base text-slate-900 dark:text-white">${item.title}</h3>
+                            <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/70 px-2 py-0.5 rounded-full shrink-0">
+                                GI #${i === 0 ? "54" : i === 1 ? "42" : i === 2 ? "41" : "64"}
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3 line-clamp-2">
+                            ${item.shortDesc}
+                        </p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between">
+                        <span class="text-[10px] text-slate-400 line-clamp-1 max-w-[50%]">${item.bestPlaces[0]}</span>
+                        <button onclick="openHeritageModal('${item.id}')" class="px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium text-xs flex items-center gap-1 transition shadow-sm">
+                            <span>${isEn ? "View Story & Info" : "ইতিহাস ও বিস্তারিত"}</span>
+                            <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="flex flex-col sm:flex-row gap-2.5 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <button onclick="sendPresetPrompt('${isEn ? "Tell me about Tangail's 4 GI certified products" : "টাঙ্গাইল জেলার ৪টি জিআই পণ্য সম্পর্কে বিস্তারিত বলো"}'); closeDetailModal(); scrollToBot();" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
+                <i data-lucide="bot" class="w-4 h-4"></i> ${isEn ? "Ask AI Bot About GI Products" : "বটকে জিআই পণ্য নিয়ে প্রশ্ন করুন"}
+            </button>
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
+                ${isEn ? "Close" : "বন্ধ করুন"}
             </button>
         </div>
     `;
