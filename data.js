@@ -153,7 +153,7 @@ const TANGAIL_DATA = {
             enFullDesc: "Originated during the British colonial period by the skilled Modak sweetmakers of Jamurki Bazar in Delduar. Crafted from fresh cow milk chhana and cane sugar without any artificial flavoring, its melt-in-mouth texture makes it one of Tangail's four official GI icons.",
             bestPlaces: ["দেলদুয়ারের জামুর্কি বাজার", "জামুর্কি প্রাচীন মিষ্টি পট্টি", "টাঙ্গাইল শহর"],
             enBestPlaces: ["Jamurki Bazar, Delduar", "Ancient Sweet Hub", "Tangail Town"],
-            image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80"
+            image: "images/jamurki_sondesh.jpg"
         }
     ],
 
@@ -1207,13 +1207,11 @@ const TANGAIL_DATA = {
             enPriceRange: "450 - 650 BDT / kg",
             bestPlaces: "জামুর্কি বাজার মোদক মিষ্টি পট্টি, দেলদুয়ার",
             enBestPlaces: "Jamurki Bazar Modak Patti, Delduar",
-            image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80",
+            image: "images/jamurki_sondesh.jpg",
             mapQuery: "Jamurki Bazar, Delduar, Tangail"
         }
     ]
 };
-
-// Bot knowledge patterns for intelligent conversation (100% Bilingual BN & EN)
 
 // Bot knowledge patterns for intelligent conversation (100% Bilingual BN & EN)
 const BOT_RESPONSES = [
