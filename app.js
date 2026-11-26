@@ -605,7 +605,7 @@ function renderTouristSpots(category = 'all') {
         spots = spots.filter(s => s.category.includes(category) || (s.enCategory && s.enCategory.toLowerCase().includes(category.toLowerCase())));
     }
 
-    container.innerHTML = spots.map(s => {
+    container.innerHTML = spots.map((s, idx) => {
         const name = isEn ? (s.enName || s.name) : s.name;
         const cat = isEn ? (s.enCategory || s.category) : s.category;
         const location = isEn ? (s.enLocation || s.location) : s.location;
@@ -616,17 +616,26 @@ function renderTouristSpots(category = 'all') {
         const labelTime = isEn ? "Timings:" : "সময়সূচি:";
         const btnText = isEn ? "How to Go & Info" : "কীভাবে যাবেন ও তথ্য";
         const mapTitle = isEn ? "View on Google Maps" : "গুগল ম্যাপে দেখুন";
+        const serialBadge = String(idx + 1).padStart(2, '0');
 
         return `
-            <div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/60 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col group">
+            <div onclick="openTouristModal('${s.id}')" role="button" tabindex="0" class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/60 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col group cursor-pointer active:scale-[0.98] select-none touch-manipulation">
                 <div class="relative h-36 sm:h-40 bg-slate-200 dark:bg-slate-800 overflow-hidden">
-                    <img src="${s.image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                    <img src="${s.image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='images/mohera_palace.jpg';">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
-                    <div class="absolute bottom-2.5 left-3 right-3">
+                    
+                    <!-- Serial Badge & Category Tag -->
+                    <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between">
+                        <span class="px-2 py-0.5 rounded-md text-[10px] font-black bg-slate-900/80 text-emerald-400 border border-emerald-500/40 backdrop-blur-md shadow-xs">
+                            #${serialBadge}
+                        </span>
                         <span class="text-[9px] font-bold uppercase tracking-wider bg-emerald-600/95 text-white px-2 py-0.5 rounded shadow-xs backdrop-blur-sm">
                             ${cat}
                         </span>
-                        <h3 class="font-bold text-base text-white mt-1 leading-snug drop-shadow-sm">${name}</h3>
+                    </div>
+
+                    <div class="absolute bottom-2.5 left-3 right-3">
+                        <h3 class="font-bold text-base text-white leading-snug drop-shadow-sm">${name}</h3>
                     </div>
                 </div>
 
@@ -652,10 +661,10 @@ function renderTouristSpots(category = 'all') {
                     </div>
 
                     <div class="flex items-center gap-1.5 pt-2 border-t border-slate-100 dark:border-slate-800">
-                        <button onclick="openTouristModal('${s.id}')" class="flex-1 py-1.5 sm:py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition text-center shadow-xs flex items-center justify-center gap-1 min-h-[36px]">
+                        <button onclick="event.stopPropagation(); openTouristModal('${s.id}')" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition text-center shadow-xs flex items-center justify-center gap-1 min-h-[38px] active:scale-95 touch-manipulation">
                             <span>${btnText}</span>
                         </button>
-                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.mapQuery)}" target="_blank" class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center" title="${mapTitle}">
+                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.mapQuery)}" target="_blank" onclick="event.stopPropagation()" class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition shrink-0 min-h-[38px] min-w-[38px] flex items-center justify-center active:scale-95 touch-manipulation" title="${mapTitle}">
                             <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
                         </a>
                     </div>
@@ -1711,13 +1720,13 @@ function openTouristModal(id) {
 
     const modalContent = document.getElementById("modal-content");
     modalContent.innerHTML = `
-        <div class="relative h-56 rounded-2xl overflow-hidden mb-4 bg-slate-200">
-            <img src="${s.image}" alt="${isEn ? (s.enName || s.name) : s.name}" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+        <div class="relative h-48 sm:h-60 rounded-2xl overflow-hidden mb-4 bg-slate-200 dark:bg-slate-800 shadow-inner">
+            <img src="${s.image}" alt="${isEn ? (s.enName || s.name) : s.name}" class="w-full h-full object-cover" decoding="async" loading="lazy" onerror="this.onerror=null; this.src='images/mohera_palace.jpg';">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
             <div class="absolute bottom-3 left-4 right-4 text-white">
-                <span class="text-[10px] font-bold uppercase tracking-wider bg-emerald-600 px-2 py-0.5 rounded">${isEn ? (s.enCategory || s.category) : s.category}</span>
-                <h2 class="text-2xl font-bold mt-1">${isEn ? (s.enName || s.name) : s.name}</h2>
-                <p class="text-xs text-slate-200 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${isEn ? (s.enLocation || s.location) : s.location}</p>
+                <span class="text-[10px] font-bold uppercase tracking-wider bg-emerald-600 px-2 py-0.5 rounded shadow-sm">${isEn ? (s.enCategory || s.category) : s.category}</span>
+                <h2 class="text-xl sm:text-2xl font-bold mt-1 leading-tight">${isEn ? (s.enName || s.name) : s.name}</h2>
+                <p class="text-xs text-slate-200 flex items-center gap-1 mt-0.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-400"></i> ${isEn ? (s.enLocation || s.location) : s.location}</p>
             </div>
         </div>
 
