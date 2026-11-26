@@ -29,6 +29,11 @@ const TRANSLATIONS = {
         admin_sheet_sub: "১৮টি সক্রিয় শাখা • কক্ষ নম্বর • কর্মকর্তা ও কর্মচারী তালিকা",
         admin_print_btn: "প্রিন্ট / ভিউ",
         admin_portal_btn: "অফিসিয়াল পোর্টাল",
+        admin_banner_pill: "সরকারি বাতায়ন ও নাগরিক সেবা",
+        admin_banner_branches: "১৮টি সক্রিয় শাখা",
+        admin_banner_title: "জেলা প্রশাসকের কার্যালয়, টাঙ্গাইল (DC Office)",
+        admin_banner_sub: "কোর্ট রোড, টাঙ্গাইল সদর • সকল শাখার কক্ষ নম্বর, দায়িত্বপ্রাপ্ত কর্মকর্তা, কর্মচারীবৃন্দ ও নাগরিক সেবার পূর্ণাঙ্গ ডিজিটাল তথ্যভান্ডার",
+        admin_banner_btn: "ডিসি অফিসের সব তথ্য দেখুন",
         admin_search_placeholder: "শাখা, কর্মকর্তা, কর্মচারী পদবি বা কক্ষ নম্বর লিখে খুঁজুন...",
         admin_tab_all: "সবগুলো শাখা (All)",
         admin_tab_lead: "শীর্ষ নেতৃত্ব",
@@ -171,6 +176,11 @@ const TRANSLATIONS = {
         admin_sheet_sub: "18 Active Branches • Room Numbers • Officers & Staff",
         admin_print_btn: "Print / View",
         admin_portal_btn: "Official Portal",
+        admin_banner_pill: "Government Portal & Civic Services",
+        admin_banner_branches: "18 Active Branches",
+        admin_banner_title: "Office of the Deputy Commissioner, Tangail (DC Office)",
+        admin_banner_sub: "Court Road, Tangail Sadar • Comprehensive directory of all branch rooms, officers, staff roster & citizen services",
+        admin_banner_btn: "View All DC Office Info",
         admin_search_placeholder: "Search by branch, officer, staff designation or room number...",
         admin_tab_all: "All Branches (All)",
         admin_tab_lead: "Leadership",
@@ -606,6 +616,7 @@ function renderTouristSpots(category = 'all') {
     }
 
     container.innerHTML = spots.map((s, idx) => {
+        const isDC = (s.id === 'dc-office-tangail' || s.isDCOffice);
         const name = isEn ? (s.enName || s.name) : s.name;
         const cat = isEn ? (s.enCategory || s.category) : s.category;
         const location = isEn ? (s.enLocation || s.location) : s.location;
@@ -614,12 +625,16 @@ function renderTouristSpots(category = 'all') {
         const time = isEn ? (s.enTime || s.time) : s.time;
         const labelFee = isEn ? "Entry Fee:" : "প্রবেশ ফি:";
         const labelTime = isEn ? "Timings:" : "সময়সূচি:";
-        const btnText = isEn ? "How to Go & Info" : "কীভাবে যাবেন ও তথ্য";
+        const btnText = isDC 
+            ? (isEn ? "🏛️ View All DC Office Info & Branches →" : "🏛️ ডিসি অফিসের সব তথ্য ও ১৮টি শাখা দেখুন →")
+            : (isEn ? "How to Go & Info" : "কীভাবে যাবেন ও তথ্য");
         const mapTitle = isEn ? "View on Google Maps" : "গুগল ম্যাপে দেখুন";
-        const serialBadge = String(idx + 1).padStart(2, '0');
+        const serialBadge = isDC ? (isEn ? "🏛️ DC Office" : "🏛️ ডিসি অফিস") : `#${String(idx + 1).padStart(2, '0')}`;
+        const cardAction = isDC ? "openDCOfficeModal()" : `openTouristModal('${s.id}')`;
+        const btnAction = isDC ? "openDCOfficeModal()" : `openTouristModal('${s.id}')`;
 
         return `
-            <div onclick="openTouristModal('${s.id}')" role="button" tabindex="0" class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/60 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col group cursor-pointer active:scale-[0.98] select-none touch-manipulation">
+            <div onclick="${cardAction}" role="button" tabindex="0" class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border ${isDC ? 'border-emerald-500/80 dark:border-emerald-600/80 ring-1 ring-emerald-500/20' : 'border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/60'} shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col group cursor-pointer active:scale-[0.98] select-none touch-manipulation">
                 <div class="relative h-36 sm:h-40 bg-slate-200 dark:bg-slate-800 overflow-hidden">
                     <img src="${s.image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='images/mohera_palace.jpg';">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
@@ -627,7 +642,7 @@ function renderTouristSpots(category = 'all') {
                     <!-- Serial Badge & Category Tag -->
                     <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between">
                         <span class="px-2 py-0.5 rounded-md text-[10px] font-black bg-slate-900/80 text-emerald-400 border border-emerald-500/40 backdrop-blur-md shadow-xs">
-                            #${serialBadge}
+                            ${serialBadge}
                         </span>
                         <span class="text-[9px] font-bold uppercase tracking-wider bg-emerald-600/95 text-white px-2 py-0.5 rounded shadow-xs backdrop-blur-sm">
                             ${cat}
@@ -661,7 +676,7 @@ function renderTouristSpots(category = 'all') {
                     </div>
 
                     <div class="flex items-center gap-1.5 pt-2 border-t border-slate-100 dark:border-slate-800">
-                        <button onclick="event.stopPropagation(); openTouristModal('${s.id}')" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition text-center shadow-xs flex items-center justify-center gap-1 min-h-[38px] active:scale-95 touch-manipulation">
+                        <button onclick="event.stopPropagation(); ${btnAction}" class="flex-1 py-2 ${isDC ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700' : 'bg-emerald-600 hover:bg-emerald-700'} text-white text-xs font-bold rounded-xl transition text-center shadow-xs flex items-center justify-center gap-1 min-h-[38px] active:scale-95 touch-manipulation">
                             <span>${btnText}</span>
                         </button>
                         <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.mapQuery)}" target="_blank" onclick="event.stopPropagation()" class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition shrink-0 min-h-[38px] min-w-[38px] flex items-center justify-center active:scale-95 touch-manipulation" title="${mapTitle}">
@@ -1714,8 +1729,16 @@ function openUpazilaModal(id) {
 
 // TOURIST SPOT DETAIL MODAL
 function openTouristModal(id) {
+    if (id === 'dc-office-tangail') {
+        openDCOfficeModal();
+        return;
+    }
     const s = TANGAIL_DATA.touristSpots.find(item => item.id === id);
     if (!s) return;
+    if (s.isDCOffice) {
+        openDCOfficeModal();
+        return;
+    }
     const isEn = (currentLang === "en");
 
     const modalContent = document.getElementById("modal-content");
@@ -2501,9 +2524,283 @@ function openAdminModal(branchId) {
     lucide.createIcons();
 }
 
+// ==========================================
+// FULL DC OFFICE DIRECTORY MODAL ("ডিসি অফিসের ভিতরের সব তথ্য")
+// ==========================================
+window.currentDCOfficeModalCategory = 'all';
+
+window.openDCOfficeModal = function() {
+    const admin = TANGAIL_DATA.districtAdministration;
+    if (!admin) return;
+    const isEn = (currentLang === "en");
+
+    const modalBox = document.getElementById("detail-modal-box");
+    if (modalBox) {
+        modalBox.classList.remove("max-w-2xl");
+        modalBox.classList.add("max-w-4xl");
+    }
+
+    const branches = admin.branches || [];
+    const modalContent = document.getElementById("modal-content");
+    if (!modalContent) return;
+
+    modalContent.innerHTML = `
+        <div class="mb-5">
+            <!-- TOP BADGE & QUICK ACTIONS -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-xs font-bold border border-emerald-300 dark:border-emerald-800">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>${isEn ? "Verified Government Portal" : "সরকারি বাতায়ন ও নাগরিক সেবা ডিরেক্টরি"}</span>
+                    <span>•</span>
+                    <span>${isEn ? `${branches.length} Official Branches` : `${branches.length}টি সক্রিয় প্রশাসনিক শাখা`}</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <a href="${admin.website}" target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-sm">
+                        <span>${isEn ? "Official Portal" : "অফিসিয়াল বাতায়ন"}</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
+                    <button onclick="window.print()" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium flex items-center gap-1 transition">
+                        <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                        <span>${isEn ? "Print" : "প্রিন্ট"}</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- OFFICE HERO HEADER -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-950 via-teal-950 to-slate-900 text-white shadow-lg border border-emerald-500/30 mb-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-3xl shadow-inner shrink-0">
+                            🏛️
+                        </div>
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-bold leading-tight text-white">
+                                ${isEn ? admin.enTitle : admin.title}
+                            </h2>
+                            <p class="text-xs text-emerald-200/90 flex items-center gap-1.5 mt-1">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                                <span>${isEn ? admin.enAddress : admin.address}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2">
+                        <a href="tel:${admin.phone}" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-mono font-medium flex items-center gap-1.5 border border-white/20 transition">
+                            <i data-lucide="phone-call" class="w-3.5 h-3.5 text-emerald-400"></i>
+                            <span>${admin.phone}</span>
+                        </a>
+                        <a href="mailto:${admin.email}" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-mono font-medium flex items-center gap-1.5 border border-white/20 transition">
+                            <i data-lucide="mail" class="w-3.5 h-3.5 text-teal-400"></i>
+                            <span>${admin.email}</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- KEY HIGHLIGHTS ROW -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 pt-3 border-t border-white/10 text-xs text-slate-200">
+                    <div class="p-2 rounded-xl bg-white/5 border border-white/10">
+                        <span class="text-[10px] text-emerald-300 block font-semibold">${isEn ? "Head of District" : "জেলা প্রশাসন প্রধান:"}</span>
+                        <span class="font-bold text-white text-[11px] line-clamp-1">${isEn ? admin.enDcName : admin.dcName}</span>
+                    </div>
+                    <div class="p-2 rounded-xl bg-white/5 border border-white/10">
+                        <span class="text-[10px] text-teal-300 block font-semibold">${isEn ? "Main Office Room" : "প্রধান দপ্তর কক্ষ:"}</span>
+                        <span class="font-bold text-white text-[11px] font-mono">কক্ষ ২০২ (২য় তলা)</span>
+                    </div>
+                    <div class="p-2 rounded-xl bg-white/5 border border-white/10">
+                        <span class="text-[10px] text-amber-300 block font-semibold">${isEn ? "Citizen Front Desk" : "নাগরিক ফ্রন্ট ডেস্ক:"}</span>
+                        <span class="font-bold text-white text-[11px] font-mono">কক্ষ ১০১ (নিচতলা)</span>
+                    </div>
+                    <div class="p-2 rounded-xl bg-white/5 border border-white/10">
+                        <span class="text-[10px] text-purple-300 block font-semibold">${isEn ? "Office Hours" : "অফিস সময়সূচি:"}</span>
+                        <span class="font-bold text-white text-[11px]">রবি-বৃহঃ ৯:০০ - ৫:০০</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEARCH BAR & FILTER TABS -->
+        <div class="space-y-3 mb-4">
+            <div class="relative">
+                <i data-lucide="search" class="w-4 h-4 text-emerald-600 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                <input 
+                    type="text" 
+                    id="dc-modal-filter-input" 
+                    placeholder="${isEn ? "Search by branch, officer, room number, or staff..." : "শাখা, কর্মকর্তা, কর্মচারী পদবি বা কক্ষ নম্বর লিখে তাৎক্ষণিক খুঁজুন..."}" 
+                    class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 shadow-inner"
+                    oninput="filterDCOfficeModalBranches(this.value)"
+                >
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none py-1" id="dc-modal-cat-tabs">
+                <button onclick="setDCOfficeModalCategory('all', this)" class="dc-modal-cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white shadow-xs transition">${isEn ? "All Branches (18)" : "সবগুলো শাখা (১৮)"}</button>
+                <button onclick="setDCOfficeModalCategory('শীর্ষ নেতৃত্ব', this)" class="dc-modal-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">${isEn ? "Leadership" : "শীর্ষ নেতৃত্ব"}</button>
+                <button onclick="setDCOfficeModalCategory('রাজস্ব', this)" class="dc-modal-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">${isEn ? "Revenue & LA" : "রাজস্ব ও এল.এ"}</button>
+                <button onclick="setDCOfficeModalCategory('প্রশাসন', this)" class="dc-modal-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">${isEn ? "General & Admin" : "সাধারণ ও সেবা"}</button>
+                <button onclick="setDCOfficeModalCategory('শিক্ষা', this)" class="dc-modal-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">${isEn ? "Education & ICT" : "শিক্ষা ও ই-সেবা"}</button>
+                <button onclick="setDCOfficeModalCategory('স্থানীয় সরকার', this)" class="dc-modal-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">${isEn ? "Local Gov" : "স্থানীয় সরকার"}</button>
+            </div>
+        </div>
+
+        <!-- 18 BRANCH CARDS LIST CONTAINER -->
+        <div id="dc-modal-branches-grid" class="space-y-3 max-h-[50vh] sm:max-h-[54vh] overflow-y-auto pr-1">
+            <!-- Dynamically populated -->
+        </div>
+
+        <!-- FOOTER CONTROLS -->
+        <div class="mt-4 pt-3.5 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <span class="text-slate-500 dark:text-slate-400">
+                💡 ${isEn ? "Tap any phone number for direct one-tap call" : "যেকোনো ফোন নম্বরে ট্যাপ করে সরাসরি কল করতে পারেন"}
+            </span>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <button onclick="sendPresetPrompt('${isEn ? "Tell me about Tangail DC office branches, room numbers and services" : "টাঙ্গাইল জেলা প্রশাসন ও ডিসি অফিসের শাখা, কক্ষ নম্বর ও সেবাসমূহ সম্পর্কে বিস্তারিত বলো"}'); closeDetailModal(); scrollToBot();" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm">
+                    <i data-lucide="bot" class="w-4 h-4"></i>
+                    <span>${isEn ? "Ask TangailBot AI" : "বটকে প্রশ্ন করুন"}</span>
+                </button>
+                <button onclick="closeDetailModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition">
+                    ${isEn ? "Close" : "বন্ধ করুন"}
+                </button>
+            </div>
+        </div>
+    `;
+
+    window.currentDCOfficeModalCategory = 'all';
+    renderDCOfficeModalBranches('all', '');
+
+    document.getElementById("detail-modal")?.classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
+    lucide.createIcons();
+};
+
+window.renderDCOfficeModalBranches = function(category = 'all', query = '') {
+    const grid = document.getElementById("dc-modal-branches-grid");
+    if (!grid || !TANGAIL_DATA.districtAdministration) return;
+    const isEn = (currentLang === "en");
+    let branches = TANGAIL_DATA.districtAdministration.branches || [];
+
+    if (category !== 'all') {
+        branches = branches.filter(b => b.category.includes(category) || (b.enCategory && b.enCategory.toLowerCase().includes(category.toLowerCase())));
+    }
+
+    if (query.trim().length > 0) {
+        const q = query.toLowerCase().trim();
+        branches = branches.filter(b => 
+            b.branch.toLowerCase().includes(q) ||
+            b.enBranch.toLowerCase().includes(q) ||
+            b.officer.toLowerCase().includes(q) ||
+            b.enOfficer.toLowerCase().includes(q) ||
+            b.room.toLowerCase().includes(q) ||
+            b.enRoom.toLowerCase().includes(q) ||
+            b.staff.toLowerCase().includes(q) ||
+            b.enStaff.toLowerCase().includes(q) ||
+            b.services.toLowerCase().includes(q) ||
+            b.enServices.toLowerCase().includes(q) ||
+            b.designation.toLowerCase().includes(q) ||
+            b.phone.includes(q) ||
+            (b.mobile && b.mobile.includes(q))
+        );
+    }
+
+    if (branches.length === 0) {
+        grid.innerHTML = `
+            <div class="py-12 text-center text-slate-400">
+                <i data-lucide="info" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+                <p class="text-xs sm:text-sm font-medium">${isEn ? "No branch found matching your query." : "আপনার অনুসন্ধানের সাথে মিল রেখে কোনো শাখা বা কর্মকর্তা পাওয়া যায়নি।"}</p>
+            </div>
+        `;
+        lucide.createIcons();
+        return;
+    }
+
+    grid.innerHTML = branches.map((b, i) => {
+        const room = isEn ? b.enRoom : b.room;
+        const branchName = isEn ? b.enBranch : b.branch;
+        const officer = isEn ? b.enOfficer : b.officer;
+        const designation = isEn ? b.enDesignation : b.designation;
+        const staff = isEn ? b.enStaff : b.staff;
+        const services = isEn ? b.enServices : b.services;
+        const cat = isEn ? b.enCategory : b.category;
+
+        return `
+            <div class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 hover:border-emerald-500/60 transition shadow-xs flex flex-col justify-between">
+                <div>
+                    <!-- Header with Room Badge & Category -->
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-200 dark:border-emerald-800 text-[11px] font-mono shadow-2xs">
+                            <i data-lucide="door-open" class="w-3 h-3 text-emerald-600 shrink-0"></i>
+                            <span>${room}</span>
+                        </span>
+                        <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-700/60 px-2 py-0.5 rounded-md">
+                            ${cat}
+                        </span>
+                    </div>
+
+                    <!-- Branch Title -->
+                    <h4 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white leading-snug mb-1">
+                        ${branchName}
+                    </h4>
+
+                    <!-- Officer Profile -->
+                    <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 my-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-[9px] uppercase tracking-wider text-slate-400 block font-bold">${isEn ? "Designated Official:" : "দায়িত্বপ্রাপ্ত কর্মকর্তা:"}</span>
+                            <span class="font-bold text-xs sm:text-sm text-slate-800 dark:text-slate-200">${officer}</span>
+                            <span class="text-[11px] text-emerald-600 dark:text-emerald-400 block">${designation}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <a href="tel:${b.phone}" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-mono font-bold text-xs flex items-center gap-1 shadow-xs transition active:scale-95">
+                                <i data-lucide="phone" class="w-3 h-3"></i>
+                                <span>${b.phone}</span>
+                            </a>
+                            ${b.mobile ? `
+                                <a href="tel:${b.mobile}" class="px-2 py-1 rounded-lg bg-teal-600/90 hover:bg-teal-700 text-white font-mono font-bold text-[11px] flex items-center gap-1 shadow-xs transition active:scale-95">
+                                    <i data-lucide="smartphone" class="w-3 h-3"></i>
+                                    <span>${b.mobile}</span>
+                                </a>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Staff & Services -->
+                    <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
+                        <p class="leading-relaxed"><strong class="text-[10px] text-slate-400 uppercase tracking-wider">${isEn ? "Staff Members:" : "কর্মচারীবৃন্দ:"}</strong> ${staff}</p>
+                        <p class="leading-relaxed"><strong class="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">${isEn ? "Citizen Services:" : "নাগরিক সেবা:"}</strong> ${services}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    lucide.createIcons();
+};
+
+window.filterDCOfficeModalBranches = function(query) {
+    renderDCOfficeModalBranches(window.currentDCOfficeModalCategory || 'all', query);
+};
+
+window.setDCOfficeModalCategory = function(cat, btn) {
+    window.currentDCOfficeModalCategory = cat;
+    document.querySelectorAll(".dc-modal-cat-btn").forEach(b => {
+        b.classList.remove("bg-emerald-600", "text-white");
+        b.classList.add("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
+    });
+    if (btn) {
+        btn.classList.remove("bg-slate-100", "dark:bg-slate-800", "text-slate-700", "dark:text-slate-300");
+        btn.classList.add("bg-emerald-600", "text-white");
+    }
+    const query = document.getElementById("dc-modal-filter-input")?.value || '';
+    renderDCOfficeModalBranches(cat, query);
+};
+
 function closeDetailModal() {
-    document.getElementById("detail-modal").classList.add("hidden");
+    document.getElementById("detail-modal")?.classList.add("hidden");
     document.getElementById("chat-widget-btn")?.classList.remove("hidden");
+    const modalBox = document.getElementById("detail-modal-box");
+    if (modalBox) {
+        modalBox.classList.remove("max-w-4xl");
+        modalBox.classList.add("max-w-2xl");
+    }
 }
 
 // Modal key listeners
