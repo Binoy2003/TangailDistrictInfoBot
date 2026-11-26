@@ -89,7 +89,11 @@ const TRANSLATIONS = {
         stat_popup_gi: "🏆 শাড়ি, চমচম, আনারস ও সন্দেশ — ৪টি জিআই সনদ তথ্য",
         sec_heritage_tag: "গৌরব ও স্বকীয়তা",
         sec_heritage_title: "টাঙ্গাইলের ৪টি স্বীকৃত জিআই (GI) পণ্য",
-        sec_heritage_desc: "টাঙ্গাইল শাড়ি, পোড়াবাড়ির চমচম, মধুপুরের আনারস ও জামুর্কির সন্দেশ — বাংলাদেশ সরকার ও বিশ্বমঞ্চে স্বীকৃত ৪টি অনন্য জিআই পণ্য।",
+        sec_heritage_desc: "টাঙ্গাইল শাড়ি, পোড়াবাড়ির চমচম, মধুপুরের আনারস ও জামুর্কির সন্দেশ — ৪টি স্বীকৃত জিআই পণ্য। চমচম ও সন্দেশে ক্লিক করলেই পাবেন ৭টি বিখ্যাত মিষ্টির দোকান ও সরাসরি গুগল ম্যাপ।",
+        gi_sweet_modal_title: "পোড়াবাড়ির আসল চমচম ও ঐতিহ্যবাহী মিষ্টান্ন নির্দেশিকা",
+        gi_sweet_tab_shops: "🏬 দোকানসমূহ ও লাইভ ম্যাপ",
+        gi_sweet_tab_history: "📜 জিআই মিষ্টির ইতিহাস",
+        gi_sweet_tab_maps: "📍 সকল ম্যাপ ডিরেক্টরি",
         sec_sweets_tag: "মিষ্টির স্বর্গরাজ্য • টাঙ্গাইল",
         sec_sweets_title: "টাঙ্গাইলের ঐতিহ্যবাহী মিষ্টান্ন ও বিখ্যাত চমচমের দোকান",
         sec_sweets_desc: "পোড়াবাড়ির আসল চমচম, জয়কালী, গোপাল, ফণী মিষ্টান্ন ভান্ডার এবং ইনটুর বিখ্যাত টিউব দইয়ের নির্ভরযোগ্য তথ্য ও গাইড।",
@@ -227,7 +231,11 @@ const TRANSLATIONS = {
         stat_popup_gi: "🏆 Click to view 4 recognized GI certified products",
         sec_heritage_tag: "Pride & Authenticity",
         sec_heritage_title: "Tangail\'s 4 Recognized GI Products",
-        sec_heritage_desc: "Tangail Saree, Porabarir Chomchom, Madhupur Pineapple, and Jamurki Sondesh — 4 nationally and globally certified Geographical Indication products.",
+        sec_heritage_desc: "Tangail Saree, Porabarir Chomchom, Madhupur Pineapple, and Jamurki Sondesh — 4 recognized GI icons. Click on Chomchom or Sondesh to explore 7 famous sweet shops and live Google Maps.",
+        gi_sweet_modal_title: "Porabari Chomchom & Traditional Sweetmeats Directory",
+        gi_sweet_tab_shops: "🏬 Famous Shops & Live Maps",
+        gi_sweet_tab_history: "📜 GI Sweet History",
+        gi_sweet_tab_maps: "📍 All Maps Directory",
         sec_sweets_tag: "Sweet Paradise • Tangail",
         sec_sweets_title: "Tangail\'s Traditional Confectioneries & Famous Chomchom Shops",
         sec_sweets_desc: "Reliable guide to authentic Porabari Chomchom, Joykali, Gopal, Phani Confectionery, and Intu\'s famous tube yogurt.",
@@ -383,7 +391,6 @@ function initTheme() {
 // ==========================================
 function renderAllSections() {
     renderHeritage();
-    renderSweets();
     renderUpazilas();
     renderTouristSpots(currentTouristCategory || 'all');
     renderEmergency();
@@ -405,27 +412,46 @@ function renderHeritage() {
         const desc = isEn ? (item.enShortDesc || item.shortDesc) : item.shortDesc;
         const places = isEn ? (item.enBestPlaces || item.bestPlaces) : item.bestPlaces;
         const labelPlaces = isEn ? "Famous Sources & Markets:" : "বিখ্যাত প্রাপ্তিস্থান:";
-        const btnText = isEn ? "History & Full Details →" : "বিস্তারিত ইতিহাস ও তথ্য →";
+        
+        const isSweet = (item.id === "porabari-chomchom" || item.id === "jamurkir-sondesh");
+        const btnText = isSweet 
+            ? (item.id === "porabari-chomchom" 
+                ? (isEn ? "🍬 7 Famous Shops & Google Maps →" : "🍬 ৭টি বিখ্যাত মিষ্টির দোকান ও গুগল ম্যাপ →")
+                : (isEn ? "🍯 Sondesh Shops & Google Maps →" : "🍯 সন্দেশের দোকানসমূহ ও গুগল ম্যাপ →"))
+            : (isEn ? "History & Full Details →" : "বিস্তারিত ইতিহাস ও তথ্য →");
+
+        const sweetPill = isSweet ? `
+            <div class="mb-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300 dark:bg-amber-950 dark:text-amber-200 dark:border-amber-800">
+                <i data-lucide="store" class="w-3 h-3 text-amber-600"></i>
+                <span>${item.id === "porabari-chomchom" ? (isEn ? "7 Famous Shops & Live GPS" : "৭টি বিখ্যাত দোকান ও গুগল ম্যাপ") : (isEn ? "Delduar Modak Heritage & Map" : "দেলদুয়ার মোদক মিষ্টি ও ম্যাপ")}</span>
+            </div>
+        ` : '';
 
         return `
-            <div class="bg-slate-50 dark:bg-slate-800/60 rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800 flex flex-col justify-between hover:shadow-lg transition-all group">
+            <div onclick="openHeritageModal('${item.id}')" role="button" tabindex="0" class="bg-slate-50 dark:bg-slate-800/60 rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800 flex flex-col justify-between hover:shadow-xl hover:border-amber-500/60 transition-all duration-300 group cursor-pointer">
                 <div>
                     <div class="relative h-44 rounded-2xl overflow-hidden mb-4 bg-slate-200 dark:bg-slate-700">
                         <img src="${item.image}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
                         <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-bold rounded-lg border backdrop-blur-md ${item.badgeColor}">
                             ${tag}
                         </span>
+                        ${isSweet ? `
+                            <span class="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500 text-white shadow-md flex items-center gap-1">
+                                <i data-lucide="map-pin" class="w-3 h-3"></i> ${isEn ? "Maps" : "গুগল ম্যাপ"}
+                            </span>
+                        ` : ''}
                     </div>
-                    <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-1">${title}</h3>
+                    ${sweetPill}
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">${title}</h3>
                     <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3">${desc}</p>
                 </div>
                 <div class="pt-3 border-t border-slate-200 dark:border-slate-700">
                     <span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block mb-1">${labelPlaces}</span>
-                    <div class="flex flex-wrap gap-1">
+                    <div class="flex flex-wrap gap-1 mb-3">
                         ${places.map(p => `<span class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700 font-medium">${p}</span>`).join('')}
                     </div>
-                    <button onclick="openHeritageModal('${item.id}')" class="mt-4 w-full py-2 bg-white dark:bg-slate-900 hover:bg-emerald-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 text-emerald-700 dark:text-emerald-400 font-medium text-xs rounded-xl transition">
-                        ${btnText}
+                    <button onclick="event.stopPropagation(); openHeritageModal('${item.id}')" class="w-full py-2.5 ${isSweet ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-md' : 'bg-white dark:bg-slate-900 hover:bg-emerald-50 dark:hover:bg-slate-800 text-emerald-700 dark:text-emerald-400 border border-slate-200 dark:border-slate-700 hover:border-emerald-500'} font-bold text-xs rounded-xl transition flex items-center justify-center gap-1.5 min-h-[40px]">
+                        <span>${btnText}</span>
                     </button>
                 </div>
             </div>
@@ -1735,8 +1761,437 @@ function openTouristModal(id) {
     lucide.createIcons();
 }
 
-// HERITAGE DETAIL MODAL
+// ==========================================
+// DYNAMIC GI SWEET & CONFECTIONERY DIRECTORY
+// ==========================================
+window.currentGISweetState = {
+    sweetId: 'porabari-chomchom',
+    shopId: 'porabari-chomchom-origin',
+    tab: 'shops' // 'shops' | 'history' | 'maps'
+};
+
+function openGISweetDynamicModal(sweetId, activeShopId, activeTab) {
+    if (sweetId) window.currentGISweetState.sweetId = sweetId;
+    if (activeShopId) {
+        window.currentGISweetState.shopId = activeShopId;
+    } else {
+        window.currentGISweetState.shopId = (window.currentGISweetState.sweetId === 'jamurkir-sondesh') 
+            ? 'jamurkir-sondesh-sweet' 
+            : 'porabari-chomchom-origin';
+    }
+    if (activeTab) window.currentGISweetState.tab = activeTab;
+
+    renderGISweetModalBody();
+
+    document.getElementById("detail-modal")?.classList.remove("hidden");
+    document.getElementById("chat-widget-btn")?.classList.add("hidden");
+    lucide.createIcons();
+}
+
+window.switchGISweetShop = function(shopId) {
+    window.currentGISweetState.shopId = shopId;
+    window.currentGISweetState.tab = 'shops';
+    renderGISweetModalBody();
+    lucide.createIcons();
+    
+    // Smooth scroll to active shop details on mobile
+    if (window.innerWidth < 1024) {
+        const pane = document.getElementById("active-shop-panel");
+        if (pane) pane.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+};
+
+window.switchGISweetTab = function(tabName) {
+    window.currentGISweetState.tab = tabName;
+    renderGISweetModalBody();
+    lucide.createIcons();
+};
+
+function renderGISweetModalBody() {
+    const isEn = (currentLang === "en");
+    const state = window.currentGISweetState;
+    const isSondesh = (state.sweetId === "jamurkir-sondesh");
+    const shops = TANGAIL_DATA.famousSweets || [];
+    const activeShop = shops.find(s => s.id === state.shopId) || shops[0];
+
+    const heroImg = isSondesh ? "images/jamurki_sondesh.jpg" : "images/porabari_chomchom.jpg";
+    const heroTitle = isSondesh 
+        ? (isEn ? "Jamurki Sondesh & Traditional Sweets Guide" : "দেলদুয়ারের জামুর্কির সন্দেশ ও ঐতিহ্যবাহী মিষ্টান্ন")
+        : (isEn ? "Porabari Chomchom & Traditional Confectioneries" : "পোড়াবাড়ির আসল চমচম ও ঐতিহ্যবাহী মিষ্টির প্রতিষ্ঠানসমূহ");
+    const heroTag = isSondesh
+        ? (isEn ? "GI Certified Delicacy • Delduar Heritage" : "স্বীকৃত জিআই পণ্য (GI Certified) • দেলদুয়ারের শতবর্ষী গৌরব")
+        : (isEn ? "GI Certified Delicacy • The King of Sweets" : "স্বীকৃত জিআই পণ্য (GI Certified) • মিষ্টির রাজা পোড়াবাড়ির চমচম");
+
+    const modalContent = document.getElementById("modal-content");
+    if (!modalContent) return;
+
+    modalContent.innerHTML = `
+        <!-- HERO BANNER -->
+        <div class="relative h-48 sm:h-56 rounded-2xl overflow-hidden mb-4 bg-slate-900 shadow-md">
+            <img src="${heroImg}" alt="${heroTitle}" class="w-full h-full object-cover opacity-90">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/20"></div>
+            <div class="absolute bottom-3 left-4 right-4 text-white">
+                <span class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-full shadow-sm">
+                    <i data-lucide="award" class="w-3 h-3"></i> ${heroTag}
+                </span>
+                <h2 class="text-xl sm:text-2xl font-black mt-1 leading-tight text-white drop-shadow">${heroTitle}</h2>
+                <p class="text-xs text-amber-200/90 mt-0.5 line-clamp-1">
+                    ${isEn 
+                        ? "Dhaleshwari river water & pure cow-milk chhana — century-old culinary treasure of Tangail" 
+                        : "ধলেশ্বরী নদীর মিষ্টি পানি ও খাঁটি গাভীর দুধের ছানার দুইশত বছরের ঐতিহ্য • ৭টি বিখ্যাত প্রতিষ্ঠান ও লাইভ ম্যাপ"}
+                </p>
+            </div>
+        </div>
+
+        <!-- DYNAMIC NAVIGATION TABS -->
+        <div class="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-800/80 rounded-2xl mb-4 overflow-x-auto scrollbar-none border border-slate-200/80 dark:border-slate-700/80">
+            <button onclick="window.switchGISweetTab('shops')" class="sweet-tab-pill flex-1 min-w-[130px] py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${state.tab === 'shops' ? 'active' : 'text-slate-600 dark:text-slate-300 hover:bg-white/70 dark:hover:bg-slate-700'}">
+                <i data-lucide="store" class="w-3.5 h-3.5"></i>
+                <span>${isEn ? "Famous Shops & Live Maps" : "দোকানসমূহ ও লাইভ ম্যাপ"}</span>
+            </button>
+            <button onclick="window.switchGISweetTab('history')" class="sweet-tab-pill flex-1 min-w-[120px] py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${state.tab === 'history' ? 'active' : 'text-slate-600 dark:text-slate-300 hover:bg-white/70 dark:hover:bg-slate-700'}">
+                <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                <span>${isEn ? "GI Sweet History" : "জিআই মিষ্টির ইতিহাস"}</span>
+            </button>
+            <button onclick="window.switchGISweetTab('maps')" class="sweet-tab-pill flex-1 min-w-[120px] py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${state.tab === 'maps' ? 'active' : 'text-slate-600 dark:text-slate-300 hover:bg-white/70 dark:hover:bg-slate-700'}">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                <span>${isEn ? "All Maps Directory" : "সকল ম্যাপ ডিরেক্টরি"}</span>
+            </button>
+        </div>
+
+        <!-- TAB CONTENT CONTAINER -->
+        <div class="mb-4">
+            ${state.tab === 'shops' ? renderShopsTab(shops, activeShop, isEn) : ''}
+            ${state.tab === 'history' ? renderHistoryTab(isSondesh, isEn) : ''}
+            ${state.tab === 'maps' ? renderMapsDirectoryTab(shops, isEn) : ''}
+        </div>
+
+        <!-- MODAL FOOTER ACTIONS -->
+        <div class="flex flex-col sm:flex-row gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+            <button onclick="sendPresetPrompt('${isEn ? "Tell me where to find the best authentic Porabari Chomchom and Jamurki Sondesh in Tangail" : "টাঙ্গাইলে সবচেয়ে ভালো ও আসল পোড়াবাড়ির চমচম এবং জামুর্কির সন্দেশ কোথায় পাব?"}'); closeDetailModal(); scrollToBot();" class="w-full sm:flex-1 py-3 bg-gradient-to-r from-amber-500 to-emerald-600 hover:from-amber-600 hover:to-emerald-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2 min-h-[44px]">
+                <i data-lucide="bot" class="w-4 h-4"></i>
+                <span>${isEn ? "Ask AI Bot About Sweet Shops" : "বটকে মিষ্টির দোকান সম্পর্কে প্রশ্ন করুন"}</span>
+            </button>
+            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
+                ${isEn ? "Close" : "বন্ধ করুন"}
+            </button>
+        </div>
+    `;
+}
+
+function renderShopsTab(shops, activeShop, isEn) {
+    return `
+        <!-- Dynamic Shop Selector Carousel / Horizontal List -->
+        <div class="mb-4">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <i data-lucide="store" class="w-4 h-4 text-amber-500"></i>
+                    ${isEn ? "Select Sweet Shop to View Details & Live Map:" : "যেকোনো দোকানে ক্লিক করে বিবরণ ও গুগল ম্যাপ দেখুন:"}
+                </span>
+                <span class="text-[11px] text-slate-400 font-medium">
+                    ${shops.length} ${isEn ? "Establishments" : "টি প্রতিষ্ঠান"}
+                </span>
+            </div>
+
+            <!-- Scrollable shop chips row -->
+            <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none snap-x">
+                ${shops.map(s => {
+                    const isActive = (s.id === activeShop.id);
+                    const sName = isEn ? (s.enName || s.name) : s.name;
+                    const sLoc = isEn ? (s.enLocation || s.location) : s.location;
+                    return `
+                        <button onclick="window.switchGISweetShop('${s.id}')" class="sweet-shop-chip snap-start shrink-0 text-left p-2.5 rounded-xl border flex items-center gap-2.5 transition-all ${isActive ? 'active border-amber-500 bg-amber-50/90 dark:bg-amber-950/60 shadow-sm' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-amber-400 dark:hover:border-amber-600'}">
+                            <img src="${s.image}" alt="${sName}" class="w-10 h-10 rounded-lg object-cover shadow-xs shrink-0">
+                            <div class="pr-2">
+                                <h4 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-1">${sName}</h4>
+                                <span class="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1 flex items-center gap-0.5">
+                                    <i data-lucide="map-pin" class="w-2.5 h-2.5 text-amber-500 shrink-0"></i> ${sLoc}
+                                </span>
+                            </div>
+                            ${isActive ? '<i data-lucide="check-circle" class="w-4 h-4 text-amber-600 shrink-0 ml-auto"></i>' : ''}
+                        </button>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+
+        <!-- ACTIVE SHOP DYNAMIC INSPECTION PANEL -->
+        <div id="active-shop-panel" class="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-amber-200/80 dark:border-amber-900/60 shadow-sm">
+            <!-- Shop Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-200 dark:border-slate-700">
+                <div>
+                    <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-white px-2 py-0.5 rounded-md mb-1 shadow-xs">
+                        ${isEn ? (activeShop.enShopType || activeShop.shopType) : activeShop.shopType}
+                    </span>
+                    <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
+                        ${isEn ? (activeShop.enName || activeShop.name) : activeShop.name}
+                    </h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1 mt-0.5">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+                        <span>${isEn ? (activeShop.enLocation || activeShop.location) : activeShop.location}</span>
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    ${activeShop.phone ? `
+                        <a href="tel:${activeShop.phone}" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-sm">
+                            <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                            <span>${isEn ? "Call Shop" : "কল করুন"}</span>
+                        </a>
+                    ` : ''}
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeShop.mapQuery)}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-sm">
+                        <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                        <span>${isEn ? "Live Route" : "গুগল ম্যাপে রুট"}</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Two-Column Content: Left Details, Right Google Map -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <!-- LEFT COLUMN: History, Speciality, Items, Price -->
+                <div class="space-y-3.5 text-xs text-slate-700 dark:text-slate-300">
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-1 flex items-center gap-1">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
+                            ${isEn ? "Heritage & Speciality:" : "ঐতিহ্য ও বিশেষত্ব:"}
+                        </h4>
+                        <p class="leading-relaxed bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-700/80">
+                            ${isEn ? (activeShop.enSpeciality || activeShop.speciality) : activeShop.speciality}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-1 flex items-center gap-1">
+                            <i data-lucide="book-open" class="w-3.5 h-3.5 text-amber-500"></i>
+                            ${isEn ? "Brief History:" : "ইতিহাসের সংক্ষিপ্ত বিবরণ:"}
+                        </h4>
+                        <p class="leading-relaxed bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-700/80">
+                            ${isEn ? (activeShop.enHistory || activeShop.history) : activeShop.history}
+                        </p>
+                    </div>
+
+                    <!-- Famous Items -->
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider mb-1.5">
+                            ${isEn ? "Signature Famous Items:" : "বিখ্যাত স্পেশাল মিষ্টিসমূহ:"}
+                        </h4>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${(isEn ? (activeShop.enFamousItems || activeShop.famousItems) : activeShop.famousItems).map(item => `
+                                <span class="bg-amber-100 dark:bg-amber-950/80 text-amber-900 dark:text-amber-200 px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-800 text-[11px] font-semibold flex items-center gap-1">
+                                    🍬 ${item}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Price & Best Places -->
+                    <div class="grid grid-cols-2 gap-2 pt-1">
+                        <div class="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-400 block">${isEn ? "Price Range:" : "মূল্য পরিসর:"}</span>
+                            <span class="font-extrabold text-amber-700 dark:text-amber-400 text-xs mt-0.5 block">
+                                ${isEn ? (activeShop.enPriceRange || activeShop.priceRange) : activeShop.priceRange}
+                            </span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-400 block">${isEn ? "Where to Buy:" : "প্রাপ্তিস্থান:"}</span>
+                            <span class="font-bold text-slate-800 dark:text-slate-200 text-xs mt-0.5 block line-clamp-1">
+                                ${isEn ? (activeShop.enBestPlaces || activeShop.bestPlaces) : activeShop.bestPlaces}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: GOOGLE MAPS EMBED & LIVE ROUTE -->
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                                <i data-lucide="compass" class="w-3.5 h-3.5 text-amber-500"></i>
+                                ${isEn ? "Live Google Maps Location:" : "গুগল ম্যাপে সরাসরি লোকেশন:"}
+                            </span>
+                            <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/70 px-2 py-0.5 rounded-full">
+                                ● GPS Active
+                            </span>
+                        </div>
+
+                        <!-- Google Maps Live Iframe -->
+                        <div class="relative w-full h-52 sm:h-60 rounded-2xl overflow-hidden border border-amber-300 dark:border-amber-800/80 shadow-inner bg-slate-200 dark:bg-slate-800">
+                            <iframe 
+                                class="w-full h-full border-0" 
+                                loading="lazy" 
+                                allowfullscreen 
+                                referrerpolicy="no-referrer-when-downgrade" 
+                                src="https://maps.google.com/maps?q=${encodeURIComponent(activeShop.mapQuery)}&t=&z=16&ie=UTF8&iwloc=&output=embed">
+                            </iframe>
+                        </div>
+
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-2 flex items-center gap-1 leading-tight">
+                            <i data-lucide="info" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+                            <span>${isEn 
+                                ? "Zoom and pan the map above or tap the button below for turn-by-turn navigation." 
+                                : "উপরের ম্যাপে জুম ও ড্র্যাগ করতে পারেন অথবা নিচের বাটনে ক্লিক করে সরাসরি গুগল ম্যাপে রুট দেখুন।"}</span>
+                        </p>
+                    </div>
+
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeShop.mapQuery)}" target="_blank" rel="noopener noreferrer" class="mt-3 w-full py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs sm:text-sm rounded-xl text-center shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2">
+                        <i data-lucide="navigation" class="w-4 h-4 animate-bounce"></i>
+                        <span>${isEn ? "Open in Google Maps App (Turn-by-turn Route) ↗" : "গুগল ম্যাপে সরাসরি রুট ও লোকেশন দেখুন (GPS) ↗"}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function renderHistoryTab(isSondesh, isEn) {
+    if (isSondesh) {
+        return `
+            <div class="space-y-4 text-xs text-slate-700 dark:text-slate-300">
+                <div class="p-4 rounded-2xl bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900">
+                    <h3 class="text-base font-bold text-amber-900 dark:text-amber-200 mb-2">
+                        ${isEn ? "The Heritage of Jamurki Sondesh" : "দেলদুয়ারের জামুর্কির শতবর্ষী সন্দেশের ইতিহাস"}
+                    </h3>
+                    <p class="leading-relaxed mb-3">
+                        ${isEn 
+                            ? "Jamurki Sondesh originated during the British colonial period over 150 years ago in Jamurki Bazar, Delduar Upazila, Tangail. Pioneered by the skilled Modak artisan families, this sweet is prepared using fresh chhana of pure cow milk and refined sugar without any artificial chemicals."
+                            : "টাঙ্গাইল জেলার দেলদুয়ার উপজেলার জামুর্কি বাজারে প্রায় দেড় শতাব্দী আগে ব্রিটিশ শাসনামলে মোদক পরিবারের হাত ধরে জামুর্কির সন্দেশের উৎপত্তি। খাঁটি গাভীর দুধের ছানা এবং চিনির নিখুঁত পাকে কোনো কৃত্রিম রাসায়নিক ছাড়াই প্রস্তুত করা হয় এই ঐতিহ্যবাহী মিষ্টি।"}
+                    </p>
+                    <p class="leading-relaxed">
+                        ${isEn 
+                            ? "It received the prestigious Geographical Indication (GI) certification from the Government of Bangladesh, cementing Tangail's status as the district with the highest count of 4 GI recognized products in the nation."
+                            : "বাংলাদেশ সরকার কর্তৃক এটি ভৌগোলিক নির্দেশক (GI) সনদপ্রাপ্ত টাঙ্গাইল জেলার অন্যতম প্রধান গৌরব। মুখে দিলেই মিলিয়ে যাওয়া এর নরম দানাদার গঠন ও এলাচের সুবাস একে অনন্য করেছে।"}
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-1">🔍 ${isEn ? "Authentic Characteristics" : "আসল সন্দেশ চেনার উপায়"}</h4>
+                        <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                            ${isEn ? "Light off-white or yellowish color, crumbly texture, natural cardamom aroma, and instantly melts in the mouth without gummy hardness." : "হালকা ঘিয়ে বা সাদাটে রঙ, নরম দানাদার গঠন, খাঁটি এলাচের সুবাস এবং মুখে দিলে কোনো আঠালো ভাব ছাড়াই মিলিয়ে যায়।"}
+                        </p>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-1">📍 ${isEn ? "Where to Find Authentic Sondesh" : "আসল সন্দেশ প্রাপ্তিস্থান"}</h4>
+                        <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                            ${isEn ? "Jamurki Bazar Modak Sweet Lane in Delduar, along the Dhaka-Tangail Highway near Jamurki Bridge." : "ঢাকা-টাঙ্গাইল মহাসড়ক সংলগ্ন দেলদুয়ারের জামুর্কি বাজার মোদক মিষ্টি পট্টি।"}
+                        </p>
+                    </div>
+                </div>
+
+                <button onclick="window.switchGISweetTab('shops')" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow transition flex items-center justify-center gap-1.5">
+                    <i data-lucide="store" class="w-3.5 h-3.5"></i>
+                    <span>${isEn ? "View Jamurki Sweet Shops & Map →" : "জামুর্কির মিষ্টির দোকান ও গুগল ম্যাপ দেখুন →"}</span>
+                </button>
+            </div>
+        `;
+    }
+
+    return `
+        <div class="space-y-4 text-xs text-slate-700 dark:text-slate-300">
+            <div class="p-4 rounded-2xl bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900">
+                <h3 class="text-base font-bold text-amber-900 dark:text-amber-200 mb-2">
+                    ${isEn ? "Two Centuries of Porabari Chomchom Heritage" : "পোড়াবাড়ির চমচমের দুই শতাব্দীর ইতিহাস ও কিংবদন্তি"}
+                </h3>
+                <p class="leading-relaxed mb-3">
+                    ${isEn 
+                        ? "The story of Porabari Chomchom began in the early 19th century when sweetmaker Dasharath Gour migrated from Assam and settled in Porabari, near the Dhaleshwari River in Tangail. Blessed with the naturally sweet and mineral-rich waters of the river and bountiful fresh cow milk, he crafted the first legendary Chomchom."
+                        : "অষ্টাদশ শতকের গোড়ার দিকে রাজা রামপালের আমলে আসাম থেকে আগত কারিগর দশরথ গৌড় টাঙ্গাইলের ধলেশ্বরী নদীর তীরবর্তী পোড়াবাড়িতে প্রথম এই চমচম তৈরি করেন। ধলেশ্বরী নদীর মিষ্টি পানি ও খাঁটি গাভীর দুধের তৈরি নিখুঁত ছানার মিশ্রণে তৈরি হয় মিষ্টির জগতের অবিসংবাদিত রাজা — 'পোড়াবাড়ির চমচম'।"
+                    }
+                </p>
+                <p class="leading-relaxed mb-3">
+                    ${isEn 
+                        ? "Later, Ramdayal Gour, Dasharath's successors, and master artisans of Panchani Bazar refined the craft — caramelizing pure mawa crust over an intensely juicy, melt-in-mouth syrup-soaked core. Celebrated across the Indian subcontinent and officially certified as a Geographical Indication (GI) product by the Government of Bangladesh."
+                        : "পরবর্তীতে রামদয়াল গৌড় ও অন্যান্য দক্ষ কারিগরদের হাত ধরে পোড়াবাড়ি ও পাঁচআনি বাজারে এই মিষ্টির খ্যাতি সমগ্র উপমহাদেশে ছড়িয়ে পড়ে। ঘন পোড়া মাওয়া ও চিনির প্রলেপে হালকা বাদামী রঙের এই চমচম মুখে দিলে ক্ষণিকের মধ্যে অমৃতের মতো মিলিয়ে যায়। বাংলাদেশ সরকার একে মর্যাদাপূর্ণ জিআই পণ্য হিসেবে স্বীকৃতি দিয়েছে।"
+                    }
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-1">🔍 ${isEn ? "How to Identify Real Chomchom" : "আসল পোড়াবাড়ির চমচম চেনার উপায়"}</h4>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                        ${isEn 
+                            ? "Natural golden-brown crust with roasted mawa dusting, intensely juicy center, delicate cardamom aroma, and never hard or rubbery." 
+                            : "বাইরে হালকা পোড়া বাদামী লালচে মাওয়ার প্রলেপ, ভেতরের অংশ নরম রসে টইটম্বুর, মুখে দিলে মিহি দানার মতো মিলিয়ে যায় এবং কোনো শক্ত আবরণ বা কৃত্রিম ফ্লেভার থাকে না।"}
+                    </p>
+                </div>
+                <div class="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-1">🏆 ${isEn ? "Why Dhaleshwari Water Matters" : "ধলেশ্বরী নদীর পানির গোপন রহস্য"}</h4>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                        ${isEn 
+                            ? "Legends say the natural mineral balance of the Dhaleshwari river water gives Porabari Chomchom a unique softness that cannot be replicated anywhere else in the world." 
+                            : "প্রচলিত আছে ধলেশ্বরী নদীর মিষ্টি পানি ও আবহাওয়ার অনন্য প্রাকৃতিক রাসায়নিক গঠনের কারণে বিশ্বের আর কোথাও পোড়াবাড়ির চমচমের সেই অতুলনীয় স্বাদ ও কোমলতা তৈরি করা সম্ভব হয় না।"}
+                    </p>
+                </div>
+            </div>
+
+            <button onclick="window.switchGISweetTab('shops')" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow transition flex items-center justify-center gap-1.5">
+                <i data-lucide="store" class="w-3.5 h-3.5"></i>
+                <span>${isEn ? "Explore 7 Famous Sweet Shops & Maps →" : "৭টি বিখ্যাত মিষ্টির দোকান ও লাইভ ম্যাপ দেখুন →"}</span>
+            </button>
+        </div>
+    `;
+}
+
+function renderMapsDirectoryTab(shops, isEn) {
+    return `
+        <div class="space-y-3">
+            <div class="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-900 text-xs text-amber-900 dark:text-amber-200">
+                <p class="font-bold flex items-center gap-1.5">
+                    <i data-lucide="map" class="w-4 h-4 text-amber-600"></i>
+                    ${isEn ? "Tangail Sweet Route & Commuter Guide:" : "টাঙ্গাইল মিষ্টি রুট ও দর্শনার্থীদের যাতায়াত নির্দেশিকা:"}
+                </p>
+                <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+                    ${isEn 
+                        ? "From Tangail New Bus Terminal, take a local rickshaw or auto to Panchani Bazar (10-15 mins, 20-30 BDT) for century-old sweet shops. For Porabari Ghat origin, travel 6 km southwest via Santosh." 
+                        : "টাঙ্গাইল নতুন বাসস্ট্যান্ড থেকে অটোরিকশা বা রিকশায় পাঁচআনি বাজার যেতে ১০-১৫ মিনিট লাগে (ভাড়া ২০-৩০ টাকা)। সেখানে শ্রী শ্রী জয়কালী, গোপাল ও ফণী মিষ্টান্ন ভান্ডার অবস্থিত। পোড়াবাড়ির মূল ঘাটে যেতে সন্তোষ হয়ে ৬ কিমি পশ্চিমে যেতে হয়।"}
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                ${shops.map(s => {
+                    const sName = isEn ? (s.enName || s.name) : s.name;
+                    const sLoc = isEn ? (s.enLocation || s.location) : s.location;
+                    const sType = isEn ? (s.enShopType || s.shopType) : s.shopType;
+                    return `
+                        <div class="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col justify-between hover:border-amber-400 transition shadow-xs">
+                            <div>
+                                <div class="flex items-start justify-between gap-1 mb-1">
+                                    <h4 class="font-bold text-xs text-slate-900 dark:text-white line-clamp-1">${sName}</h4>
+                                    <span class="text-[9px] font-bold text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-950 px-1.5 py-0.5 rounded shrink-0">${sType}</span>
+                                </div>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mb-2.5 line-clamp-1">
+                                    <i data-lucide="map-pin" class="w-3 h-3 text-amber-500 shrink-0"></i> ${sLoc}
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-1.5 pt-2 border-t border-slate-100 dark:border-slate-700/60">
+                                <button onclick="window.switchGISweetShop('${s.id}')" class="flex-1 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-amber-500 hover:text-white text-slate-700 dark:text-slate-200 text-[10px] font-bold rounded-lg transition text-center">
+                                    ${isEn ? "View Details" : "বিস্তারিত দেখুন"}
+                                </button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.mapQuery)}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold rounded-lg transition flex items-center gap-1 shrink-0">
+                                    <i data-lucide="navigation" class="w-3 h-3"></i>
+                                    <span>${isEn ? "Maps" : "গুগল ম্যাপ"}</span>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    `;
+}
+
+// HERITAGE DETAIL MODAL (For Saree, Pineapple, and Routing to Sweet Hub)
 function openHeritageModal(id) {
+    if (id === "porabari-chomchom") {
+        openGISweetDynamicModal("porabari-chomchom", "porabari-chomchom-origin", "shops");
+        return;
+    }
+    if (id === "jamurkir-sondesh") {
+        openGISweetDynamicModal("jamurkir-sondesh", "jamurkir-sondesh-sweet", "shops");
+        return;
+    }
+
     const item = TANGAIL_DATA.giAndHeritages.find(h => h.id === id);
     if (!item) return;
     const isEn = (currentLang === "en");
@@ -1781,71 +2236,10 @@ function openHeritageModal(id) {
     lucide.createIcons();
 }
 
-// SWEET SHOP DETAIL MODAL
+// SWEET SHOP DETAIL MODAL (Directly routes into Dynamic GISweet modal)
 function openSweetModal(id) {
-    const shop = TANGAIL_DATA.famousSweets.find(item => item.id === id);
-    if (!shop) return;
-    const isEn = (currentLang === "en");
-
-    const modalContent = document.getElementById("modal-content");
-    modalContent.innerHTML = `
-        <div class="relative h-56 rounded-2xl overflow-hidden mb-4 bg-slate-200">
-            <img src="${shop.image}" alt="${isEn ? (shop.enName || shop.name) : shop.name}" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
-            <div class="absolute bottom-3 left-4 right-4 text-white">
-                <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-500 px-2 py-0.5 rounded">${isEn ? (shop.enShopType || shop.shopType) : shop.shopType}</span>
-                <h2 class="text-2xl font-bold mt-1">${isEn ? (shop.enName || shop.name) : shop.name}</h2>
-                <p class="text-xs text-slate-200 flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${isEn ? (shop.enLocation || shop.location) : shop.location}</p>
-            </div>
-        </div>
-
-        <div class="space-y-4 text-xs text-slate-700 dark:text-slate-300 mb-6">
-            <div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">${isEn ? "History & Tradition:" : "ইতিহাস ও ঐতিহ্য:"}</h4>
-                <p class="leading-relaxed text-sm">${isEn ? (shop.enHistory || shop.history) : shop.history}</p>
-            </div>
-
-            <div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">${isEn ? "Taste & Speciality:" : "স্বাদ ও বিশেষত্ব:"}</h4>
-                <p class="leading-relaxed">${isEn ? (shop.enSpeciality || shop.speciality) : shop.speciality}</p>
-            </div>
-
-            <div class="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-900">
-                <h4 class="font-bold text-amber-900 dark:text-amber-200 text-xs mb-1.5">${isEn ? "Famous Special Items:" : "বিখ্যাত স্পেশাল আইটেম:"}</h4>
-                <div class="flex flex-wrap gap-1.5">
-                    ${(isEn ? (shop.enFamousItems || shop.famousItems) : shop.famousItems).map(item => `
-                        <span class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 px-2.5 py-1 rounded-lg border border-amber-200 dark:border-amber-800 font-medium">
-                            ${item}
-                        </span>
-                    `).join('')}
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
-                <div>
-                    <span class="text-slate-400 block text-[11px]">${isEn ? "Price Range:" : "মূল্য পরিসর:"}</span>
-                    <span class="font-bold text-slate-800 dark:text-white">${isEn ? (shop.enPriceRange || shop.priceRange) : shop.priceRange}</span>
-                </div>
-                <div>
-                    <span class="text-slate-400 block text-[11px]">${isEn ? "Main Location:" : "প্রধান প্রাপ্তিস্থান:"}</span>
-                    <span class="font-bold text-slate-800 dark:text-white">${isEn ? (shop.enBestPlaces || shop.bestPlaces) : shop.bestPlaces}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-2.5">
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(shop.mapQuery)}" target="_blank" class="w-full sm:flex-1 py-3 sm:py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs rounded-xl text-center shadow-md transition flex items-center justify-center gap-1.5 min-h-[44px]">
-                <i data-lucide="navigation" class="w-4 h-4"></i> ${isEn ? "View Route on Google Maps" : "গুগল ম্যাপে রুট দেখুন"}
-            </a>
-            <button onclick="closeDetailModal()" class="w-full sm:w-auto px-6 py-3 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition min-h-[44px]">
-                ${isEn ? "Close" : "বন্ধ করুন"}
-            </button>
-        </div>
-    `;
-
-    document.getElementById("detail-modal").classList.remove("hidden");
-    document.getElementById("chat-widget-btn")?.classList.add("hidden");
-    lucide.createIcons();
+    const isSondesh = (id === "jamurkir-sondesh-sweet");
+    openGISweetDynamicModal(isSondesh ? "jamurkir-sondesh" : "porabari-chomchom", id, "shops");
 }
 
 // ==========================================

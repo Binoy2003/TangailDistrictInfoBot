@@ -87,7 +87,6 @@
                 <nav class="hidden lg:flex items-center gap-1">
                     <a href="#home" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_home">হোম</a>
                     <a href="#heritage" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_heritage">ঐতিহ্য ও জিআই</a>
-                    <a href="#sweets" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_sweets">মিষ্টান্ন ও চমচম</a>
                     <a href="#upazila" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_upazila">উপজেলা</a>
                     <a href="#administration" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_admin">জেলা প্রশাসন</a>
                     <a href="#tourist" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_tourist">দর্শনীয় স্থান</a>
@@ -127,7 +126,6 @@
         <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-2">
             <a href="#home" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_home">🏠 হোম</a>
             <a href="#heritage" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_heritage">🍬 ঐতিহ্য ও জিআই পণ্য</a>
-            <a href="#sweets" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_sweets">🍯 মিষ্টান্ন ও চমচমের দোকান</a>
             <a href="#upazila" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_upazila">🗺️ ১২টি উপজেলা</a>
             <a href="#administration" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_admin">🏛️ জেলা প্রশাসন (ডিসি অফিস)</a>
             <a href="#tourist" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="mobile_nav_tourist">🕌 দর্শনীয় স্থান</a>
@@ -323,33 +321,11 @@
                     <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1" data-i18n="sec_heritage_title">টাঙ্গাইলের ৪টি স্বীকৃত জিআই (GI) পণ্য</h2>
                 </div>
                 <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 md:mt-0 max-w-md" data-i18n="sec_heritage_desc">
-                    টাঙ্গাইল শাড়ি, পোড়াবাড়ির চমচম, মধুপুরের আনারস ও জামুর্কির সন্দেশ — বাংলাদেশ সরকার ও বিশ্বমঞ্চে স্বীকৃত ৪টি অনন্য জিআই পণ্য।
+                    টাঙ্গাইল শাড়ি, পোড়াবাড়ির চমচম, মধুপুরের আনারস ও জামুর্কির সন্দেশ — ৪টি স্বীকৃত জিআই পণ্য। চমচম ও সন্দেশে ক্লিক করলেই পাবেন ৭টি বিখ্যাত মিষ্টির দোকান ও সরাসরি গুগল ম্যাপ।
                 </p>
             </div>
 
             <div id="heritage-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Dynamically populated from data.js -->
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION: SWEETS & FAMOUS SHOPS -->
-    <section id="sweets" class="py-16 bg-gradient-to-b from-amber-50/40 via-white to-slate-50 dark:from-slate-900/60 dark:via-slate-900 dark:to-slate-950 border-t border-slate-200 dark:border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
-                <div>
-                    <span class="text-amber-600 dark:text-amber-400 font-semibold text-sm uppercase tracking-wider flex items-center gap-1.5">
-                        <i data-lucide="utensils" class="w-4 h-4"></i> <span data-i18n="sec_sweets_tag">মিষ্টির স্বর্গরাজ্য • টাঙ্গাইল</span>
-                    </span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1" data-i18n="sec_sweets_title">টাঙ্গাইলের ঐতিহ্যবাহী মিষ্টান্ন ও বিখ্যাত চমচমের দোকান</h2>
-                </div>
-                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 md:mt-0 max-w-md" data-i18n="sec_sweets_desc">
-                    পোড়াবাড়ির আসল চমচম, জয়কালী, গোপাল, ফণী মিষ্টান্ন ভান্ডার এবং ইনটুর বিখ্যাত টিউব দইয়ের নির্ভরযোগ্য তথ্য ও গাইড।
-                </p>
-            </div>
-
-            <!-- SWEETS GRID -->
-            <div id="sweets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Dynamically populated from data.js -->
             </div>
         </div>

@@ -1081,6 +1081,8 @@ const TANGAIL_DATA = {
             enPriceRange: "350 - 550 BDT / kg",
             bestPlaces: "পোড়াবাড়ি বাজার মূল ঘাট ও টাঙ্গাইল পাঁচআনি বাজার",
             enBestPlaces: "Porabari Bazar Ghat & Panchani Bazar, Tangail",
+            phone: "০১৭১২-০৮৭০০১",
+            enPhone: "01712-087001",
             image: "images/porabari_chomchom.jpg",
             mapQuery: "Porabari Bazar, Tangail"
         },
@@ -1102,6 +1104,8 @@ const TANGAIL_DATA = {
             enPriceRange: "400 - 600 BDT / kg",
             bestPlaces: "পাঁচআনি বাজার মিষ্টি পট্টি, টাঙ্গাইল",
             enBestPlaces: "Panchani Bazar Sweet Street, Tangail",
+            phone: "০১৭১১-৩৮২৬০৪",
+            enPhone: "01711-382604",
             image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80",
             mapQuery: "Joykali Mishtanna Bhandar, Pachani Bazar, Tangail"
         },
@@ -1123,6 +1127,8 @@ const TANGAIL_DATA = {
             enPriceRange: "380 - 500 BDT / kg",
             bestPlaces: "পাঁচআনি বাজার, টাঙ্গাইল সদর",
             enBestPlaces: "Panchani Bazar, Tangail Sadar",
+            phone: "০১৭১২-১৮৪৫৯২",
+            enPhone: "01712-184592",
             image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80",
             mapQuery: "Gopal Mishtanna Bhandar, Tangail"
         },
@@ -1144,6 +1150,8 @@ const TANGAIL_DATA = {
             enPriceRange: "360 - 480 BDT / kg",
             bestPlaces: "পাঁচআনি বাজার, টাঙ্গাইল সদর",
             enBestPlaces: "Panchani Bazar, Tangail Sadar",
+            phone: "০১৭১২-৫৯৮৪৪০",
+            enPhone: "01712-598440",
             image: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80",
             mapQuery: "Phoni Mishtanna Bhandar, Tangail"
         },
@@ -1165,6 +1173,8 @@ const TANGAIL_DATA = {
             enPriceRange: "Tube Yogurt: 50-100 BDT/pc, Chomchom: 400-520 BDT/kg",
             bestPlaces: "ইনটু মিষ্টান্ন ভান্ডার, টাঙ্গাইল",
             enBestPlaces: "Intu Mishtanna Bhandar, Tangail Town",
+            phone: "০১৭১৫-২০৯৪২০",
+            enPhone: "01715-209420",
             image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80",
             mapQuery: "Intu Mishtanna Bhandar, Tangail"
         },
@@ -1186,6 +1196,8 @@ const TANGAIL_DATA = {
             enPriceRange: "350 - 550 BDT / kg",
             bestPlaces: "নিরালা মোড়, টাঙ্গাইল শহর",
             enBestPlaces: "Nirala Mor, Tangail Town",
+            phone: "০১৭৩০-৭৮৯৪৫০",
+            enPhone: "01730-789450",
             image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80",
             mapQuery: "Misti Mela, Nirala Mor, Tangail"
         },
@@ -1207,6 +1219,8 @@ const TANGAIL_DATA = {
             enPriceRange: "450 - 650 BDT / kg",
             bestPlaces: "জামুর্কি বাজার মোদক মিষ্টি পট্টি, দেলদুয়ার",
             enBestPlaces: "Jamurki Bazar Modak Patti, Delduar",
+            phone: "০১৭২০-৫৫৪৪৩৩",
+            enPhone: "01720-554433",
             image: "images/jamurki_sondesh.jpg",
             mapQuery: "Jamurki Bazar, Delduar, Tangail"
         }
